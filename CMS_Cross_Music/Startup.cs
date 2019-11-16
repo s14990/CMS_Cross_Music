@@ -1,7 +1,10 @@
+using CMS_Cross_Music.Models;
+using Microsoft.AspNet.OData.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -26,6 +29,19 @@ namespace CMS_Cross_Music
             {
                 configuration.RootPath = "ClientApp/build";
             });
+
+
+
+            //Scaffold-DbContext "Server=tcp:cmsproject.database.windows.net,1433;Initial Catalog=CrossMusic;User ID=cmsAdmin;Password=2019CMS_Project;MultipleActiveResultSets =False;Encrypt=True;TrustServerCertificate=False;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models -f
+            services.AddMvc().AddJsonOptions(
+            options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            );
+
+            services.AddOData();
+
+            var connection = "Server=tcp:cmsproject.database.windows.net,1433;Initial Catalog=CrossMusic;User ID=cmsAdmin;Password=2019CMS_Project;MultipleActiveResultSets =False;Encrypt=True;TrustServerCertificate=False;";
+            services.AddDbContext<CrossMusicContext>(options => options.UseSqlServer(connection));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
