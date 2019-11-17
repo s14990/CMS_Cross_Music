@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using CMS_Cross_Music.Models;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace CMS_Cross_Music.Controllers
 {
@@ -85,9 +87,16 @@ namespace CMS_Cross_Music.Controllers
             {
                 return BadRequest(new { errors = "No user was found" });
             }
-            if (user.UserPassword != login.UserPassword)
+            var pass = await _context.Pass.SingleOrDefaultAsync(p => p.UserIdUser == user.IdUser);
+
+            using (MD5 md5Hash = MD5.Create())
             {
-                return BadRequest(new { errors = "Wrong Password" });
+                
+                if (!VerifyMd5Hash(md5Hash, login.UserPassword, pass.Hash))
+                {
+                    return BadRequest(new { errors = "Wrong Password" });
+                }
+                
             }
             Sesn sesn = new Sesn();
             sesn.StartDate = DateTime.Now;
@@ -120,5 +129,37 @@ namespace CMS_Cross_Music.Controllers
         {
             return _context.Sesn.Any(e => e.IdSesn == id);
         }
+
+        private string GetMd5Hash(MD5 md5Hash, string input)
+        {
+
+            byte[] data = md5Hash.ComputeHash(Encoding.UTF8.GetBytes(input));
+
+            StringBuilder sBuilder = new StringBuilder();
+
+            for (int i = 0; i < data.Length; i++)
+            {
+                sBuilder.Append(data[i].ToString("x2"));
+            }
+
+            return sBuilder.ToString();
+        }
+
+        private bool VerifyMd5Hash(MD5 md5Hash, string input, string hash)
+        {
+            string hashOfInput = GetMd5Hash(md5Hash, input);
+
+            StringComparer comparer = StringComparer.OrdinalIgnoreCase;
+
+            if (0 == comparer.Compare(hashOfInput, hash))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
     }
 }

@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import validator from 'validator';
 import { actionCreators } from '../store/user_Auth';
+import { Container, Form, Input, Label, FormGroup, Row, Button } from 'reactstrap';
 
 class Login extends Component {
 
@@ -13,7 +14,7 @@ class Login extends Component {
             userName: '',
             userPassword: '',
             errors: '',
-            email_err: 'print a email',
+            username_err: 'print a email',
             password_err: 'print a password',
             loading: false,
             disabled: true,
@@ -26,8 +27,31 @@ class Login extends Component {
 
     onSubmit(e) {
         e.preventDefault();
-        this.props.loginUser(this.state);
-        this.props.history.push('/');
+        fetch("api/Sesns", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                userName: this.state.userName,
+                userPassword: this.state.userPassword
+            })
+        }).then(resp => resp.json()).
+            then(data => {
+                if (data.idSesn) {
+                    console.log("Else");
+                    console.log(data);
+                    this.props.loginUser(data);
+                    this.props.history.push('/');
+                }
+                else {
+                    console.log("Else");
+                    if (data.errors)
+                        this.setState({ errors: data.errors });
+                    else
+                        this.setState({ errors: "Unknows Error" });
+                }
+            });
     }
 
 
@@ -41,7 +65,7 @@ class Login extends Component {
                     this.setState({ username_err: '' })
                 }
                 else
-                    this.setState({ email_err: 'Wrong username' })
+                    this.setState({ username_err: 'Wrong username' })
                 break;
             case 'password':
                 this.setState({ userPassword: value })
@@ -56,7 +80,7 @@ class Login extends Component {
                 break;
         }
 
-        if (this.state.email_err.length > 0 && this.state.password_err.length > 0)
+        if (this.state.username_err.length > 0 && this.state.password_err.length > 0)
             this.setState({ disabled: true })
         else
             this.setState({ disabled: false })
@@ -64,29 +88,38 @@ class Login extends Component {
 
     render() {
         return (
-            <div>
-                <form>
+            <Container>
+                <Form>
                     <h1>Login</h1>
-                    <formGroup>
-                        <label htmlFor="username" class="control-label">UserName</label>
-                        <input type="text" className="form-control" name="username" value={this.state.userName} onChange={this.onChange} />
-                        {this.state.errors.username_err > 0 && <p>this.state.username_err</p>}
-                    </formGroup>
-                    <formGroup>
-                        <label htmlFor="password" class="control-label">Password</label>
-                        <input type="password" className="form-control" name="password" value={this.state.userPassword} onChange={this.onChange} />
-                        {this.state.password_err.length > 0 && <p>this.state.password_err</p>}
-                    </formGroup>
-                    <formGroup>
-                        <button className="btn btn-primary btn-lg" disabled={this.state.disabled} onClick={this.onSubmit}>Login</button>
-                    </formGroup>
-                </form>
-            </div>
+                    <Row>
+                        <FormGroup>
+                            <Label htmlFor="username" className="control-label">UserName</Label>
+                            <Input type="text" className="form-control" name="username" value={this.state.userName} onChange={this.onChange} />
+                            {this.state.username_err > 0 && <p>{this.state.username_err}</p>}
+                        </FormGroup>
+                    </Row>
+                    <Row>
+                        <FormGroup>
+                            <Label htmlFor="password" className="control-label">Password</Label>
+                            <Input type="password" className="form-control" name="password" value={this.state.userPassword} onChange={this.onChange} />
+                            {this.state.password_err.length > 0 && <p>{this.state.password_err}</p>}
+                        </FormGroup>
+                        <Row>
+                            {this.state.errors && <h5>{this.state.errors}</h5>}
+                        </Row>
+                    </Row>
+                    <Row>
+                        <FormGroup>
+                            <Button className="btn btn-primary btn-lg" disabled={this.state.disabled} onClick={this.onSubmit}>Login</Button>
+                        </FormGroup>
+                    </Row>
+                </Form>
+            </Container>
         );
     }
 }
 
 export default connect(
-    state => state.user,
+    state => state.auth,
     dispatch => bindActionCreators(actionCreators, dispatch)
 )(Login);

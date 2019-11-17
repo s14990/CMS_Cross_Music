@@ -7,6 +7,7 @@ namespace CMS_Cross_Music.Models
     {
         public Mediapost()
         {
+            Comment = new HashSet<Comment>();
             Likes = new HashSet<Likes>();
         }
 
@@ -18,6 +19,7 @@ namespace CMS_Cross_Music.Models
 
         public Mediafile MediaFileIdFileNavigation { get; set; }
         public Usr UserIdUserNavigation { get; set; }
+        public ICollection<Comment> Comment { get; set; }
         public ICollection<Likes> Likes { get; set; }
     }
 }

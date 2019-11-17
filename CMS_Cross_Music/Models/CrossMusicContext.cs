@@ -53,7 +53,15 @@ namespace CMS_Cross_Music.Models
                     .HasColumnName("comment_html")
                     .HasMaxLength(500);
 
+                entity.Property(e => e.MediapostIdPost).HasColumnName("Mediapost_id_post");
+
                 entity.Property(e => e.UserIdUser).HasColumnName("User_id_user");
+
+                entity.HasOne(d => d.MediapostIdPostNavigation)
+                    .WithMany(p => p.Comment)
+                    .HasForeignKey(d => d.MediapostIdPost)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("comment_mediapost_fk");
 
                 entity.HasOne(d => d.UserIdUserNavigation)
                     .WithMany(p => p.Comment)
@@ -315,10 +323,6 @@ namespace CMS_Cross_Music.Models
                 entity.Property(e => e.UserName)
                     .HasColumnName("user_name")
                     .HasMaxLength(50);
-
-                entity.Property(e => e.UserPassword)
-                    .HasColumnName("user_password")
-                    .HasMaxLength(20);
 
                 entity.Property(e => e.UserRank).HasColumnName("user_rank");
 
