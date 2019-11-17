@@ -10,7 +10,7 @@ import Add_Post from './components/Add_Post';
 import Posts from './components/Posts';
 import Show_Post from './components/Show_Post';
 import SignUp from './components/SignUp';
-
+import MessageList from './components/MessageList';
 import './themes/bootstrap_flat.css';
 
 export default () => (
@@ -24,5 +24,6 @@ export default () => (
         <Route path='/add_post' component={Add_Post} />
         <Route path='/show_post/:id' component={Show_Post} />
         <Route path='/signup' component={SignUp} />
+        <Route path='/messages/:id' component={MessageList} />
     </Layout>
 );
