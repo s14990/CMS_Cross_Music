@@ -9,7 +9,9 @@ namespace CMS_Cross_Music.Models
         public string CommentHtml { get; set; }
         public DateTime? CommentDate { get; set; }
         public int UserIdUser { get; set; }
+        public int MediapostIdPost { get; set; }
 
+        public Mediapost MediapostIdPostNavigation { get; set; }
         public Usr UserIdUserNavigation { get; set; }
     }
 }

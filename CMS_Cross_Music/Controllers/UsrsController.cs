@@ -1,14 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using CMS_Cross_Music.Models;
+using Microsoft.AspNet.OData;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using CMS_Cross_Music.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace CMS_Cross_Music.Controllers
 {
+    [EnableQuery]
+
     [Route("api/[controller]")]
     [ApiController]
     public class UsrsController : ControllerBase
@@ -83,14 +87,41 @@ namespace CMS_Cross_Music.Controllers
 
         // POST: api/Usrs
         [HttpPost]
-        public async Task<IActionResult> PostUsr([FromBody] Usr usr)
+        public async Task<IActionResult> PostUsr([FromBody] UserLogin userLogin)
         {
+            if (_context.Usr.Any(u => u.UserName == userLogin.UserName))
+            {
+                return BadRequest(new { errors = "This User Exists" });
+            }
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-
+            Usr usr = new Usr
+            {
+                UserName = userLogin.UserName,
+                UserEmail = userLogin.UserEmail,
+                UserRank = 2,
+                UserConfirmed = false
+            };
             _context.Usr.Add(usr);
+            await _context.SaveChangesAsync();
+
+            using (MD5 md5Hash = MD5.Create())
+            {
+                string hash = GetMd5Hash(md5Hash, userLogin.UserPassword);
+                Pass pass = new Pass
+                {
+                    UserIdUser = usr.IdUser,
+                    Hash = hash
+                };
+                _context.Pass.Add(pass);
+            }
+            Friendlist fl = new Friendlist
+            {
+                UserIdUser = usr.IdUser
+            };
+            _context.Friendlist.Add(fl);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetUsr", new { id = usr.IdUser }, usr);
@@ -121,5 +152,21 @@ namespace CMS_Cross_Music.Controllers
         {
             return _context.Usr.Any(e => e.IdUser == id);
         }
+
+        private string GetMd5Hash(MD5 md5Hash, string input)
+        {
+
+            byte[] data = md5Hash.ComputeHash(Encoding.UTF8.GetBytes(input));
+
+            StringBuilder sBuilder = new StringBuilder();
+
+            for (int i = 0; i < data.Length; i++)
+            {
+                sBuilder.Append(data[i].ToString("x2"));
+            }
+
+            return sBuilder.ToString();
+        }
+
     }
 }

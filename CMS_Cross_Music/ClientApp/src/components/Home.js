@@ -7,15 +7,15 @@ class Home extends Component {
         return (
             <div>
                 <p>Hello</p>
-                {!this.props.user.isAuthenticated && <p>Please Log In</p>}
-                {this.props.user.isAuthenticated && <p>Welcome {this.props.user.user.userName} User</p>}
+                {!this.props.auth.isAuthenticated && <p>Please Log In</p>}
+                {this.props.auth.isAuthenticated && <p>Welcome {this.props.auth.user.userName} User</p>}
             </div>
         );
     }
 }
 
 function mapStateToProps(state) {
-    return { user: state.user }
+    return { auth: state.auth }
 }
 
 export default connect(mapStateToProps)(Home);

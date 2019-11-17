@@ -20,7 +20,6 @@ namespace CMS_Cross_Music.Models
         public int IdUser { get; set; }
         public string UserName { get; set; }
         public string UserEmail { get; set; }
-        public string UserPassword { get; set; }
         public int? UserRank { get; set; }
         public string UserStatus { get; set; }
         public bool? UserConfirmed { get; set; }

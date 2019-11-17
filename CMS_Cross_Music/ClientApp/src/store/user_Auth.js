@@ -1,33 +1,32 @@
 ﻿import axios from 'axios';
-const requestUserLoginType = 'REQUEST_USER_LOGIN';
-const receiveUserLoginType = 'RECEIVE_USER_LOGIN';
-const initialState = { user: '', isLoading: false, isAuthenticated: false };
+const UserLoginType = 'USER_LOGIN';
+const UserLogoutType = 'USER_LOGOUT';
+const initialState = {sesn: '', user: '', isAuthenticated: false };
 
 export const actionCreators = {
     loginUser: req => async (dispatch, getState) => {
-
-        dispatch({ type: requestUserLoginType });
-        axios.post('api/Sesns', req).then(res => {
-            dispatch({ type: receiveUserLoginType, res });
-        });
-
-    }
+        dispatch({ type: UserLoginType, req });
+    },
+    logoutUser: () => ({ type: UserLogoutType })
 };
 
 export const reducer = (state, action) => {
     state = state || initialState;
-    if (action.type === requestUserLoginType) {
+
+    if (action.type === UserLogoutType) {
         return {
             ...state,
-            isLoading: true
+            sesn: '',
+            user: '',
+            isAuthenticated: false
         };
     }
 
-    if (action.type === receiveUserLoginType) {
+    if (action.type === UserLoginType) {
         return {
             ...state,
-            user: action.res.data.user,
-            isLoading: false,
+            sesn: action.req,
+            user: action.req.userIdUserNavigation,
             isAuthenticated: true
         };
     }

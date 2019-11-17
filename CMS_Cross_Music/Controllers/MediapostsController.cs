@@ -6,9 +6,12 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using CMS_Cross_Music.Models;
+using Microsoft.AspNet.OData;
 
 namespace CMS_Cross_Music.Controllers
 {
+    [EnableQuery]
+
     [Route("api/[controller]")]
     [ApiController]
     public class MediapostsController : ControllerBase
