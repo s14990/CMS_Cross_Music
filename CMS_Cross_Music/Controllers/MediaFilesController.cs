@@ -9,9 +9,12 @@ using CMS_Cross_Music.Models;
 using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
 using System.IO;
+using Microsoft.AspNet.OData;
 
 namespace CMS_Cross_Music.Controllers
 {
+    [EnableQuery]
+
     [Route("api/[controller]")]
     [ApiController]
     public class MediaFilesController : ControllerBase

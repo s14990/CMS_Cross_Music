@@ -75,6 +75,14 @@ namespace CMS_Cross_Music
                     spa.UseReactDevelopmentServer(npmScript: "start");
                 }
             });
+
+            app.UseMvc(routeBuilder => {
+
+                routeBuilder.EnableDependencyInjection();
+
+                routeBuilder.Expand().Select().OrderBy().Filter().Count().MaxTop(100);
+
+            });
         }
     }
 }
