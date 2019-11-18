@@ -16,4 +16,6 @@ class SideMenu extends Component {
 
 
 
-export default connect()(SideMenu);
+export default connect(
+    state=>state.auth
+)(SideMenu);
