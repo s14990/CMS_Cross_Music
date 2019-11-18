@@ -1,9 +1,10 @@
 import React from 'react';
 import {Alert} from 'reactstrap';
+import { connect } from 'react-redux';
 
 const DUMMY_DATA = [
   {
-      autorId: 2,
+      autorId: 0,
       UserName:'Pier',
       text: 'Hey, how is it going?',
       date:'2019-10-08',
@@ -17,7 +18,7 @@ const DUMMY_DATA = [
       time:'19:46'
   },
   {
-      autorId: 2,
+      autorId: 0,
       UserName:'Pier',
       text: 'Good to hear! I am great as well',
       date:'2019-10-09',
@@ -35,14 +36,14 @@ class MessageList extends React.Component {
                 return (
                   <div ><p className='d-flex justify-content-center text-dark'> {previousDate!= message.date? previousDate = message.date : ''}</p> 
                   
-                    <div className={`d-flex p-1 bd-highlight justify-content${message.autorId === 1? '-end':'-start'}`}>
+                    <div className={`d-flex p-1 bd-highlight justify-content${message.autorId === this.props.auth.user.idUser? '-end':'-start'}`}>
                       <div className='d-flex flex-column bd-highlight'>
                         <div className='d-flex bd-highlight'>
                           <div className = 'mr-auto  bd-highlight text-dark' >{message.UserName}</div>
                           <div className = 'bd-highlight text-dark' >{message.time}</div>
                         </div>
                         <Alert style={{display : 'inline-block'}}
-                          color = {message.autorId === 1? 'info':'light'}>{message.text} 
+                          color = {message.autorId === this.props.auth.user.idUser? 'info':'light'}>{message.text} 
                         </Alert>
                       </div>
                     </div>
@@ -54,4 +55,9 @@ class MessageList extends React.Component {
     }
 }
 
-export default MessageList
+function mapStateToProps(state) {
+  return { auth: state.auth }
+}
+
+export default connect(mapStateToProps)(MessageList);
+//export default MessageList;
