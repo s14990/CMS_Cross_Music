@@ -7,15 +7,17 @@ class SideMenu extends Component {
   render() {
       return (
           <div className='border rounded'>
-            <p className='text-dark'>SideMenu</p>
-            <FriendsList/>
+              <p className='text-dark'>SideMenu</p>
+              {this.props.auth.isAuthenticated &&
+                <FriendsList/>
+              }
           </div>
       );
   }
 }
 
+function mapStateToProps(state) {
+    return { auth: state.auth }
+}
 
-
-export default connect(
-    state=>state.auth
-)(SideMenu);
+export default connect(mapStateToProps)(SideMenu);
