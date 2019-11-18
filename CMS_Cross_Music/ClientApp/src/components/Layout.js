@@ -8,7 +8,7 @@ export default props => (
     <div>
     <NavMenu />
     
-    <Container>
+    <Container fluid>
       <Row>
         <Col md={3} className="justify-content-md-start">
           <SideMenu/>
