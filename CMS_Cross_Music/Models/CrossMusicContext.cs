@@ -254,15 +254,11 @@ namespace CMS_Cross_Music.Models
 
             modelBuilder.Entity<Sesn>(entity =>
             {
-                entity.HasKey(e => new { e.UserIdUser, e.IdSesn });
+                entity.HasKey(e => e.IdSesn);
 
                 entity.ToTable("sesn");
 
-                entity.Property(e => e.UserIdUser).HasColumnName("user_id_user");
-
-                entity.Property(e => e.IdSesn)
-                    .HasColumnName("id_sesn")
-                    .ValueGeneratedOnAdd();
+                entity.Property(e => e.IdSesn).HasColumnName("id_sesn");
 
                 entity.Property(e => e.EndDate)
                     .HasColumnName("end_date")
@@ -271,6 +267,8 @@ namespace CMS_Cross_Music.Models
                 entity.Property(e => e.StartDate)
                     .HasColumnName("start_date")
                     .HasColumnType("datetime");
+
+                entity.Property(e => e.UserIdUser).HasColumnName("user_id_user");
 
                 entity.HasOne(d => d.UserIdUserNavigation)
                     .WithMany(p => p.Sesn)

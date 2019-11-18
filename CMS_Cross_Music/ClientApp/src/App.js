@@ -11,12 +11,16 @@ import Posts from './components/Posts';
 import Show_Post from './components/Show_Post';
 import SignUp from './components/SignUp';
 import MessageList from './components/MessageList';
+import Logout from './components/Logout';
+
 import './themes/bootstrap_flat.css';
+
 
 export default () => (
     <Layout>
         <Route exact path='/' component={Home} />
         <Route path='/login' component={Login} />
+        <Route path='/logout' component={Logout} />
         <Route path='/upload_video' component={Upload_Video} />
         <Route path='/show_video/:id' component={Show_Video} />
         <Route path='/all_videos' component={Videos} />
