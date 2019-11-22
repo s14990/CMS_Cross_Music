@@ -78,15 +78,18 @@ class MessageList extends Component {
         return (
           <div className='border rounded'>
             <p>MessageList</p>
-            {DUMMY_DATA.map((message, index) => {
+            {this.state.msg.map((message, index) => {
+                let datetime = new Date(message.date)
+                let date = datetime.getFullYear() +'/'+ datetime.getMonth()+'/' +datetime.getDay()
+                let time = datetime.getHours() + ':'+ datetime.getMinutes()
                 return (
-                  <div ><p className='d-flex justify-content-center text-dark'> {previousDate!= message.date? previousDate = message.date : ''}</p> 
+                  <div ><p className='d-flex justify-content-center text-dark'> {previousDate!= date? previousDate = date : ''}</p> 
                   
                     <div className={`d-flex p-1 bd-highlight justify-content${message.autorId === this.props.auth.user.idUser? '-end':'-start'}`}>
                       <div className='d-flex flex-column bd-highlight'>
                         <div className='d-flex bd-highlight'>
                           <div className = 'mr-auto  bd-highlight text-dark' >{message.UserName}</div>
-                          <div className = 'bd-highlight text-dark' >{message.time}</div>
+                          <div className = 'bd-highlight text-dark' >{time}</div>
                         </div>
                         <Alert style={{display : 'inline-block'}}
                           color = {message.autorId === this.props.auth.user.idUser? 'info':'light'}>{message.text} 
