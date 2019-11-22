@@ -36,9 +36,10 @@ class MessageList extends Component {
             target_user_id: '',
             msg: [],
         };
+        this.updateList = this.updateList.bind(this);
     }
 
-    async componentDidMount() {
+    async updateList() {
         if (this.props.auth.isAuthenticated) {
             let user_id = this.props.auth.user.idUser;
             let list = [];
@@ -72,6 +73,17 @@ class MessageList extends Component {
         }
     }
 
+    componentDidMount() {
+        this.updateList();
+    }
+
+    componentDidUpdate(prevProps) {
+        if(this.props.match.params.id)
+        if (this.props.match.params.id !== prevProps.match.params.id)
+        {
+            this.updateList();
+        }
+    } 
 
     render() {
         let previousDate = '1900-01-01';
