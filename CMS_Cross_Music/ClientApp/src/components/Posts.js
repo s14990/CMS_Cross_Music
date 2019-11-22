@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import Show_Post from './Show_Post';
+import Post from './Post';
 
 class Posts extends Component {
 
@@ -28,7 +28,7 @@ class Posts extends Component {
                 {this.state.posts.map(post =>
                     <div>
                         <h2>-----------------</h2>
-                        <Show_Post post={post} />
+                        <Post post={post} />
                     </div>
                 )}
             </div>

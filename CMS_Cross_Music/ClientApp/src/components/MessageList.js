@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {Alert} from 'reactstrap';
 import { connect } from 'react-redux';
 
@@ -26,9 +26,55 @@ const DUMMY_DATA = [
   }
 ]
 
-class MessageList extends React.Component {
+class MessageList extends Component {
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            loged_user_id: '',
+            target_user_id: '',
+            msg: [],
+        };
+    }
+
+    async componentDidMount() {
+        if (this.props.auth.isAuthenticated) {
+            let user_id = this.props.auth.user.idUser;
+            let list = [];
+            let friend_id = this.props.match.params.id;
+
+            this.setState({ loged_user_id: user_id, target_user_id: parseInt(friend_id)  });
+            await fetch('api/Msgs?$expand=userIdAuthorNavigation,userIdTargerNavigation&$filter=(userIdAuthor eq ' + user_id + ' and userIdTarger eq ' + friend_id +
+                ' )  or (userIdAuthor eq ' + friend_id + ' and userIdTarger eq ' + user_id + ' )')
+                .then(response => response.json())
+                .then(data => {
+                    list = data;
+                });
+
+
+            var msg_list = [];
+            console.log(list);
+            for (var i = 0; i < list.length; i++) {
+                let uf = list[i];
+                let u = {
+                    autorId: uf.UserIdAuthor,
+                    UserName: uf.UserIdAuthorNavigation.UserName,
+                    //UserName of target is UserIdTargerNavigation.UserName
+                    text: uf.Text,
+                    date: uf.MsgDate
+                }
+                msg_list.push(u);
+            }
+            console.log(msg_list);
+            this.setState({ msg: msg_list });
+
+        }
+    }
+
+
     render() {
-      let previousDate = '1900-01-01';
+        let previousDate = '1900-01-01';
         return (
           <div className='border rounded'>
             <p>MessageList</p>
