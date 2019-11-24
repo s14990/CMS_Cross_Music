@@ -37,6 +37,7 @@ class MessageList extends Component {
             msg: [],
         };
         this.updateList = this.updateList.bind(this);
+        this.refresh = this.refresh.bind(this);
     }
 
     async updateList() {
@@ -78,13 +79,18 @@ class MessageList extends Component {
         this.updateList();
     }
 
-    componentDidUpdate(prevProps) {
-        if(this.props.match.params.id)
-        if (this.props.match.params.id !== prevProps.match.params.id)
+    componentDidUpdate(prevProps,prevState) {
+        if (this.props.match.params.id)
+        if (this.props.match.params.id !== prevProps.match.params.id || prevState.msg.length !== this.state.msg.length)
         {
             this.updateList();
         }
-    } 
+    }
+
+    refresh() {
+        console.log("Forced Refresh")
+        this.updateList();
+    }
 
     render() {
         let previousDate = '1900-01-01';
@@ -114,8 +120,9 @@ class MessageList extends Component {
             })}
             {this.props.auth.isAuthenticated?
             <SendMessageForm 
-              idUser = {this.props.auth.user.idUser}
-              idFriend= {this.state.target_user_id}
+                        idUser={this.props.auth.user.idUser}
+                        idFriend={this.state.target_user_id}
+                        refresh={this.refresh}
             />:''
             }
           </div>
