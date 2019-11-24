@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Alert} from 'reactstrap';
 import { connect } from 'react-redux';
-
+import SendMessageForm from './SendMessageForm';
 const DUMMY_DATA = [
   {
       autorId: 0,
@@ -59,6 +59,7 @@ class MessageList extends Component {
             for (var i = 0; i < list.length; i++) {
                 let uf = list[i];
                 let u = {
+                    msgId: uf.IdMsg,
                     autorId: uf.UserIdAuthor,
                     UserName: uf.UserIdAuthorNavigation.UserName,
                     //UserName of target is UserIdTargerNavigation.UserName
@@ -95,7 +96,7 @@ class MessageList extends Component {
                 let date = datetime.getFullYear() +'/'+ datetime.getMonth()+'/' +datetime.getDay()
                 let time = datetime.getHours() + ':'+ datetime.getMinutes()
                 return (
-                  <div ><p className='d-flex justify-content-center text-dark'> {previousDate!= date? previousDate = date : ''}</p> 
+                  <div key={message.msgId}><p className='d-flex justify-content-center text-dark'> {previousDate!= date? previousDate = date : ''}</p> 
                   
                     <div className={`d-flex p-1 bd-highlight justify-content${message.autorId === this.props.auth.user.idUser? '-end':'-start'}`}>
                       <div className='d-flex flex-column bd-highlight'>
@@ -103,7 +104,7 @@ class MessageList extends Component {
                           <div className = 'mr-auto  bd-highlight text-dark' >{message.UserName}</div>
                           <div className = 'bd-highlight text-dark' >{time}</div>
                         </div>
-                        <Alert style={{display : 'inline-block'}}
+                        <Alert style={{display : 'inline-block'}} 
                           color = {message.autorId === this.props.auth.user.idUser? 'info':'light'}>{message.text} 
                         </Alert>
                       </div>
@@ -111,6 +112,12 @@ class MessageList extends Component {
                   </div>
                 )               
             })}
+            {this.props.auth.isAuthenticated?
+            <SendMessageForm 
+              idUser = {this.props.auth.user.idUser}
+              idFriend= {this.state.target_user_id}
+            />:''
+            }
           </div>
         )
     }
