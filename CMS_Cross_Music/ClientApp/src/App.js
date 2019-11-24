@@ -12,8 +12,11 @@ import Show_Post from './components/Show_Post';
 import SignUp from './components/SignUp';
 import MessageList from './components/MessageList';
 import Logout from './components/Logout';
+import Show_Users from './components/Show_Users';
+import Edit_User from './components/Edit_User';
 
 import './themes/bootstrap_flat.css';
+
 
 
 export default () => (
@@ -29,5 +32,7 @@ export default () => (
         <Route path='/show_post/:id' component={Show_Post} />
         <Route path='/signup' component={SignUp} />
         <Route path='/messages/:id' component={MessageList} />
+        <Route path='/users' component={Show_Users} />
+        <Route path='/edit_user/:id' component={Edit_User} />
     </Layout>
 );

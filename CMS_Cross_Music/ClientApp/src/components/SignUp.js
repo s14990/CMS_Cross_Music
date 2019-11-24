@@ -32,7 +32,7 @@ class SignUp extends Component {
 
     onSubmit(e) {
         e.preventDefault();
-        fetch("api/Users/", {
+        fetch("api/Usrs/", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

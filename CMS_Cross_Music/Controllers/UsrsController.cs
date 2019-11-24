@@ -102,7 +102,8 @@ namespace CMS_Cross_Music.Controllers
                 UserName = userLogin.UserName,
                 UserEmail = userLogin.UserEmail,
                 UserRank = 2,
-                UserConfirmed = false
+                UserConfirmed = false,
+                UserStatus = "offline"
             };
             _context.Usr.Add(usr);
             await _context.SaveChangesAsync();
