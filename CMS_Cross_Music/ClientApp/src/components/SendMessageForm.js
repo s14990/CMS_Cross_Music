@@ -21,7 +21,7 @@ class SendMessageForm extends Component {
         let msg_text = this.state.newMessagetext;
         let author_id = this.props.idUser;
         let target_id = this.props.idFriend;
-        console.log("newMessage: " + author_id + '->' + target_id + ': ' + msg_text + '; '+ cur_date);
+        console.log("newMessage: " + author_id + '->' + target_id + ': ' + msg_text + '; '+ cur_date.toJSON());
         this.setState({ newMessagetext: '' });
 
         if(msg_text !== ''){
