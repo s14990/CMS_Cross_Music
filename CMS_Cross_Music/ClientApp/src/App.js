@@ -16,6 +16,7 @@ import Show_Users from './components/Show_Users';
 import Edit_User from './components/Edit_User';
 
 import './themes/bootstrap_flat.css';
+import MediaFiles from './components/MediaFiles';
 
 
 
@@ -34,5 +35,6 @@ export default () => (
         <Route path='/messages/:id' component={MessageList} />
         <Route path='/users' component={Show_Users} />
         <Route path='/edit_user/:id' component={Edit_User} />
+        <Route path='/mediafiles' component={MediaFiles} />
     </Layout>
 );
