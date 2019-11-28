@@ -11,17 +11,19 @@ class Posts extends Component {
     constructor(props) {
         super(props);
         this.state = { posts: [] }
-        fetch('api/MediaPosts')
+        fetch('api/Mediaposts?$expand=userIdUserNavigation,mediaFileIdFileNavigation')
             .then(response => response.json())
             .then(data => {
                 this.setState({
                     posts: data
+
                 });
             });
     }
 
 
     render() {
+        console.log( this.state.posts)
         return (
             <div>
                 <h2>All Posts</h2>
