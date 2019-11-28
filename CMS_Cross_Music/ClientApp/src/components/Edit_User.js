@@ -182,7 +182,7 @@ class Edit_User extends Component {
 
         return (
             <div>
-                <h1>Edit Artykul</h1>
+                <h1>Edit User</h1>
                 {contents}
             </div>
         );

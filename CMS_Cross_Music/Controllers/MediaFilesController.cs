@@ -6,10 +6,10 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using CMS_Cross_Music.Models;
+using Microsoft.AspNet.OData;
 using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
 using System.IO;
-using Microsoft.AspNet.OData;
 
 namespace CMS_Cross_Music.Controllers
 {
@@ -17,48 +17,56 @@ namespace CMS_Cross_Music.Controllers
 
     [Route("api/[controller]")]
     [ApiController]
-    public class MediaFilesController : ControllerBase
+    public class MediafilesController : ControllerBase
     {
         private readonly CrossMusicContext _context;
 
-        public MediaFilesController(CrossMusicContext context)
+        public MediafilesController(CrossMusicContext context)
         {
             _context = context;
         }
 
-        // GET: api/MediaFiles
+        // GET: api/Files
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Mediafile>>> GetMediaFile()
+        public IEnumerable<Mediafile> GetMediafile()
         {
-            return await _context.Mediafile.ToListAsync();
+            return _context.Mediafile;
         }
 
-        // GET: api/MediaFiles/5
+        // GET: api/Files/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Mediafile>> GetMediaFile(int id)
+        public async Task<IActionResult> GetMediafile([FromRoute] int id)
         {
-            var mediaFile = await _context.Mediafile.FindAsync(id);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
-            if (mediaFile == null)
+            var mediafile = await _context.Mediafile.FindAsync(id);
+
+            if (mediafile == null)
             {
                 return NotFound();
             }
 
-            return mediaFile;
+            return Ok(mediafile);
         }
 
-        // PUT: api/MediaFiles/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
-        // more details see https://aka.ms/RazorPagesCRUD.
+        // PUT: api/Files/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutMediaFile(int id, Mediafile mediaFile)
+        public async Task<IActionResult> PutMediafile([FromRoute] int id, [FromBody] Mediafile mediafile)
         {
-            if (id != mediaFile.IdFile)
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (id != mediafile.IdFile)
             {
                 return BadRequest();
             }
 
-            _context.Entry(mediaFile).State = EntityState.Modified;
+            _context.Entry(mediafile).State = EntityState.Modified;
 
             try
             {
@@ -66,7 +74,7 @@ namespace CMS_Cross_Music.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!MediaFileExists(id))
+                if (!MediafileExists(id))
                 {
                     return NotFound();
                 }
@@ -79,14 +87,12 @@ namespace CMS_Cross_Music.Controllers
             return NoContent();
         }
 
-        // POST: api/MediaFiles
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
-        // more details see https://aka.ms/RazorPagesCRUD.
+        // POST: api/Files
         [HttpPost]
-        public async Task<ActionResult<Mediafile>> PostMediaFile([FromForm] UploadFile model)
+        public async Task<ActionResult<Mediafile>> PostMediafile([FromForm] UploadFile model)
         {
             IFormFile file = model.File;
-           
+
             Account account = new Account(
             "dn2pht7no",
             "763416155661231",
@@ -97,7 +103,7 @@ namespace CMS_Cross_Music.Controllers
             var fs = file.OpenReadStream();
             var uploadParams = new VideoUploadParams()
             {
-                File = new FileDescription(file.FileName,fs)
+                File = new FileDescription(file.FileName, fs)
             };
             var uploadResult = cloudinary.Upload(uploadParams);
             string full_filename = Path.GetFileName(file.FileName);
@@ -110,18 +116,18 @@ namespace CMS_Cross_Music.Controllers
             mediaFile.FlName = full_filename;
             mediaFile.FlType = file_extension;
             if (file_extension == "mp4")
-            mediaFile.MediaType = "video";
-            else if(file_extension =="mp3")
-            mediaFile.MediaType = "video";
+                mediaFile.MediaType = "video";
+            else if (file_extension == "mp3")
+                mediaFile.MediaType = "video";
             else
-            mediaFile.MediaType = "other";
-            if (model.Desctiption !=null)
+                mediaFile.MediaType = "other";
+            if (model.Desctiption != null)
             {
                 mediaFile.MediaDescription = model.Desctiption;
             }
             else
                 mediaFile.MediaDescription = "...";
-            mediaFile.FlLink= uploadResult.Uri.ToString();
+            mediaFile.FlLink = uploadResult.Uri.ToString();
             var u = await _context.Usr.SingleOrDefaultAsync(j => j.UserName == "admin");
             mediaFile.UserIdUser = u.IdUser;
             _context.Mediafile.Add(mediaFile);
@@ -129,23 +135,28 @@ namespace CMS_Cross_Music.Controllers
             return CreatedAtAction("GetMediaFile", new { id = mediaFile.IdFile }, mediaFile);
         }
 
-        // DELETE: api/MediaFiles/5
+        // DELETE: api/Files/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Mediafile>> DeleteMediaFile(int id)
+        public async Task<IActionResult> DeleteMediafile([FromRoute] int id)
         {
-            var mediaFile = await _context.Mediafile.FindAsync(id);
-            if (mediaFile == null)
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var mediafile = await _context.Mediafile.FindAsync(id);
+            if (mediafile == null)
             {
                 return NotFound();
             }
 
-            _context.Mediafile.Remove(mediaFile);
+            _context.Mediafile.Remove(mediafile);
             await _context.SaveChangesAsync();
 
-            return mediaFile;
+            return Ok(mediafile);
         }
 
-        private bool MediaFileExists(int id)
+        private bool MediafileExists(int id)
         {
             return _context.Mediafile.Any(e => e.IdFile == id);
         }

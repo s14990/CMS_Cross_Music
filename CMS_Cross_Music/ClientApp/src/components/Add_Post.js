@@ -30,7 +30,7 @@ class Add_Post extends Component {
                 postHtml: this.state.text,
                 mediaFileIdFile: 1,
                 userIdUser: 1,
-            })
+            }) 
         }).then(setTimeout(this.refresh, 300));
 
     }

@@ -1,7 +1,7 @@
 ﻿import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import "video-react/dist/video-react.css";
-import ReactPlayer from 'react-player'
+import ReactPlayer from 'react-player';
 
 class Show_Video extends Component {
 
