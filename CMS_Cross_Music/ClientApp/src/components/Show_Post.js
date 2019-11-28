@@ -2,6 +2,9 @@
 import { connect } from 'react-redux';
 import SanitizedHTML from 'react-sanitized-html';
 
+import CommentList from "./CommentList";
+import Comments from './Comments';
+
 
 class Show_Post extends Component {
 
@@ -14,8 +17,11 @@ class Show_Post extends Component {
             PostHtml: '',
             PostDate: '',
             mediafile: '',
+            comments: [],
+            loading: false
         }
         this.getShortDate = this.getShortDate.bind(this);
+        this.addComment = this.addComment.bind(this);
     }
 
     componentDidMount() {
@@ -29,7 +35,7 @@ class Show_Post extends Component {
                     IdPost: data.IdPost,
                     PostHtml: data.PostHtml,
                     PostDate: new Date(data.PostDate),
-                    comments: data.comment,
+                    //comments: data.comment,
                     user: data.UserIdUserNavigation,
                     mediafile: data.MediaFileIdFileNavigation
                 });
@@ -44,6 +50,12 @@ class Show_Post extends Component {
                 ...
         */
 
+    }
+    addComment(comment) {
+        this.setState({
+          loading: false,
+          comments: [comment, ...this.state.comments]
+        });
     }
 
 
@@ -63,6 +75,18 @@ class Show_Post extends Component {
                     allowedTags={['a', 'p', 'h1', 'h2', 'h3', 'h4', 'h5', 'span','ul','li']}
                     html={this.state.PostHtml}
                 />
+                <div className="row">
+                    <div className="col-4  pt-3 border-right">
+                        <h6>Say something</h6>
+                        <Comments addComment={this.addComment} />
+                    </div>
+                    <div className="col-8  pt-3 bg-white">
+                        <CommentList
+                        loading={this.state.loading}
+                        comments={this.state.comments}
+                        />
+                    </div>
+                </div>
             </div>
         );
     }
