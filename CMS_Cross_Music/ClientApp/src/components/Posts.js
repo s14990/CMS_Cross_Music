@@ -27,12 +27,24 @@ class Posts extends Component {
         return (
             <div>
                 <h2>All Posts</h2>
-                {this.state.posts.map(post =>
-                    <div>
-                        <h2>-----------------</h2>
-                        <Post post={post} />
-                    </div>
-                )}
+                <div className='d-flex flex-wrap'>
+                    {this.state.posts.map(post =>
+                    <div key = {post.IdPost}>
+                            {console.log(post.PostDate)}
+                            <p>{/*this.post.UserIdUserNavigation*/} </p>
+                            <Post 
+                                idPost = {post.IdPost}
+                                postHtml = {post.PostHtml}
+                                idUser = {post.UserIdUserNavigation.IdUser}
+                                userName = {post.UserIdUserNavigation.UserName}
+                                idFile = {post.MediaFileIdFileNavigation.IdFile}
+                                fileName = {post.MediaFileIdFileNavigation.FlName}
+                                fileLink = {post.MediaFileIdFileNavigation.FlLink}
+                                postDate = {post.PostDate}
+                            />
+                        </div>
+                    )}
+                </div>
             </div>
         );
     }

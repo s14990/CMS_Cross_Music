@@ -49,7 +49,7 @@ class SendMessageForm extends Component {
 
     render() {
         return (
-            <div className='border rounded'>
+            <div className='border rounded pb-4 mb-4'>
                 <p>SendMessageForm</p>
                 <Form inline>
                     <FormGroup className="flex-fill mr-2" >
