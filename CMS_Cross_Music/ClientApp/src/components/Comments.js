@@ -49,14 +49,15 @@ export default class Comments extends Component {
 
     // loading status and clear error
     this.setState({ error: "", loading: true });
+    let d=new Date();
     let { comment } = this.state;
-    fetch("http://localhost:55200/api/Comments", {
+    fetch("api/Comments", {
       method: 'POST',
       body: JSON.stringify({
-        CommentHtml: this.state.CommentHtml,
-        CommentDate: 1,
-        UserIdUser: 1,
-        MediapostIdPost: 1
+        commentHtml: this.state.CommentHtml,
+        commentDate: JSON.stringify(new Date()),
+        userIdUser: 1,
+        mediapostIdPost: 1
       })
   });
     // persist the comments on server
