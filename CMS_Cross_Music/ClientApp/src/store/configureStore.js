@@ -25,6 +25,7 @@ export default function configureStore(history, initialState) {
     routing: routerReducer
   });
 
+  //const persistedState = loadState();
   return createStore(
     rootReducer,
     initialState,
