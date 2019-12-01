@@ -22,9 +22,15 @@ class Show_Post extends Component {
         }
         this.getShortDate = this.getShortDate.bind(this);
         this.addComment = this.addComment.bind(this);
+        this.refresh = this.refresh.bind(this); 
+        this.fetch_data = this.fetch_data.bind(this);
     }
 
     componentDidMount() {
+        this.fetch_data();
+    }
+
+    fetch_data() {
         let post_id = this.props.match.params.id;
         fetch('/api/Mediaposts?$expand=comment,userIdUserNavigation,mediaFileIdFileNavigation&$filter=IdPost eq ' + post_id)
             .then(response => response.json())
@@ -40,17 +46,8 @@ class Show_Post extends Component {
                     mediafile: data.MediaFileIdFileNavigation
                 });
             });
-        /*
-        this.state.comments: [
-                {
-                "IdComment": 1,
-                "CommentHtml": "AAA",
-                "CommentDate": "2019-11-18T12:12:09.77"
-                }
-                ...
-        */
-
     }
+
     addComment(comment) {
         this.setState({
           loading: false,
@@ -62,6 +59,12 @@ class Show_Post extends Component {
     getShortDate(json_date) {
         let full_date = new Date(json_date);
         return full_date.toLocaleDateString();
+    }
+
+    refresh() {
+        console.log("Called refresh");
+        this.fetch_data();
+        //this.props.history.push("/show_post/"+this.state.IdPost);
     }
 
 
@@ -78,7 +81,7 @@ class Show_Post extends Component {
                 <div className="row">
                     <div className="col-4  pt-3 border-right">
                         <h6>Say something</h6>
-                        <Comments addComment={this.addComment} />
+                        <Comments refresh={this.refresh} postId={this.state.IdPost} addComment={this.addComment} />
                     </div>
                     <div className="col-8  pt-3 bg-white">
                         <CommentList
