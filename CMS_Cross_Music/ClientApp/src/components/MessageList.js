@@ -41,6 +41,7 @@ class MessageList extends Component {
     }
 
     async updateList() {
+        console.log("called update");
         if (this.props.auth.isAuthenticated) {
             let user_id = this.props.auth.user.idUser;
             let list = [];
@@ -54,9 +55,7 @@ class MessageList extends Component {
                     list = data;
                 });
 
-
             var msg_list = [];
-            console.log(list);
             for (var i = 0; i < list.length; i++) {
                 let uf = list[i];
                 let u = {
@@ -69,14 +68,16 @@ class MessageList extends Component {
                 }
                 msg_list.push(u);
             }
-            console.log(msg_list);
             this.setState({ msg: msg_list });
-
         }
     }
 
     componentDidMount() {
         this.updateList();
+        this.interval = setInterval(() => {
+            this.updateList(); 
+        }, 5000);
+
     }
 
     componentDidUpdate(prevProps,prevState) {
