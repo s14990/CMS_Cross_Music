@@ -1,7 +1,7 @@
 ﻿import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import SanitizedHTML from 'react-sanitized-html';
-
+import ReactPlayer from 'react-player';
 import CommentList from "./CommentList";
 import Comments from './Comments';
 
@@ -17,6 +17,7 @@ class Show_Post extends Component {
             PostHtml: '',
             PostDate: '',
             mediafile: '',
+            link: '',
             //comments: [],
             loading: false
         }
@@ -43,7 +44,8 @@ class Show_Post extends Component {
                     PostDate: new Date(data.PostDate),
                     comments: data.Comment,
                     user: data.UserIdUserNavigation,
-                    mediafile: data.MediaFileIdFileNavigation
+                    mediafile: data.MediaFileIdFileNavigation,
+                    link: data.MediaFileIdFileNavigation.FlLink
                 });
             });
     }
@@ -72,6 +74,7 @@ class Show_Post extends Component {
         return (
             <div>
                 <h1>Post_Id: {this.state.IdPost}</h1>
+                <ReactPlayer url={this.state.link} controls />
                 <p> {this.getShortDate(this.state.PostDate)}{this.getShortDate(this.state.PostDate)}</p>
                 <SanitizedHTML
                     allowedAttributes={{ 'a': ['href'] }}

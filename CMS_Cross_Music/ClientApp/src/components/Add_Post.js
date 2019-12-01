@@ -28,6 +28,7 @@ class Add_Post extends Component {
             },
             body: JSON.stringify({
                 postHtml: this.state.text,
+                postDate: new Date().toJSON(),
                 mediaFileIdFile: 1,
                 userIdUser: 1,
             }) 
@@ -44,6 +45,7 @@ class Add_Post extends Component {
     render() {
         return (
             <div>
+            <h1>Add Post</h1>
             <ReactQuill value={this.state.text}
                     onChange={this.handleChange} />
             <button onClick={this.uploadHandler}>Upload</button>
