@@ -98,24 +98,27 @@ class MessageList extends Component {
           <div className='border rounded'>
             <p>MessageList</p>
             {this.state.msg.map((message, index) => {
-                let datetime = new Date(message.date)
-                let date = datetime.getFullYear() +'/'+ datetime.getMonth()+'/' +datetime.getDay()
-                let time = datetime.getHours() + ':'+ datetime.getMinutes()
-                return (
-                  <div key={message.msgId}><p className='d-flex justify-content-center text-dark'> {previousDate!= date? previousDate = date : ''}</p> 
-                  
-                    <div className={`d-flex p-1 bd-highlight justify-content${message.autorId === this.props.auth.user.idUser? '-end':'-start'}`}>
-                      <div className='d-flex flex-column bd-highlight'>
-                        <div className='d-flex bd-highlight'>
-                          <div className = 'mr-auto  bd-highlight text-dark' >{message.UserName}</div>
-                          <div className = 'bd-highlight text-dark' >{time}</div>
-                        </div>
-                        <Alert style={{display : 'inline-block'}} 
-                          color = {message.autorId === this.props.auth.user.idUser? 'info':'light'}>{message.text} 
-                        </Alert>
+            //  console.log(message.date)
+              let datetime = new Date(message.date)
+            //  console.log(datetime.toJSON())
+              let date = datetime.getFullYear() +'/'+ (parseInt(datetime.getMonth())+1)+'/' +datetime.getDate()
+            //  console.log(date)
+              let time = datetime.getHours() + ':'+ datetime.getMinutes()
+              return (
+                <div key={message.msgId}><p className='d-flex justify-content-center text-dark'> {previousDate!= date? previousDate = date : ''}</p> 
+                
+                  <div className={`d-flex  justify-content${message.autorId === this.props.auth.user.idUser? '-end ml-5':'-start mr-5'}`}>
+                    <div className='d-flex flex-column '>
+                      <div className='d-flex '>
+                        <div className = 'pr-1 text-dark' >{message.UserName}</div>
+                        <div className = 'ml-auto text-dark' >{time}</div>
                       </div>
+                      <Alert style={{display : 'inline-block'}} 
+                        color = {message.autorId === this.props.auth.user.idUser? 'info':'light'}>{message.text} 
+                      </Alert>
                     </div>
                   </div>
+                </div>
                 )               
             })}
             {this.props.auth.isAuthenticated?

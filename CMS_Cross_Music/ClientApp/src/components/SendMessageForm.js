@@ -9,36 +9,37 @@ class SendMessageForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            value: '',
-            newMessage: ''
+            newMessagetext: ''
         }
         this.sendClick = this.sendClick.bind(this);
-        this.handleChange = this.handleChange.bind(this);
-        this.textInput = React.createRef();
         this.refresh = this.refresh.bind(this);
     }
-    handleChange(event) {
 
-    }
     sendClick(event) {
         event.preventDefault();
         let cur_date = new Date();
-        let msg_text = this.textInput.current.value;
+        let msg_text = this.state.newMessagetext;
         let author_id = this.props.idUser;
         let target_id = this.props.idFriend;
-        console.log("newMessage: " + author_id + '->' + target_id + ': ' + msg_text);
-        fetch("api/Msgs", {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                text: msg_text,
-                msgDate: cur_date.toJSON(),
-                userIdAuthor: author_id,
-                userIdTarger: target_id
-            })
-        }).then(setTimeout(this.refresh, 300));
+        console.log("newMessage: " + author_id + '->' + target_id + ': ' + msg_text + '; '+ cur_date.toJSON());
+        this.setState({ newMessagetext: '' });
+
+        if(msg_text !== ''){
+            fetch("api/Msgs", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    text: msg_text,
+                    msgDate: cur_date.toJSON(),
+                    userIdAuthor: author_id,
+                    userIdTarger: target_id
+                })
+            }).then(setTimeout(this.refresh, 300));
+        }
+        
+        
     }
 
     refresh() {
@@ -48,15 +49,17 @@ class SendMessageForm extends Component {
 
     render() {
         return (
-            <div className='border rounded'>
+            <div className='border rounded pb-4 mb-4'>
                 <p>SendMessageForm</p>
                 <Form inline>
                     <FormGroup className="flex-fill mr-2" >
                         <Container>
                             <Row>
                                 <Col >
-                                    <Input innerRef={this.textInput} type="textarea" className="text" id="newMessageText" placeholder="New Message" style={{ width: '100%' }}
-                                    //  onChange={() => this.handleChange()} 
+                                    <Input
+                                        type="textarea" className="text" id="newMessageText" placeholder="New Message" style={{ width: '100%' }}
+                                        value={this.state.newMessagetext}
+                                        onChange={e => this.setState({ newMessagetext: e.target.value })}
                                     />
                                 </Col>
                                 <Col xs='2'>
