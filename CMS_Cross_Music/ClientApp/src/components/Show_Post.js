@@ -17,7 +17,7 @@ class Show_Post extends Component {
             PostHtml: '',
             PostDate: '',
             mediafile: '',
-            comments: [],
+            //comments: [],
             loading: false
         }
         this.getShortDate = this.getShortDate.bind(this);
@@ -35,7 +35,7 @@ class Show_Post extends Component {
                     IdPost: data.IdPost,
                     PostHtml: data.PostHtml,
                     PostDate: new Date(data.PostDate),
-                    //comments: data.comment,
+                    comments: data.Comment,
                     user: data.UserIdUserNavigation,
                     mediafile: data.MediaFileIdFileNavigation
                 });

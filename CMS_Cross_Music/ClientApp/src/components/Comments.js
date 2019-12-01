@@ -8,8 +8,10 @@ export default class Comments extends Component {
       error: "",
 
       comment: {
-        name: "",
-        message: ""
+        CommentHtml: "",
+        CommentDate: "1",
+        UserIdUser: "1",
+        MediapostIdPost: "1"
       }
     };
 
@@ -47,11 +49,20 @@ export default class Comments extends Component {
 
     // loading status and clear error
     this.setState({ error: "", loading: true });
-
-    // persist the comments on server
     let { comment } = this.state;
-    fetch("http://localhost:55200", {
-      method: "post",
+    fetch("http://localhost:55200/api/Comments", {
+      method: 'POST',
+      body: JSON.stringify({
+        CommentHtml: this.state.CommentHtml,
+        CommentDate: 1,
+        UserIdUser: 1,
+        MediapostIdPost: 1
+      })
+  });
+    // persist the comments on server
+    /*let { comment } = this.state;
+    fetch("api/Comments", {
+      method: "POST",
       body: JSON.stringify(comment)
     })
       .then(res => res.json())
@@ -60,13 +71,13 @@ export default class Comments extends Component {
           this.setState({ loading: false, error: res.error });
         } else {
           // add time return from api and push comment to parent state
-          comment.time = res.time;
+          comment.CommentDate = res.CommentDate;
           this.props.addComment(comment);
 
           // clear the message box
           this.setState({
             loading: false,
-            comment: { ...comment, message: "" }
+            comment: { ...comment, CommentHtml: "" }
           });
         }
       })
@@ -76,13 +87,14 @@ export default class Comments extends Component {
           loading: false
         });
       });
+      */
   }
 
   /**
    * Simple validation
    */
   isFormValid() {
-    return this.state.comment.name !== "" && this.state.comment.message !== "";
+    return this.state.comment.CommentHtml !== "";
   }
 
   renderError() {
@@ -95,24 +107,14 @@ export default class Comments extends Component {
     return (
       <React.Fragment>
         <form method="post" onSubmit={this.onSubmit}>
-          <div className="form-group">
-            <input
-              onChange={this.handleFieldChange}
-              value={this.state.comment.name}
-              className="form-control"
-              placeholder="Your Name"
-              name="name"
-              type="text"
-            />
-          </div>
 
           <div className="form-group">
             <textarea
               onChange={this.handleFieldChange}
-              value={this.state.comment.message}
+              value={this.state.comment.CommentHtml}
               className="form-control"
               placeholder="Your Comment"
-              name="message"
+              name="CommentHtml"
               rows="5"
             />
           </div>
