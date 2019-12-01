@@ -31,16 +31,7 @@ class NavMenu extends React.Component {
                         <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={this.state.isOpen} navbar>
                             <Nav className="navbar-nav flex-grow">
                                 <NavItem>
-                                    <NavLink tag={Link} className="text-dark" to="/mediafiles">MediaFiles</NavLink>
-                                </NavItem>
-                                <NavItem>
                                     <NavLink tag={Link} className="text-dark" to="/">Home</NavLink>
-                                </NavItem>
-                                <NavItem>
-                                    <NavLink tag={Link} className="text-dark" to="/all_posts">Posts</NavLink>
-                                </NavItem>
-                                <NavItem>
-                                    <NavLink tag={Link} className="text-dark" to="/fetch-data">Fetch data</NavLink>
                                 </NavItem>
                                 {!this.props.auth.isAuthenticated &&
                                     <NavItem>
@@ -49,8 +40,28 @@ class NavMenu extends React.Component {
                                 }
                                 {this.props.auth.isAuthenticated &&
                                     <NavItem>
-                                        <NavLink tag={Link} className="text-dark" to="/logout">Logout</NavLink>
+                                        <NavLink tag={Link} className="text-dark" to="/mediafiles">MediaFiles</NavLink>
                                     </NavItem>
+                                }
+                                {this.props.auth.isAuthenticated &&
+                                    <NavItem>
+                                        <NavLink tag={Link} className="text-dark" to="/upload">Upload File</NavLink>
+                                    </NavItem>
+                                }
+                                {this.props.auth.isAuthenticated &&
+                                    <NavItem>
+                                        <NavLink tag={Link} className="text-dark" to="/all_posts">Posts</NavLink>
+                                    </NavItem>
+                                }
+                                {this.props.auth.isAuthenticated &&
+                                    <NavItem>
+                                        <NavLink tag={Link} className="text-dark" to="/users">Users</NavLink>
+                                    </NavItem>
+                                }
+                                {this.props.auth.isAuthenticated &&
+                                        <NavItem>
+                                            <NavLink tag={Link} className="text-dark" to="/logout">Logout</NavLink>
+                                        </NavItem>
                                 }
                             </Nav>
                         </Collapse>

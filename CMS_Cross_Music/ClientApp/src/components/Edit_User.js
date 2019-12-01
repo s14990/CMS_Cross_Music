@@ -12,7 +12,21 @@ class Edit_User extends Component {
             wydzialy: [], loading: true, err: '', disabled: true, mode: 'create',
             id: '', name: '',email: '', status: 'offline', rank: 1, confirmed: true, password: ""
         };
+
+        this.refresh = this.refresh.bind(this);
+        this.handleInputChange = this.handleInputChange.bind(this);
+        this.handleUpdate = this.handleUpdate.bind(this);
+        this.validateData = this.validateData.bind(this);
+        this.handleDelete = this.handleDelete.bind(this);
+        this.handleReturn = this.handleReturn.bind(this);
+        this.handleCreate = this.handleCreate.bind(this);
+    }
+
+    componentDidMount() {
         const user_id = this.props.match.params.id;
+        if (user_id == 0) {
+            this.setState({ loading: false });
+        }
         if (user_id != 0) {
             fetch('api/Usrs/' + user_id)
                 .then(response => response.json())
@@ -23,15 +37,6 @@ class Edit_User extends Component {
                     });
                 });
         }
-
-
-        this.refresh = this.refresh.bind(this);
-        this.handleInputChange = this.handleInputChange.bind(this);
-        this.handleUpdate = this.handleUpdate.bind(this);
-        this.validateData = this.validateData.bind(this);
-        this.handleDelete = this.handleDelete.bind(this);
-        this.handleReturn = this.handleReturn.bind(this);
-        this.handleCreate = this.handleCreate.bind(this);
     }
 
     handleCreate() {
@@ -50,7 +55,7 @@ class Edit_User extends Component {
     }
 
     handleUpdate() {
-        fetch("api/Usrs" + this.state.id, {
+        fetch("api/Usrs/" + this.state.id, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -69,7 +74,7 @@ class Edit_User extends Component {
     handleDelete() {
         let id = this.state.id;
         if (window.confirm("Do you want to delete User" + id) === true)
-            fetch('api/Usrs' + id, {
+            fetch('api/Usrs/' + id, {
                 method: 'DELETE'
             }).then(setTimeout(this.refresh, 300));
     }
@@ -117,11 +122,13 @@ class Edit_User extends Component {
     validateData() {
         this.setState({ err: "", disabled: false });
         if (this.state.name.length <= 1)
-            this.setState({ err: "Imie nie moż być krótrsza od 1 znaków", disabled: true });
+            this.setState({ err: "Imie nie moż być krótrsza od 5 znaków", disabled: true });
         if (this.state.email < 5)
-            this.setState({ err: "email nie moż być krótrszy od 1 znaków", disabled: true });
-        if (this.state.password < 5)
-            this.setState({ err: "haslo nie moż być krótrsze od 1 znaków", disabled: true });
+            this.setState({ err: "email nie moż być krótrszy od 5 znaków", disabled: true });
+        if (this.state.mode === "create") {
+            if (this.state.password < 5)
+                this.setState({ err: "haslo nie moż być krótrsze od 5 znaków", disabled: true });
+        }
         if (this.state.rank == null)
             this.setState({ err: "Wybierz Rank", disabled: true });
 
@@ -141,8 +148,8 @@ class Edit_User extends Component {
                 </FormGroup>
                 {this.state.mode === "create" && 
                 <FormGroup>
-                    <Label htmlFor="haslo">Haslo</Label>
-                    <Input type="password" className="form-control" name="haslo" value={this.state.haslo} onChange={this.handleInputChange} />
+                    <Label htmlFor="password">Password</Label>
+                    <Input type="password" className="form-control" name="password" value={this.state.password} onChange={this.handleInputChange} />
                 </FormGroup>
                 }
                 <FormGroup>

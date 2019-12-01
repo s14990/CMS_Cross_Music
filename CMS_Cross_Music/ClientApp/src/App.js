@@ -25,7 +25,7 @@ export default () => (
         <Route exact path='/' component={Home} />
         <Route path='/login' component={Login} />
         <Route path='/logout' component={Logout} />
-        <Route path='/upload_video' component={Upload_Video} />
+        <Route path='/upload' component={Upload_Video} />
         <Route path='/show_video/:id' component={Show_Video} />
         <Route path='/all_videos' component={Videos} />
         <Route path='/all_posts' component={Posts} />
