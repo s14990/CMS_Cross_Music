@@ -28,7 +28,8 @@
     "sanitize-html": "^1.20.1",
     "theme-provider": "^1.0.8",
     "validator": "12.0.0",
-    "video-react": "^0.14.1"
+    "video-react": "^0.14.1",
+    "react-spinners": "0.5.0"
   },
   "devDependencies": {
     "ajv": "^6.0.0",

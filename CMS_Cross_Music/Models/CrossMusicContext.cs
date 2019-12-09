@@ -22,7 +22,9 @@ namespace CMS_Cross_Music.Models
         public virtual DbSet<Mediapost> Mediapost { get; set; }
         public virtual DbSet<Msg> Msg { get; set; }
         public virtual DbSet<Pass> Pass { get; set; }
+        public virtual DbSet<Pt> Pt { get; set; }
         public virtual DbSet<Sesn> Sesn { get; set; }
+        public virtual DbSet<Tag> Tag { get; set; }
         public virtual DbSet<Ufl> Ufl { get; set; }
         public virtual DbSet<Usr> Usr { get; set; }
 
@@ -256,6 +258,31 @@ namespace CMS_Cross_Music.Models
                     .HasConstraintName("pass_user_fk");
             });
 
+            modelBuilder.Entity<Pt>(entity =>
+            {
+                entity.HasKey(e => e.IdPt);
+
+                entity.ToTable("pt");
+
+                entity.Property(e => e.IdPt).HasColumnName("id_pt");
+
+                entity.Property(e => e.PostId).HasColumnName("post_id");
+
+                entity.Property(e => e.TagId).HasColumnName("tag_id");
+
+                entity.HasOne(d => d.Post)
+                    .WithMany(p => p.Pt)
+                    .HasForeignKey(d => d.PostId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_pt_post");
+
+                entity.HasOne(d => d.Tag)
+                    .WithMany(p => p.Pt)
+                    .HasForeignKey(d => d.TagId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_pt_tag");
+            });
+
             modelBuilder.Entity<Sesn>(entity =>
             {
                 entity.HasKey(e => e.IdSesn);
@@ -279,6 +306,20 @@ namespace CMS_Cross_Music.Models
                     .HasForeignKey(d => d.UserIdUser)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("sesn_user_fk");
+            });
+
+            modelBuilder.Entity<Tag>(entity =>
+            {
+                entity.HasKey(e => e.IdTag);
+
+                entity.ToTable("tag");
+
+                entity.Property(e => e.IdTag).HasColumnName("id_tag");
+
+                entity.Property(e => e.TagName)
+                    .IsRequired()
+                    .HasColumnName("tag_name")
+                    .HasMaxLength(100);
             });
 
             modelBuilder.Entity<Ufl>(entity =>
