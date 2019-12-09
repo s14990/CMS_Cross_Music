@@ -14,7 +14,8 @@ class Show_Post extends Component {
         this.state = {
             IdPost: '',
             comments: [],
-            PostHtml: '',
+            PostDescription: '',
+            PostTitle: '',
             PostDate: '',
             mediafile: '',
             link: '',
@@ -40,8 +41,9 @@ class Show_Post extends Component {
                 console.log(data);
                 this.setState({
                     IdPost: data.IdPost,
-                    PostHtml: data.PostHtml,
+                    PostDescription: data.PostDescription,
                     PostDate: new Date(data.PostDate),
+                    PostTitle: data.PostTitle,
                     comments: data.Comment,
                     user: data.UserIdUserNavigation,
                     mediafile: data.MediaFileIdFileNavigation,
@@ -76,11 +78,7 @@ class Show_Post extends Component {
                 <h1>Post_Id: {this.state.IdPost}</h1>
                 <ReactPlayer url={this.state.link} controls />
                 <p> {this.getShortDate(this.state.PostDate)}{this.getShortDate(this.state.PostDate)}</p>
-                <SanitizedHTML
-                    allowedAttributes={{ 'a': ['href'] }}
-                    allowedTags={['a', 'p', 'h1', 'h2', 'h3', 'h4', 'h5', 'span','ul','li']}
-                    html={this.state.PostHtml}
-                />
+                <p>{this.state.PostTitle}</p>
                 <div className="row">
                     <div className="col-4  pt-3 border-right">
                         <h6>Say something</h6>

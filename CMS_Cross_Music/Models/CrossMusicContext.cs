@@ -175,9 +175,13 @@ namespace CMS_Cross_Music.Models
                     .HasColumnName("post_date")
                     .HasColumnType("datetime");
 
-                entity.Property(e => e.PostHtml)
-                    .HasColumnName("post_html")
+                entity.Property(e => e.PostDescription)
+                    .HasColumnName("post_description")
                     .HasMaxLength(1000);
+
+                entity.Property(e => e.PostTitle)
+                    .HasColumnName("post_title")
+                    .HasMaxLength(100);
 
                 entity.Property(e => e.UserIdUser).HasColumnName("User_id_user");
 
