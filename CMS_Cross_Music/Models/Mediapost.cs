@@ -12,10 +12,11 @@ namespace CMS_Cross_Music.Models
         }
 
         public int IdPost { get; set; }
-        public string PostHtml { get; set; }
+        public string PostDescription { get; set; }
         public DateTime? PostDate { get; set; }
         public int MediaFileIdFile { get; set; }
         public int UserIdUser { get; set; }
+        public string PostTitle { get; set; }
 
         public Mediafile MediaFileIdFileNavigation { get; set; }
         public Usr UserIdUserNavigation { get; set; }

@@ -33,14 +33,14 @@ class Posts extends Component {
                             {console.log(post.PostDate)}
                             <p>{/*this.post.UserIdUserNavigation*/} </p>
                             <Post 
-                                idPost = {post.IdPost}
-                                postHtml = {post.PostHtml}
-                                idUser = {post.UserIdUserNavigation.IdUser}
-                                userName = {post.UserIdUserNavigation.UserName}
-                                idFile = {post.MediaFileIdFileNavigation.IdFile}
-                                fileName = {post.MediaFileIdFileNavigation.FlName}
-                                fileLink = {post.MediaFileIdFileNavigation.FlLink}
-                                postDate = {post.PostDate}
+                                idPost={post.IdPost}
+                                idUser={post.UserIdUserNavigation.IdUser}
+                                userName={post.UserIdUserNavigation.UserName}
+                                idFile={post.MediaFileIdFileNavigation.IdFile}
+                                fileName={post.MediaFileIdFileNavigation.FlName}
+                                fileLink={post.MediaFileIdFileNavigation.FlLink}
+                                postDate={post.PostDate}
+                                postTitle={post.PostTitle}
                             />
                         </div>
                     )}

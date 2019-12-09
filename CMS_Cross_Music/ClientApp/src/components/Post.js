@@ -37,11 +37,9 @@ class Post extends Component {
             <div className='pb-0 m-2' onClick={this.handleRedirect}>
                 <ReactPlayer height='12em' width='20em' url={this.props.fileLink}/>
                 <div className='font-weight-bold text-truncate' style={{ width: '20em' }} >{this.props.fileName}
-                    <SanitizedHTML
-                        allowedAttributes={{ 'a': ['href'] }}
-                        allowedTags={['a', 'p', 'h1', 'h2', 'h3', 'h4', 'h5', 'span', 'ul', 'li']}
-                        html={this.props.postHtml}
-                    />
+                    <div>
+                        {this.props.postTitle}
+                    </div>
                 </div>
                 <ul className='list-inline'>
                     <li className="list-inline-item"><div className='text-truncate' style={{width:'14em'}}>{this.props.userName}</div></li>
