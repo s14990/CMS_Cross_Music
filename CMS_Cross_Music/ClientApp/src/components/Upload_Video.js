@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { ClipLoader } from 'react-spinners';
-import { css } from '@emotion/core';0
+import { css } from '@emotion/core';
 
 
 class Upload_Video extends Component {
