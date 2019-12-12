@@ -24,48 +24,48 @@ class NavMenu extends React.Component {
     render() {
         return (
             <header>
-                <Navbar className="navbar navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-3 navbar-dark bg-primary"  >
+                <Navbar className="navbar navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-3"  >
                     <Container>
                         <NavbarBrand tag={Link} to="/">CMS_Grupa_3</NavbarBrand>
                         <NavbarToggler onClick={this.toggle} className="mr-2" />
                         <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={this.state.isOpen} navbar>
                             <Nav className="navbar-nav flex-grow">
                                 <NavItem>
-                                    <NavLink tag={Link} className="text-dark" to="/">Home</NavLink>
+                                    <NavLink tag={Link}  to="/">Home</NavLink>
                                 </NavItem>
                                 {!this.props.auth.isAuthenticated &&
                                     <NavItem>
-                                        <NavLink tag={Link} className="text-dark" to="/login">Login</NavLink>
+                                        <NavLink tag={Link}  to="/login">Login</NavLink>
                                     </NavItem>
                                 }
                                 {this.props.auth.isAuthenticated &&
                                     <NavItem>
-                                        <NavLink tag={Link} className="text-dark" to="/mediafiles">MediaFiles</NavLink>
+                                        <NavLink tag={Link}  to="/mediafiles">MediaFiles</NavLink>
                                     </NavItem>
                                 }
                                 {this.props.auth.isAuthenticated &&
                                     <NavItem>
-                                        <NavLink tag={Link} className="text-dark" to="/upload">Upload File</NavLink>
+                                        <NavLink tag={Link}  to="/upload">Upload File</NavLink>
                                     </NavItem>
                                 }
                                 {this.props.auth.isAuthenticated &&
                                     <NavItem>
-                                        <NavLink tag={Link} className="text-dark" to="/add_post">Add Post</NavLink>
+                                        <NavLink tag={Link}  to="/add_post">Add Post</NavLink>
                                     </NavItem>
                                 }
                                 {this.props.auth.isAuthenticated &&
                                     <NavItem>
-                                        <NavLink tag={Link} className="text-dark" to="/all_posts">Posts</NavLink>
+                                        <NavLink tag={Link}  to="/all_posts">Posts</NavLink>
                                     </NavItem>
                                 }
                                 {this.props.auth.isAuthenticated &&
                                     <NavItem>
-                                        <NavLink tag={Link} className="text-dark" to="/users">Users</NavLink>
+                                        <NavLink tag={Link}  to="/users">Users</NavLink>
                                     </NavItem>
                                 }
                                 {this.props.auth.isAuthenticated &&
                                         <NavItem>
-                                            <NavLink tag={Link} className="text-dark" to="/logout">Logout</NavLink>
+                                            <NavLink tag={Link}  to="/logout">Logout</NavLink>
                                         </NavItem>
                                 }
                             </Nav>
