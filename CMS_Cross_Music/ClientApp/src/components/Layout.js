@@ -9,8 +9,6 @@ import ThemeSwitch from 'react-theme-switch';
 export default props => (
     <div>
     <NavMenu />
-        <ThemeSwitch />
-        <ThemeSwitcher />
     <Container fluid>
       <Row>
         <Col md={3} className="justify-content-md-start">
