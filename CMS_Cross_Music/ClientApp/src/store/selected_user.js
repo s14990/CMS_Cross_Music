@@ -1,6 +1,6 @@
 ﻿const UserSelectType = 'USER_SELECT';
 const UserDeselectType = 'USER_DESELECT';
-const initialState = { user: '', isSelected: false };
+const initialState = { selected_user: '', isSelected: false };
 
 export const actionCreators = {
     selectUser: req => async (dispatch, getState) => {
@@ -23,8 +23,7 @@ export const reducer = (state, action) => {
     if (action.type === UserLoginType) {
         return {
             ...state,
-            sesn: action.req,
-            user: action.req.userIdUserNavigation,
+            selected_user: action.req,
             isAuthenticated: true
         };
     }
