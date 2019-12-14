@@ -15,7 +15,6 @@ import Logout from './components/Logout';
 import Show_Users from './components/Show_Users';
 import Edit_User from './components/Edit_User';
 
-import './themes/bootstrap_flat.css';
 import MediaFiles from './components/MediaFiles';
 
 

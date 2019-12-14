@@ -9,6 +9,7 @@ namespace CMS_Cross_Music.Models
         {
             Comment = new HashSet<Comment>();
             Likes = new HashSet<Likes>();
+            Pt = new HashSet<Pt>();
         }
 
         public int IdPost { get; set; }
@@ -22,5 +23,6 @@ namespace CMS_Cross_Music.Models
         public Usr UserIdUserNavigation { get; set; }
         public ICollection<Comment> Comment { get; set; }
         public ICollection<Likes> Likes { get; set; }
+        public ICollection<Pt> Pt { get; set; }
     }
 }

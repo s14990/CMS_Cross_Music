@@ -3,20 +3,24 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { ClipLoader } from 'react-spinners';
+import { css } from '@emotion/core';
+
 
 class Upload_Video extends Component {
 
 
     constructor(props) {
         super(props);
-        this.state = { video_file: '',video_url: '',selected_file: '',file_state: ''}
+        this.state = { video_file: '',video_url: '',selected_file: '',file_state: '',loading: false}
     }
 
 
     fileChangedHandler = event => {
         event.preventDefault();
-        this.setState({ file_state: "loading" });
+        this.setState({ file_state: "loading", loading: true });
         let file = event.target.files[0];
+
         this.setState({
                 selectedFile: file,
                 file_state: "ready"
@@ -42,6 +46,9 @@ class Upload_Video extends Component {
                 <p>
                     <input type="file" onChange={this.fileChangedHandler} />
                     <button onClick={this.uploadHandler}>Upload</button>
+                    <ClipLoader
+                        loading={this.state.loading}
+                    />
                 </p>
             </div>
         );

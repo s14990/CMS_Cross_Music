@@ -1,4 +1,4 @@
-import 'bootstrap/dist/css/bootstrap.css';
+import './bootstrap.min.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
@@ -7,9 +7,12 @@ import { createBrowserHistory } from 'history';
 import configureStore from './store/configureStore';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
-import { loadState, saveState } from './store/localStorage'; 
+import { loadState, saveState } from './store/localStorage';
+import { ThemeSwitcher } from 'react-bootstrap-theme-switcher';
 
 // Create browser history to use in the Redux store
+
+
 const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href');
 const history = createBrowserHistory({ basename: baseUrl });
 
@@ -26,11 +29,13 @@ store.subscribe(() => {
 const rootElement = document.getElementById('root');
 
 ReactDOM.render(
-  <Provider store={store}>
-    <ConnectedRouter history={history}>
-      <App />
-    </ConnectedRouter>
-  </Provider>,
-  rootElement);
+    <Provider store={store}>
+        <ThemeSwitcher themePath={process.env.PUBLIC_URL + "/theme_switcher"} defaultTheme="paper">
+        <ConnectedRouter history={history}>
+                <App />
+        </ConnectedRouter>
+        </ThemeSwitcher>
+    </Provider>,
+    rootElement);
 
 registerServiceWorker();
