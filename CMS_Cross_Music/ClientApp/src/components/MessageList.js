@@ -114,8 +114,8 @@ class MessageList extends Component {
                         <div className = 'pr-1 text-dark' >{message.UserName}</div>
                         <div className = 'ml-auto text-dark' >{time}</div>
                       </div>
-                      <Alert color="secondary" isOpen={true} transition={{ baseClass: '', timeout: 0 }}>
-                      <p>{message.text}</p> 
+                      <Alert style={{display : 'inline-block'}} isOpen={true} transition={{ baseClass: '', timeout: 0 }}
+                        color = {message.autorId === this.props.auth.user.idUser? 'info':'dark'}>{message.text} 
                       </Alert>
                     </div>
                   </div>
