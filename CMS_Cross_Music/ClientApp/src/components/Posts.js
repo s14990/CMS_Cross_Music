@@ -127,10 +127,10 @@ class Posts extends Component {
                             ref={input => this.search = input}
                             onChange={this.handleInputChange}
                         />
-                        <div className='col'>
+                        <div className='col ml-5'>
                                 <div className='row p-2' style={{width: '6rem'}}>
                                     <div className='col m-0 p-1'>
-                                        <div className="checkbox checkbox-info">
+                                        <div className="checkbox">
                                             <input type="checkbox" className="styled" id="byComposition" 
                                                 checked={this.state.searchByComposition} 
                                                 onChange={this.handleCheckedByComposition }/>
@@ -140,11 +140,11 @@ class Posts extends Component {
                                         </div>
                                     </div>
                                     <div className='col-sm m-0 p-1'>
-                                        <div className="checkbox checkbox-info" style={{ 'border-radius': '0'}}>
+                                        <div className="checkbox">
                                             <input type="checkbox" className="styled" id="byAutor"
                                                 checked={this.state.searchByAutor} 
                                                 onChange={this.handleCheckedByAutor }/>
-                                            <UncontrolledTooltip placement="top" target="byAutor">
+                                            <UncontrolledTooltip placement="right" target="byAutor">
                                                 By Autor
                                             </UncontrolledTooltip>
                                         </div>
