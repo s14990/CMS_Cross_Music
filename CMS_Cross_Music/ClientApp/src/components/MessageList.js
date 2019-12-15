@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Alert} from 'reactstrap';
+import {Alert, Card, CardBody, CardText } from 'reactstrap';
 import { connect } from 'react-redux';
 import SendMessageForm from './SendMessageForm';
 const DUMMY_DATA = [
@@ -114,9 +114,15 @@ class MessageList extends Component {
                         <div className = 'pr-1 text-dark' >{message.UserName}</div>
                         <div className = 'ml-auto text-dark' >{time}</div>
                       </div>
-                      <Alert style={{display : 'inline-block'}} isOpen={true} transition={{ baseClass: '', timeout: 0 }}
-                        color = {message.autorId === this.props.auth.user.idUser? 'info':'dark'}>{message.text} 
-                      </Alert>
+                      <Card style={{display : 'inline-block'}} isOpen={true} transition={{ baseClass: '', timeout: 0 }}
+                        color = {message.autorId === this.props.auth.user.idUser? 'info':'dark'} inverse>
+                          <CardBody>
+                            <CardText>
+                              {message.text} 
+                            </CardText>
+                          </CardBody>
+                          
+                      </Card>
                     </div>
                   </div>
                 </div>
