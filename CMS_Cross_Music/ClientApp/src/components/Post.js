@@ -36,10 +36,8 @@ class Post extends Component {
         return (
             <div className='pb-0 m-2' onClick={this.handleRedirect}>
                 <ReactPlayer height='12em' width='20em' url={this.props.fileLink}/>
-                <div className='font-weight-bold text-truncate' style={{ width: '20em' }} >{this.props.fileName}
-                    <div>
-                        {this.props.postTitle}
-                    </div>
+                <div className='font-weight-bold text-truncate' style={{ width: '20em' }} >
+                    {this.props.postTitle}
                 </div>
                 <ul className='list-inline'>
                     <li className="list-inline-item"><div className='text-truncate' style={{width:'14em'}}>{this.props.userName}</div></li>
