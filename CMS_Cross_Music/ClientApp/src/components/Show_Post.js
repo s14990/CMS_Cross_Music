@@ -34,7 +34,7 @@ class Show_Post extends Component {
 
     fetch_data() {
         let post_id = this.props.match.params.id;
-        fetch('/api/Mediaposts?$expand=comment,userIdUserNavigation,mediaFileIdFileNavigation&$filter=IdPost eq ' + post_id)
+        fetch('/api/Mediaposts?$expand=comment($expand=userIdUserNavigation),userIdUserNavigation,mediaFileIdFileNavigation&$filter=IdPost eq ' + post_id)
             .then(response => response.json())
             .then(data => data[0])
             .then(data => {
