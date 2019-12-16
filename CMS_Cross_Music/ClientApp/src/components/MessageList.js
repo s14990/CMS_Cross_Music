@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Alert} from 'reactstrap';
+import {Alert, Card, CardBody, CardText } from 'reactstrap';
 import { connect } from 'react-redux';
 import SendMessageForm from './SendMessageForm';
 const DUMMY_DATA = [
@@ -106,17 +106,23 @@ class MessageList extends Component {
             //  console.log(date)
               let time = datetime.getHours() + ':'+ datetime.getMinutes()
               return (
-                <div key={message.msgId}><p className='d-flex justify-content-center text-dark'> {previousDate!= date? previousDate = date : ''}</p> 
+                <div key={message.msgId}><p className='d-flex justify-content-center'> {previousDate!= date? previousDate = date : ''}</p> 
                 
-                  <div className={`d-flex  justify-content${message.autorId === this.props.auth.user.idUser? '-end ml-5':'-start mr-5'}`}>
+                  <div className={`d-flex  justify-content${message.autorId === this.props.auth.user.idUser? '-end ml-5 mr-1':'-start mr-5 ml-1'}`}>
                     <div className='d-flex flex-column '>
                       <div className='d-flex '>
-                        <div className = 'pr-1 text-dark' >{message.UserName}</div>
-                        <div className = 'ml-auto text-dark' >{time}</div>
+                        <div className = 'pr-1' >{message.UserName}</div>
+                        <div className = 'ml-auto' >{time}</div>
                       </div>
-                      <Alert color="secondary" isOpen={true} transition={{ baseClass: '', timeout: 0 }}>
-                      <p>{message.text}</p> 
-                      </Alert>
+                      <Card style={{display : 'inline-block'}} isOpen={true} transition={{ baseClass: '', timeout: 0 }}
+                        color = {message.autorId === this.props.auth.user.idUser? 'info':'dark'} inverse>
+                          <CardBody>
+                            <CardText color={'info'}>
+                              {message.text} 
+                            </CardText>
+                          </CardBody>
+                          
+                      </Card>
                     </div>
                   </div>
                 </div>
