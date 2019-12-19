@@ -2,10 +2,12 @@
 import thunk from 'redux-thunk';
 import { routerReducer, routerMiddleware } from 'react-router-redux';
 import * as user_Auth from './user_Auth';
+import * as user_Selected from './selected_user';
 
 export default function configureStore(history, initialState) {
   const reducers = {
-      auth: user_Auth.reducer
+      auth: user_Auth.reducer,
+      sel: user_Selected.reducer
   };
 
   const middleware = [

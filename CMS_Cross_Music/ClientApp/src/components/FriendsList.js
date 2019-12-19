@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { ListGroup, ListGroupItem } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { actionCreators } from '../store/selected_user';
 
 const DUMMY_DATA = [
     {
@@ -64,6 +66,7 @@ class FriendsList extends Component {
         this.setState({
             activeItemId: id,
         });
+        this.props.selectUser(id);
         //   console.log('isPrivate, state:', this.state);
 
     }
@@ -92,4 +95,7 @@ function mapStateToProps(state) {
     return { auth: state.auth }
 }
 
-export default connect(mapStateToProps)(FriendsList);
+export default connect(
+    state => state,
+    dispatch => bindActionCreators(actionCreators, dispatch)
+)(FriendsList);

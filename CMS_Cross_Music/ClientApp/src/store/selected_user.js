@@ -20,7 +20,7 @@ export const reducer = (state, action) => {
         };
     }
 
-    if (action.type === UserLoginType) {
+    if (action.type === UserSelectType) {
         return {
             ...state,
             selected_user: action.req,
