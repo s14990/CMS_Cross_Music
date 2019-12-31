@@ -55,7 +55,7 @@ class FriendsList extends Component {
 
     render() {
         return (
-            <div className='card border-primary text-white bg-secondary'>
+            <div className='card border-primary bg-light'>
                 <div className='card-header'>FriendsList</div>
                 <ListGroup>
                     {this.state.friendlist.map((friend, index) => {
