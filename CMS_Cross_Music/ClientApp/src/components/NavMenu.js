@@ -23,12 +23,12 @@ class NavMenu extends React.Component {
 
     render() {
         return (
-            <header>
-                <Navbar className="navbar navbar-expand-lg navbar-dark bg-primary" >
+                <section className='sidebar'>
+                <Navbar className="navbar d-none d-md-block navbar-dark bg-primary" >
                     <Container>
                         <NavbarBrand tag={Link} to="/">CMS_Grupa_3</NavbarBrand>
                         <NavbarToggler onClick={this.toggle} className="mr-2" />
-                        <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={this.state.isOpen} navbar>
+                        <Collapse  isOpen={this.state.isOpen} navbar>
                             <Nav className="navbar-nav flex-grow">
                                 <NavItem>
                                     <NavLink tag={Link}  to="/">Home</NavLink>
@@ -72,7 +72,7 @@ class NavMenu extends React.Component {
                         </Collapse>
                     </Container>
                 </Navbar>
-            </header>
+            </section>
         );
     }
 }

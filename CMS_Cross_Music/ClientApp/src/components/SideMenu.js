@@ -6,8 +6,7 @@ class SideMenu extends Component {
 
   render() {
       return (
-          <div className='border rounded'>
-              <p className='text-dark'>SideMenu</p>
+          <div>
               {this.props.auth.isAuthenticated &&
                 <FriendsList/>
               }

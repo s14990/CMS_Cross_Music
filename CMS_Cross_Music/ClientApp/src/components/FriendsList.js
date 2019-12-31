@@ -5,18 +5,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { actionCreators } from '../store/selected_user';
 
-const DUMMY_DATA = [
-    {
-        id_user: 2,
-        user_name: 'Pier'
-    },
-    {
-        id_user: 3,
-        user_name: 'John'
-    }
-]
-
-
 class FriendsList extends Component {
 
     constructor(props) {
@@ -62,22 +50,17 @@ class FriendsList extends Component {
 
 
     handleClick(id) {
-        //   console.log('handleClick:', {idTopic, headLine});
-        this.setState({
-            activeItemId: id,
-        });
         this.props.selectUser(id);
-        //   console.log('isPrivate, state:', this.state);
-
     }
+
     render() {
         return (
-            <div className='border rounded'>
-                <p className='text-dark'>FriendsList</p>
+            <div className='card border-primary text-white bg-secondary'>
+                <div className='card-header'>FriendsList</div>
                 <ListGroup>
                     {this.state.friendlist.map((friend, index) => {
                         return (
-                            <ListGroupItem active={this.state.activeItemId === friend.id_user} color={this.state.activeItemId === friend.id_user ? 'light' : null}
+                            <ListGroupItem active={this.props.sel.selected_user === friend.id_user}
                                 key={friend.id_user} tag={Link} to={`/messages/${friend.id_user}`}
                                 action onClick={() => this.handleClick(friend.id_user)}
                             >
@@ -90,9 +73,6 @@ class FriendsList extends Component {
             </div>
         )
     }
-}
-function mapStateToProps(state) {
-    return { auth: state.auth }
 }
 
 export default connect(
