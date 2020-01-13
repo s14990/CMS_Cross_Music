@@ -1,30 +1,9 @@
 import React, { Component } from 'react';
-import {Alert, Card, CardBody, CardText } from 'reactstrap';
+import { Card, CardBody, CardText } from 'reactstrap';
 import { connect } from 'react-redux';
 import SendMessageForm from './SendMessageForm';
-const DUMMY_DATA = [
-  {
-      autorId: 0,
-      UserName:'Pier',
-      text: 'Hey, how is it going?',
-      date:'2019-10-08',
-      time:'19:23'
-  },
-  {
-      autorId: 1,
-      UserName:'Admin',
-      text: 'Great! How about you?',
-      date:'2019-10-08',
-      time:'19:46'
-  },
-  {
-      autorId: 0,
-      UserName:'Pier',
-      text: 'Good to hear! I am great as well',
-      date:'2019-10-09',
-      time:'07:15'
-  }
-]
+import { actionCreators } from '../store/selected_user';
+import { bindActionCreators } from 'redux';
 
 class MessageList extends Component {
 
@@ -88,6 +67,11 @@ class MessageList extends Component {
         }
     }
 
+
+    componentWillUnmount() {
+        this.props.deselectUser();
+    }
+
     refresh() {
         console.log("Forced Refresh")
         this.updateList();
@@ -139,10 +123,7 @@ class MessageList extends Component {
         )
     }
 }
-
-function mapStateToProps(state) {
-  return { auth: state.auth }
-}
-
-export default connect(mapStateToProps)(MessageList);
-//export default MessageList;
+export default connect(
+    state => state,
+    dispatch => bindActionCreators(actionCreators, dispatch)
+)(MessageList);
