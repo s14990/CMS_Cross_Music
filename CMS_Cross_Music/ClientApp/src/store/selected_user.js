@@ -15,16 +15,16 @@ export const reducer = (state, action) => {
     if (action.type === UserDeselectType) {
         return {
             ...state,
-            user: '',
+            selected_user: '',
             isSelected: false
         };
     }
 
-    if (action.type === UserLoginType) {
+    if (action.type === UserSelectType) {
         return {
             ...state,
             selected_user: action.req,
-            isAuthenticated: true
+            isSelected: true
         };
     }
 

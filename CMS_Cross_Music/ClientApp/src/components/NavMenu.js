@@ -1,5 +1,5 @@
 import React from 'react';
-import { Collapse, Container, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink, Nav } from 'reactstrap';
+import { Collapse, Container, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink, Nav,Row } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 //import './NavMenu.css';
@@ -23,56 +23,58 @@ class NavMenu extends React.Component {
 
     render() {
         return (
-            <header>
-                <Navbar className="navbar navbar-expand-lg navbar-dark bg-primary" >
+            <section className='sidebar'>
+                <Navbar className="navbar d-none d-md-block navbar-dark bg-primary" >
                     <Container>
-                        <NavbarBrand tag={Link} to="/">CMS_Grupa_3</NavbarBrand>
-                        <NavbarToggler onClick={this.toggle} className="mr-2" />
-                        <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={this.state.isOpen} navbar>
+                        <Row>
+                            <NavbarBrand tag={Link} to="/">Cross_Music</NavbarBrand>
+                            <NavbarToggler onClick={this.toggle} />
+                        </Row>
+                        <Collapse isOpen={this.state.isOpen} navbar>
                             <Nav className="navbar-nav flex-grow">
                                 <NavItem>
-                                    <NavLink tag={Link}  to="/">Home</NavLink>
+                                    <NavLink tag={Link} to="/">Home</NavLink>
                                 </NavItem>
                                 {!this.props.auth.isAuthenticated &&
                                     <NavItem>
-                                        <NavLink tag={Link}  to="/login">Login</NavLink>
+                                        <NavLink tag={Link} to="/login">Login</NavLink>
                                     </NavItem>
                                 }
                                 {this.props.auth.isAuthenticated &&
                                     <NavItem>
-                                        <NavLink tag={Link}  to="/mediafiles">MediaFiles</NavLink>
+                                        <NavLink tag={Link} to="/mediafiles">MediaFiles</NavLink>
                                     </NavItem>
                                 }
                                 {this.props.auth.isAuthenticated &&
                                     <NavItem>
-                                        <NavLink tag={Link}  to="/upload">Upload File</NavLink>
+                                        <NavLink tag={Link} to="/upload">Upload File</NavLink>
                                     </NavItem>
                                 }
                                 {this.props.auth.isAuthenticated &&
                                     <NavItem>
-                                        <NavLink tag={Link}  to="/add_post">Add Post</NavLink>
+                                        <NavLink tag={Link} to="/add_post">Add Post</NavLink>
                                     </NavItem>
                                 }
                                 {this.props.auth.isAuthenticated &&
                                     <NavItem>
-                                        <NavLink tag={Link}  to="/all_posts">Posts</NavLink>
+                                        <NavLink tag={Link} to="/all_posts">Posts</NavLink>
                                     </NavItem>
                                 }
                                 {this.props.auth.isAuthenticated &&
                                     <NavItem>
-                                        <NavLink tag={Link}  to="/users">Users</NavLink>
+                                        <NavLink tag={Link} to="/users">Users</NavLink>
                                     </NavItem>
                                 }
                                 {this.props.auth.isAuthenticated &&
-                                        <NavItem>
-                                            <NavLink tag={Link}  to="/logout">Logout</NavLink>
-                                        </NavItem>
+                                    <NavItem>
+                                        <NavLink tag={Link} to="/logout">Logout</NavLink>
+                                    </NavItem>
                                 }
                             </Nav>
                         </Collapse>
                     </Container>
                 </Navbar>
-            </header>
+            </section>
         );
     }
 }

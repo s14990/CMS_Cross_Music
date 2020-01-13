@@ -118,7 +118,7 @@ namespace CMS_Cross_Music.Controllers
             if (file_extension == "mp4")
                 mediaFile.MediaType = "video";
             else if (file_extension == "mp3")
-                mediaFile.MediaType = "video";
+                mediaFile.MediaType = "audio";
             else
                 mediaFile.MediaType = "other";
             if (model.Desctiption != null)
@@ -128,8 +128,10 @@ namespace CMS_Cross_Music.Controllers
             else
                 mediaFile.MediaDescription = "...";
             mediaFile.FlLink = uploadResult.Uri.ToString();
-            var u = await _context.Usr.SingleOrDefaultAsync(j => j.UserName == "admin");
-            mediaFile.UserIdUser = u.IdUser;
+
+            //var u = await _context.Usr.SingleOrDefaultAsync(j => j.UserName == "admin");
+            //mediaFile.UserIdUser = u.IdUser;
+            mediaFile.UserIdUser = model.Author;
             _context.Mediafile.Add(mediaFile);
             await _context.SaveChangesAsync();
             return CreatedAtAction("GetMediaFile", new { id = mediaFile.IdFile }, mediaFile);

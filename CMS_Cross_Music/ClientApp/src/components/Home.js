@@ -5,10 +5,11 @@ import { ThemeChooser } from 'react-bootstrap-theme-switcher';
 
 class Home extends Component {
     render() {
+        
         return (
             <div>
                 <p>Hello</p>
-                <ThemeChooser />
+                <ThemeChooser/>
                 {!this.props.auth.isAuthenticated && <p>Please Log In</p>}
                 {this.props.auth.isAuthenticated && <p>Welcome {this.props.auth.user.userName} User</p>}
             </div>
