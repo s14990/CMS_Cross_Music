@@ -1,7 +1,7 @@
 import React from "react";
 
 export default function Comment(props) {
-  const { name, CommentHtml, CommentDate } = props.comment;
+  const { UserIdUserNavigation, CommentHtml, CommentDate } = props.comment;
 
   let datetime = new Date(CommentDate)
   //  console.log(datetime.toJSON())
@@ -13,7 +13,8 @@ export default function Comment(props) {
       
       <div className="media-body p-2 shadow-sm rounded bg-light border">
         <small className="float-right text-muted">{time} {date}</small>
-        <h6 className="mt-0 mb-1 text-muted">{name}</h6>
+
+        <h6 className="mt-0 mb-1 text-muted">{UserIdUserNavigation.UserName}</h6>
         {CommentHtml}
       </div>
     </div>

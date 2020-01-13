@@ -14,8 +14,10 @@ class Comments extends Component {
                 CommentHtml: "",
                 CommentDate: JSON.stringify(new Date()),
                 UserIdUser: 1,
-                MediapostIdPost: 1
-            }
+                MediapostIdPost: 1,
+                UserName : ""
+            },
+            //UserName : ""
         };
 
         // bind context to methods
@@ -56,6 +58,7 @@ class Comments extends Component {
         let { comment } = this.state;
         let user_id = this.props.auth.isAuthenticated ? this.props.auth.user.idUser : 1;
         let post_id = this.props.postId;
+        let user_name = this.props.auth.user.userName;
         let comment_text = this.state.comment.CommentHtml;
         let cur_date = new Date();
 
@@ -68,7 +71,8 @@ class Comments extends Component {
                 commentHtml: comment_text,
                 commentDate: cur_date.toJSON(),
                 userIdUser: user_id,
-                mediapostIdPost: post_id
+                mediapostIdPost: post_id,
+                UserName: user_name
             })
         });
 
