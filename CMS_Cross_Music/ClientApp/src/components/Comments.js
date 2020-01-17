@@ -111,7 +111,7 @@ class Comments extends Component {
 
                     {this.renderError()}
 
-                    <div className="form-group">
+                    <div className="form-group d-flex justify-content-end">
                         <button disabled={this.state.loading} className="btn btn-primary">
                             Comment
                         </button>
