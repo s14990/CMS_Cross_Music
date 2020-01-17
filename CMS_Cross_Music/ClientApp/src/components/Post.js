@@ -1,7 +1,6 @@
 ﻿import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import ReactPlayer from 'react-player';
-import SanitizedHTML from 'react-sanitized-html';
 import { withRouter } from 'react-router-dom';
 import { compose } from 'redux';
 

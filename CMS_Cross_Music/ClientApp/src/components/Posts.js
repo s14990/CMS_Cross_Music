@@ -1,9 +1,6 @@
 ﻿import React, { Component } from 'react';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { Button, Form, FormGroup, Label, Input, FormText, UncontrolledTooltip  } from 'reactstrap';
-import axios from 'axios';
+import { Button, Form, FormGroup, Label, Input, FormText, UncontrolledTooltip  } from 'reactstrap'
 import Post from './Post';
 
 class Posts extends Component {

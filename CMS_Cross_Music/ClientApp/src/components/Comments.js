@@ -53,7 +53,6 @@ class Comments extends Component {
 
         // loading status and clear error
         this.setState({ error: "", loading: false });
-        let { comment } = this.state;
         let user_id = this.props.auth.isAuthenticated ? this.props.auth.user.idUser : 1;
         let post_id = this.props.postId;
         let comment_text = this.state.comment.CommentHtml;

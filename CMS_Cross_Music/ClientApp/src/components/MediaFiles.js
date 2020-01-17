@@ -1,9 +1,6 @@
 ﻿import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import "video-react/dist/video-react.css";
-import Show_Video from './Show_Video';
-import { Table } from 'reactstrap';
-import ReactPlayer from 'react-player';
 import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-balham.css';

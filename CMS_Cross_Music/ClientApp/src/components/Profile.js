@@ -1,10 +1,8 @@
 ﻿import React, { Component } from 'react';
 import {
-    Button, Form, FormGroup, Label, Input, FormText, Table, Container, Row, Col, Badge, Card, CardImg, CardText, CardBody,
-    CardTitle, CardSubtitle
+    Button, Container, Row, Col, Badge, Card, CardText, CardBody,CardTitle
 } from 'reactstrap';
 import { connect } from 'react-redux';
-import axios from 'axios';
 
 class Profile extends Component {
     displayName = Profile.name
