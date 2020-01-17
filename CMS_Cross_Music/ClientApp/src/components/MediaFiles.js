@@ -36,7 +36,21 @@ class MediaFiles extends Component {
     }
 
     async componentDidMount() {
-        await fetch('api/Mediafiles?$expand=userIdUserNavigation')
+        const user_id = this.props.match.params.id;
+        let req = 'api/Mediafiles?$expand=userIdUserNavigation';
+        if (user_id) {
+            let filter = '&$filter= UserIdUser eq ' + user_id;
+            req += filter;
+            let req_url = 'api/usrs?$filter=IdUser eq ' + user_id;
+            fetch(req_url)
+                .then(response => response.json())
+                .then(data => {
+                    this.setState({
+                        user: data[0], loading: false
+                    });
+                });
+        }
+        await fetch(req)
             .then(response => response.json())
             .then(data => {
                 console.log(data);
@@ -112,12 +126,14 @@ class MediaFiles extends Component {
         let selectedRows = this.gridApi.getSelectedRows();
         let selectedRow = selectedRows.pop();
         this.setState({ open: true, chosen_id: selectedRow.IdFile, chosen_link: selectedRow.FlLink });
-        //this.props.history.push('/edit_user/' + selectedRow.id);
     }
 
     render() {
         return (
             <div>
+                {this.state.user &&
+                    <h3>Biblioteka uzytkownika {this.state.user.userName} </h3>
+                }
                 <div style={{ height: '500px' }} className="ag-theme-balham">
                     <AgGridReact
                         columnDefs={this.state.columnDefs}

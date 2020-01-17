@@ -26,6 +26,7 @@ class Posts extends Component {
     //    this.handleInputChange = this.handleInputChange.bind(this);
     }
 
+
     loadDate()
     {
         fetch('api/Mediaposts?$expand=userIdUserNavigation,mediaFileIdFileNavigation')
@@ -40,6 +41,12 @@ class Posts extends Component {
 
     componentDidMount() {
         this.loadDate();
+        //Remowe that reference
+        //To enable one click search from use profile i have to pass his username with history
+        //you have to set value of this and call getByAutor
+        if (this.props.location.search_by_username) {
+            this.setState({ query: this.props.location.search_by_username });
+        }
     }
 
     handleCheckedByComposition () {
@@ -85,7 +92,9 @@ class Posts extends Component {
             });
         });
     }
-    
+
+    //handleInputChange (e)
+    //query: e.target.value
     handleInputChange = () => {
         this.setState({
           query: this.search.value
@@ -115,6 +124,8 @@ class Posts extends Component {
     }
 
 
+    //input .. value={this.state.query}
+    //input
     render() {
         console.log( this.state.posts)
         return (

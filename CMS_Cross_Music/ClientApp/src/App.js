@@ -16,6 +16,7 @@ import Show_Users from './components/Show_Users';
 import Edit_User from './components/Edit_User';
 
 import MediaFiles from './components/MediaFiles';
+import Profile from './components/Profile';
 
 
 
@@ -34,6 +35,10 @@ export default () => (
         <Route path='/messages/:id' component={MessageList} />
         <Route path='/users' component={Show_Users} />
         <Route path='/edit_user/:id' component={Edit_User} />
-        <Route path='/mediafiles' component={MediaFiles} />
+        <Route exact path='/mediafiles/:id' component={MediaFiles} />
+        <Route exact path='/mediafiles' component={MediaFiles} />
+        <Route exact path='/profile/:id' component={Profile} />
+        <Route exact path='/profile' component={Profile} />    
     </Layout>
 );
+
