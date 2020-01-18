@@ -25,7 +25,6 @@ class MessageList extends Component {
             let user_id = this.props.auth.user.idUser;
             let list = [];
             let friend_id = this.props.match.params.id;
-
             this.setState({ loged_user_id: user_id, target_user_id: parseInt(friend_id)  });
             await fetch('api/Msgs?$expand=userIdAuthorNavigation,userIdTargerNavigation&$filter=(userIdAuthor eq ' + user_id + ' and userIdTarger eq ' + friend_id +
                 ' )  or (userIdAuthor eq ' + friend_id + ' and userIdTarger eq ' + user_id + ' )')
@@ -41,7 +40,6 @@ class MessageList extends Component {
                     msgId: uf.IdMsg,
                     autorId: uf.UserIdAuthor,
                     UserName: uf.UserIdAuthorNavigation.UserName,
-                    //UserName of target is UserIdTargerNavigation.UserName
                     text: uf.Text,
                     date: uf.MsgDate
                 }

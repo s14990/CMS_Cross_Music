@@ -1,4 +1,3 @@
-//<source src={require('./uploadFiles/s.mp4')} />
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { ThemeChooser } from 'react-bootstrap-theme-switcher';
