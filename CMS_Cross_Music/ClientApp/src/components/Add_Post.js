@@ -20,6 +20,11 @@ class Add_Post extends Component {
         this.setState({ text: value });
     }
 
+    handleFieldChange(e) {
+        let title = e.target.value;
+        this.setState({ title });
+    }
+
     uploadHandler = () => {
         fetch("api/MediaPosts", {
             method: 'POST',
@@ -64,7 +69,7 @@ class Add_Post extends Component {
                     <h3>Title</h3>
                     <textarea
                         value={this.state.title}
-                        onChange={this.handleFieldChange}
+                        onChange={this.handleFieldChange.bind(this)}
                         className="form-control"
                         placeholder="Title"
                         rows="1"
