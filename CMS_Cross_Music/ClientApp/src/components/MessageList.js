@@ -81,7 +81,6 @@ class MessageList extends Component {
         let previousDate = '1900-01-01';
         return (
           <div className='border rounded'>
-            <p>MessageList</p>
             {this.state.msg.map((message, index) => {
             //  console.log(message.date)
               let datetime = new Date(message.date)
@@ -92,7 +91,7 @@ class MessageList extends Component {
               return (
                 <div key={message.msgId}><p className='d-flex justify-content-center'> {previousDate!= date? previousDate = date : ''}</p> 
                 
-                  <div className={`d-flex  justify-content${message.autorId === this.props.auth.user.idUser? '-end ml-5 mr-1':'-start mr-5 ml-1'}`}>
+                  <div className={`d-flex  justify-content${message.autorId === this.props.auth.user.idUser? '-end ml-5 mr-2':'-start mr-5 ml-2'}`}>
                     <div className='d-flex flex-column '>
                       <div className='d-flex '>
                         <div className = 'pr-1' >{message.UserName}</div>

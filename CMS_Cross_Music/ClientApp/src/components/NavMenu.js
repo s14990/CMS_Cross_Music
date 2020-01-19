@@ -19,12 +19,10 @@ class NavMenu extends React.Component {
         });
     }
 
-
-
     render() {
         return (
             <section className='sidebar'>
-                <Navbar className="navbar d-none d-md-block navbar-dark bg-primary" >
+                <Navbar className="navbar d-none d-md-block navbar-light bg-light" >
                     <Container>
                         <Row>
                             <NavbarBrand tag={Link} to="/">Cross_Music</NavbarBrand>

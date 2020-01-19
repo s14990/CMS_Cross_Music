@@ -125,13 +125,13 @@ class Posts extends Component {
                     <div className='row'>
                         <input className="form-control col-sm-8 p-4" name="srch-term" id="srch-term" type="text"
                         
-                            style={{ 'border-radius': '10px 0px 0px 10px' }}
+                            style={{ borderRadius: '10px 0px 0px 10px' }}
                             placeholder="Search for..."
                             ref={input => this.search = input}
                             onChange={this.handleInputChange}
                         />
                         <span className="input-group-text m-0 p-0 pr-2" id="basic-addon"
-                            style={{ 'border-radius': '0px 10px 10px 0px'}}
+                            style={{ borderRadius: '0px 10px 10px 0px'}}
                         >                
                             <div className='row pl-3' style={{width: '5rem'}}>
                                 <div className='m-0 mt-1 pr-1'>
