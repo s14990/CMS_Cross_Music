@@ -2,6 +2,7 @@
 import { connect } from 'react-redux';
 import { Button, Form, FormGroup, Label, Input, FormText, UncontrolledTooltip  } from 'reactstrap'
 import Post from './Post';
+import './PostsSearch.css';
 
 class Posts extends Component {
 
@@ -130,35 +131,40 @@ class Posts extends Component {
                 <h2>All Posts</h2>
                 <form onSubmit={this.submitHandler} className="container">
                     <div className='row'>
-                        <input className="form-control col-sm-8" name="srch-term" id="srch-term" type="text"
+                        <input className="form-control col-sm-8 p-4" name="srch-term" id="srch-term" type="text"
+                        
+                            style={{ borderRadius: '10px 0px 0px 10px' }}
                             placeholder="Search for..."
                             ref={input => this.search = input}
                             onChange={this.handleInputChange}
                         />
-                        <div className='col ml-5'>
-                                <div className='row p-2' style={{width: '6rem'}}>
-                                    <div className='col m-0 p-1'>
-                                        <div className="checkbox">
-                                            <input type="checkbox" className="styled" id="byComposition" 
-                                                checked={this.state.searchByComposition} 
-                                                onChange={this.handleCheckedByComposition }/>
-                                            <UncontrolledTooltip placement="top" target="byComposition">
-                                                By Composition
-                                            </UncontrolledTooltip>
-                                        </div>
-                                    </div>
-                                    <div className='col-sm m-0 p-1'>
-                                        <div className="checkbox">
-                                            <input type="checkbox" className="styled" id="byAutor"
-                                                checked={this.state.searchByAutor} 
-                                                onChange={this.handleCheckedByAutor }/>
-                                            <UncontrolledTooltip placement="right" target="byAutor">
-                                                By Autor
-                                            </UncontrolledTooltip>
-                                        </div>
+                        <span className="input-group-text m-0 p-0 pr-2" id="basic-addon"
+                            style={{ borderRadius: '0px 10px 10px 0px'}}
+                        >                
+                            <div className='row pl-3' style={{width: '5rem'}}>
+                                <div className='m-0 mt-1 pr-1'>
+                                    <div className="checkbox">
+                                        <input type="checkbox" id="byComposition" 
+                                            checked={this.state.searchByComposition} 
+                                            onChange={this.handleCheckedByComposition } /><label htmlFor="byComposition" id="byCompositionLabel"></label>
+                                        <UncontrolledTooltip placement="top" target="byCompositionLabel">
+                                            By Composition
+                                        </UncontrolledTooltip>
                                     </div>
                                 </div>
-                        </div>
+                                <div className='m-0 mt-1 p-0'>
+                                    <div className="checkbox">
+                                        <input type="checkbox" id="byAutor"
+                                            checked={this.state.searchByAutor} 
+                                            onChange={this.handleCheckedByAutor }/><label htmlFor="byAutor" id="byAutorLabel"></label>
+                                        <UncontrolledTooltip placement="right" target="byAutorLabel">
+                                            By Autor
+                                        </UncontrolledTooltip>
+                                    </div>
+                                </div>
+                            </div>
+                        </span>  
+                        
                     </div>
                 </form>
                 <div className='d-flex flex-wrap'>

@@ -49,21 +49,20 @@ class SendMessageForm extends Component {
 
     render() {
         return (
-            <div className='border rounded pb-4 mb-4'>
-                <p>SendMessageForm</p>
+            <div className='border rounded pb-5 pt-4 mt-4'>
                 <Form inline>
                     <FormGroup className="flex-fill mr-2" >
                         <Container>
                             <Row>
                                 <Col >
                                     <Input
-                                        type="textarea" className="text" id="newMessageText" placeholder="New Message" style={{ width: '100%' }}
+                                        type="textarea" className="text rounded" id="newMessageText" placeholder="New Message" style={{ width: '100%' }}
                                         value={this.state.newMessagetext}
                                         onChange={e => this.setState({ newMessagetext: e.target.value })}
                                     />
                                 </Col>
                                 <Col xs='2'>
-                                    <Button onClick={this.sendClick} >Send</Button>
+                                    <Button onClick={this.sendClick} className="rounded">Send</Button>
                                 </Col>
                             </Row>
                         </Container>
