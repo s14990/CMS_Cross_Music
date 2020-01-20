@@ -21,8 +21,27 @@ class Add_Post extends Component {
     }
 
     handleFieldChange(e) {
+        let name = e.target.name;
         let title = e.target.value;
-        this.setState({ title });
+
+        switch (name) {
+            case 'title':
+                this.setState({ title })
+                break;
+            case 'description':
+                this.setState({ Description: title })
+            }
+        //let description = e.target.value;
+        //this.setState({ title });
+    }
+    handleChange(value) {
+        this.setState({ Description: value });
+    }
+
+    handleDescriptionChange(e) {
+        let description = e.target.value;
+        //let description = e.target.value;
+        this.setState({ description });
     }
 
     uploadHandler = () => {
@@ -62,12 +81,16 @@ class Add_Post extends Component {
         return (
             <div>
                 <h1>Add Post</h1>
-                {this.state.file &&
+                <div className="col-4  pt-3 border-right" >
+                    {this.state.file &&
                     <p>Chosen file: {this.state.file.flName}</p>
-                }
+                    }
+                </div>
+                
                 <div className="form-group">
                     <h3>Title</h3>
                     <textarea
+                        name="title"
                         value={this.state.title}
                         onChange={this.handleFieldChange.bind(this)}
                         className="form-control"
@@ -78,8 +101,8 @@ class Add_Post extends Component {
 
                 <div>
                     <h3>Description</h3>
-                    <ReactQuill value={this.state.Description}
-                    onChange={this.handleChange} />
+                    <ReactQuill name="description" value={this.state.Description}
+                    onChange={this.handleChange} rows="5"/>
                 </div>
 
                 <div>
