@@ -80,7 +80,7 @@ class MessageList extends Component {
     render() {
         let previousDate = '1900-01-01';
         return (
-          <div className='border rounded'>
+          <div className='m-0 p-0'>
             {this.state.msg.map((message, index) => {
             //  console.log(message.date)
               let datetime = new Date(message.date)

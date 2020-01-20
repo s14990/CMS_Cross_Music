@@ -9,12 +9,15 @@ import ThemeSwitch from 'react-theme-switch';
 
 export default props => (
     <div>
-        <NavHeader/>
-        <Container fluid>
+        
+        <NavHeader/>        
+        <Container fluid className="container-fluid">
             <Row>
-                <Col md={2}>
-                    <NavMenu />
-                    <SideMenu />
+                <Col md={2} className="sidebar bg-light">
+
+                        <NavMenu className=""/>
+                        <SideMenu className=""/>
+
                 </Col>
                 <Col >
                     {props.children}

@@ -27,10 +27,11 @@ store.subscribe(() => {
 });
 
 const rootElement = document.getElementById('root');
-const themes = ['cerulean', 'cosmo', 'cyborg', 'darkly', 'flatly', 'litera', 'lumen', 'lux', 'materia', 'sandstone', 'simplex', 'slate', 'spacelab', 'superhero', 'united', 'yeti']; 
+//const themes = ['cerulean', 'cosmo', 'cyborg', 'darkly', 'flatly', 'litera', 'lumen', 'lux', 'materia', 'sandstone', 'simplex', 'slate', 'spacelab', 'superhero', 'united', 'yeti']; 
+const themes = ['cerulean','cyborg', 'united'];
 ReactDOM.render(
     <Provider store={store}>
-        <ThemeSwitcher themePath={process.env.PUBLIC_URL + "/theme_switcher"} defaultTheme="cosmo" themes={themes}>
+        <ThemeSwitcher themePath={process.env.PUBLIC_URL + "/theme_switcher"} defaultTheme="cerulean" themes={themes}>
         <ConnectedRouter history={history}>
                 <App />
         </ConnectedRouter>
