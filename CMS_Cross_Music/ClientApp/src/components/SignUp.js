@@ -1,10 +1,9 @@
 ﻿import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import validator from 'validator';
 import { actionCreators } from '../store/user_Auth';
-import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 
 class SignUp extends Component {
 

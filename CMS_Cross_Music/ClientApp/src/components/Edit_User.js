@@ -1,7 +1,6 @@
 ﻿import React, { Component } from 'react';
-import { Button, Form, FormGroup, Label, Input, FormText, Table } from 'reactstrap';
+import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import { connect } from 'react-redux';
-import axios from 'axios';
 
 class Edit_User extends Component {
     displayName = Edit_User.name

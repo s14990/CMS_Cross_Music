@@ -1,10 +1,8 @@
 ﻿import React, { Component } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import validator from 'validator';
 import { actionCreators } from '../store/user_Auth';
-import { Container, Form, Input, Label, FormGroup, Row, Button } from 'reactstrap';
 
 class Logout extends Component {
 

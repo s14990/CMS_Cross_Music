@@ -116,14 +116,6 @@ class FriendsList extends Component {
         });
         console.log(req2);
         this.prep();
-        /*
-        fetch("/api/Zamowienies", {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: req
-            */
     }
 
     render() {

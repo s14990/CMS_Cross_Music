@@ -1,6 +1,5 @@
 ﻿import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import SanitizedHTML from 'react-sanitized-html';
 import ReactPlayer from 'react-player';
 import CommentList from "./CommentList";
 import Comments from './Comments';
