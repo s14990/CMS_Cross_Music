@@ -4,6 +4,7 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { Button } from 'reactstrap';
 import FCPopUp from './FCPopUp';
+import ReactPlayer from 'react-player';
 
 class Add_Post extends Component {
 
@@ -81,36 +82,44 @@ class Add_Post extends Component {
         return (
             <div>
                 <h1>Add Post</h1>
-                <div className="col-4  pt-3 border-right" >
-                    {this.state.file &&
-                    <p>Chosen file: {this.state.file.flName}</p>
-                    }
-                </div>
-                
-                <div className="form-group">
-                    <h3>Title</h3>
-                    <textarea
-                        name="title"
-                        value={this.state.title}
-                        onChange={this.handleFieldChange.bind(this)}
-                        className="form-control"
-                        placeholder="Title"
-                        rows="1"
-                    />
-                </div>
+                <div className="row">
+                    <div className="col-8 pt-3 bg-white">
+                        <div className="form-group">
+                            <h3>Title</h3>
+                            <textarea
+                                name="title"
+                                value={this.state.title}
+                                onChange={this.handleFieldChange.bind(this)}
+                                className="form-control"
+                                placeholder="Title"
+                                rows="1"
+                            />
+                        </div>
 
-                <div>
-                    <h3>Description</h3>
-                    <ReactQuill name="description" value={this.state.Description}
-                    onChange={this.handleChange} rows="5"/>
-                </div>
+                        <div>
+                            <h3>Description</h3>
+                            <ReactQuill name="description" value={this.state.Description}
+                            onChange={this.handleChange} rows="5"/>
+                        </div>
+                    </div>
+                    <div className="col-4  pt-3 border-left mb-1" >
+                        {this.state.file &&
+                        <p>Chosen file: {this.state.file.flName}</p> 
+                        }
+                        {this.state.file &&
+                        <ReactPlayer height='15em' width='25em' url={this.state.file.flLink} />
+                        }
+                        {!this.state.file &&
+                        <img className="rounded mb-0" alt="100x100" src="https://placehold.it/350x250" />
+                        }
 
-                <div>
-                    <Button onClick={this.uploadHandler}>Upload</Button>
-                    <Button onClick={this.showModal.bind(this)} > Choose Video</Button>
-                    <FCPopUp isopen={this.state.open} hide={this.closeModal.bind(this)} accept={this.choose_file} />
+                        <div>
+                            <Button onClick={this.uploadHandler}>Upload</Button>
+                            <Button onClick={this.showModal.bind(this)} > Choose Video</Button>
+                            <FCPopUp isopen={this.state.open} hide={this.closeModal.bind(this)} accept={this.choose_file} />
+                        </div>
+                    </div>
                 </div>
-
             </div>
         );
     }
