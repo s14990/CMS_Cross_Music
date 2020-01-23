@@ -10,7 +10,6 @@ using Microsoft.AspNet.OData;
 
 namespace CMS_Cross_Music.Controllers
 {
-    [EnableQuery]
 
     [Route("api/[controller]")]
     [ApiController]
@@ -22,7 +21,7 @@ namespace CMS_Cross_Music.Controllers
         {
             _context = context;
         }
-
+        [EnableQuery]
         // GET: api/Likes
         [HttpGet]
         public IEnumerable<Likes> GetLikes()

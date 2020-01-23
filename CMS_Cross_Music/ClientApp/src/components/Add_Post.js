@@ -76,7 +76,7 @@ class Add_Post extends Component {
                     />
                 </div>
 
-                <div>
+                <div className="h-50 d-inline-block">
                     <h3>Description</h3>
                     <ReactQuill value={this.state.Description}
                     onChange={this.handleChange} />

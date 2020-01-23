@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import ReactPlayer from 'react-player';
 import CommentList from "./CommentList";
 import Comments from './Comments';
-
+import like_simple from '../images/like_simple.png';
+import like_filled from '../images/like_filled.png';
 
 class Show_Post extends Component {
 
@@ -19,21 +20,24 @@ class Show_Post extends Component {
             mediafile: '',
             link: '',
             //comments: [],
-            loading: false
+            loading: false,
+            liked: false,
+            like_count: 0
         }
         this.getShortDate = this.getShortDate.bind(this);
         this.addComment = this.addComment.bind(this);
         this.refresh = this.refresh.bind(this); 
         this.fetch_data = this.fetch_data.bind(this);
+        this.add_like = this.add_like.bind(this);
     }
 
     componentDidMount() {
         this.fetch_data();
     }
 
-    fetch_data() {
+    async fetch_data() {
         let post_id = this.props.match.params.id;
-        fetch('/api/Mediaposts?$expand=comment($expand=userIdUserNavigation),userIdUserNavigation,mediaFileIdFileNavigation&$filter=IdPost eq ' + post_id)
+        await fetch('/api/Mediaposts?$expand=comment($expand=userIdUserNavigation),userIdUserNavigation,mediaFileIdFileNavigation&$filter=IdPost eq ' + post_id)
             .then(response => response.json())
             .then(data => data[0])
             .then(data => {
@@ -48,6 +52,25 @@ class Show_Post extends Component {
                     mediafile: data.MediaFileIdFileNavigation,
                     link: data.MediaFileIdFileNavigation.FlLink
                 });
+            });
+        let liked = false;
+        await fetch('/api/Likes?$filter=userIdUser eq ' + this.props.auth.user.idUser+' and mediapostIdPost eq '+post_id)
+            .then(response => response.json())
+            .then(data => {
+                liked = data.length > 0 ? true : false;
+                console.log(data);
+                this.setState({ liked });
+            });
+        await fetch('/api/Likes?$apply=groupby((mediapostIdPost), aggregate(idLike with countdistinct as Total))&$filter=MediapostIdPost eq ' + post_id)
+            .then(response => response.json())
+            .then(data => {
+                if (data.length > 0) {
+                    this.setState({ like_count: data[0].Total });
+                }
+                else {
+                    this.setState({ like_count: 0 });
+                }
+
             });
     }
 
@@ -70,6 +93,19 @@ class Show_Post extends Component {
         //this.props.history.push("/show_post/"+this.state.IdPost);
     }
 
+    add_like() {
+        this.setState({ liked: true, like_count: this.state.like_count + 1 });
+        fetch("api/Likes", {
+           method: 'POST',
+           headers: {
+             'Content-Type': 'application/json',
+           },
+             body: JSON.stringify({
+                 userIdUser: this.props.auth.user.idUser,
+                 mediapostIdPost: this.state.IdPost
+              })
+        }).then(setTimeout(this.refresh, 300));
+    }
 
     render() {
         return (
@@ -78,6 +114,14 @@ class Show_Post extends Component {
                 <ReactPlayer url={this.state.link} controls />
                 <p> {this.getShortDate(this.state.PostDate)}{this.getShortDate(this.state.PostDate)}</p>
                 <p>{this.state.PostTitle}</p>
+                <p>{this.state.liked && 
+                    <img width='50' height='50' className="rounded float-center" src={like_filled} />
+                }
+                    {!this.state.liked &&
+                        <img width='50' height='50' className="rounded float-center" src={like_simple} onClick={this.add_like} />
+                    }
+                    {this.state.like_count}
+                </p>
                 <div className="">
                     <div className="pt-3">
                         <h6>Say something</h6>
@@ -97,4 +141,4 @@ class Show_Post extends Component {
 
 
 
-export default connect()(Show_Post);
+export default connect(state=>state)(Show_Post);

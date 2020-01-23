@@ -23,7 +23,7 @@ class NavMenu extends React.Component {
         return (
             <section className='sidebar m-0 p-0'>
                 <Navbar className="navbar navbar-light bg-light" >
-                    <Container>
+                    <Container >
                         <Row>
                             <NavbarBrand tag={Link} to="/">Cross_Music</NavbarBrand>
                             <NavbarToggler onClick={this.toggle} />
