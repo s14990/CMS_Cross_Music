@@ -52,19 +52,28 @@ class FCPopUp extends React.Component {
             <div>
                 <Modal size="lg" isOpen={this.state.open} toggle={this.toggle}>
                     <ModalHeader toggle={this.toggle}> </ModalHeader>
-                    {this.state.file && 
+                    {this.state.file &&
                         <div>
-                        Selected File
-                        <ReactPlayer height='18em' width='30em' url={this.state.file.flLink} />
-                        <Button onClick={this.accept.bind(this)} >Choose this file</Button>
+                        <h4 >Selected File: {this.state.file.flName}</h4>
+                            <div className="media-body p-2 shadow-sm rounded bg-light border">
+                                
+                                <div className="d-flex justify-content-center">
+                                    <ReactPlayer height='18em' width='30em' url={this.state.file.flLink} />
+                                </div>
+                                <Button onClick={this.accept.bind(this)} >Choose this file</Button>
+                            </div>
+
+
                         </div>
                     }
                     <ModalBody>
                         <div className='d-flex flex-wrap' >
                             {this.state.files.map(file =>
-                                <div key={file.idFile} className='p-2 border border-primary flex-even' onClick={(e) => { this.choose_video(e, file) }} >
-                                    
-                                    <ReactPlayer height='6em' width='10em' url={file.flLink} />
+                                <div key={file.idFile} className='p-2 border border-primary flex-even col-4' onClick={(e) => { this.choose_video(e, file) }} >
+                                    <div className="d-flex justify-content-center">
+                                        <ReactPlayer height='6em' width='10em' url={file.flLink} />
+                                    </div>
+
                                     {file.flName}
                                 </div>
                             )};

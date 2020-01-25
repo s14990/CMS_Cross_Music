@@ -24,7 +24,7 @@ class NavHeader extends React.Component {
     render() {
         return (
             <nav className="navbar sticky-top navbar-expand-sm navbar-dark bg-primary">
-                <NavbarBrand tag={Link} to="/all_posts">Cross Music</NavbarBrand>
+                <NavbarBrand tag={Link} to="/">Cross Music</NavbarBrand>
                 <button onClick={this.toggle} className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                   <span className="navbar-toggler-icon"></span>
                 </button>

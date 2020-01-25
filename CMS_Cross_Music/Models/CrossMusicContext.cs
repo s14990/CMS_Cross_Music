@@ -62,7 +62,6 @@ namespace CMS_Cross_Music.Models
                 entity.HasOne(d => d.MediapostIdPostNavigation)
                     .WithMany(p => p.Comment)
                     .HasForeignKey(d => d.MediapostIdPost)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("comment_mediapost_fk");
 
                 entity.HasOne(d => d.UserIdUserNavigation)
@@ -108,7 +107,6 @@ namespace CMS_Cross_Music.Models
                 entity.HasOne(d => d.MediapostIdPostNavigation)
                     .WithMany(p => p.Likes)
                     .HasForeignKey(d => d.MediapostIdPost)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("likes_mediapost_fk");
 
                 entity.HasOne(d => d.UserIdUserNavigation)
@@ -155,12 +153,6 @@ namespace CMS_Cross_Music.Models
                     .HasMaxLength(50);
 
                 entity.Property(e => e.UserIdUser).HasColumnName("User_id_user");
-
-                entity.HasOne(d => d.UserIdUserNavigation)
-                    .WithMany(p => p.Mediafile)
-                    .HasForeignKey(d => d.UserIdUser)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("mediafile_user_fk");
             });
 
             modelBuilder.Entity<Mediapost>(entity =>
@@ -190,13 +182,11 @@ namespace CMS_Cross_Music.Models
                 entity.HasOne(d => d.MediaFileIdFileNavigation)
                     .WithMany(p => p.Mediapost)
                     .HasForeignKey(d => d.MediaFileIdFile)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("mediapost_mediafile_fk");
 
                 entity.HasOne(d => d.UserIdUserNavigation)
                     .WithMany(p => p.Mediapost)
                     .HasForeignKey(d => d.UserIdUser)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("mediapost_user_fk");
             });
 
@@ -273,7 +263,6 @@ namespace CMS_Cross_Music.Models
                 entity.HasOne(d => d.Post)
                     .WithMany(p => p.Pt)
                     .HasForeignKey(d => d.PostId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_pt_post");
 
                 entity.HasOne(d => d.Tag)

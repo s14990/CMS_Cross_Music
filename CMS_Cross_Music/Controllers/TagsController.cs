@@ -10,59 +10,59 @@ using Microsoft.AspNet.OData;
 
 namespace CMS_Cross_Music.Controllers
 {
-
+    [EnableQuery]
     [Route("api/[controller]")]
     [ApiController]
-    public class LikesController : ControllerBase
+    public class TagsController : ControllerBase
     {
         private readonly CrossMusicContext _context;
 
-        public LikesController(CrossMusicContext context)
+        public TagsController(CrossMusicContext context)
         {
             _context = context;
         }
-        [EnableQuery]
-        // GET: api/Likes
+
+        // GET: api/Tags
         [HttpGet]
-        public IEnumerable<Likes> GetLikes()
+        public IEnumerable<Tag> GetTag()
         {
-            return _context.Likes;
+            return _context.Tag;
         }
 
-        // GET: api/Likes/5
+        // GET: api/Tags/5
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetLikes([FromRoute] int id)
+        public async Task<IActionResult> GetTag([FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var likes = await _context.Likes.FindAsync(id);
+            var tag = await _context.Tag.FindAsync(id);
 
-            if (likes == null)
+            if (tag == null)
             {
                 return NotFound();
             }
 
-            return Ok(likes);
+            return Ok(tag);
         }
 
-        // PUT: api/Likes/5
+        // PUT: api/Tags/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutLikes([FromRoute] int id, [FromBody] Likes likes)
+        public async Task<IActionResult> PutTag([FromRoute] int id, [FromBody] Tag tag)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != likes.IdLike)
+            if (id != tag.IdTag)
             {
                 return BadRequest();
             }
 
-            _context.Entry(likes).State = EntityState.Modified;
+            _context.Entry(tag).State = EntityState.Modified;
 
             try
             {
@@ -70,7 +70,7 @@ namespace CMS_Cross_Music.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!LikesExists(id))
+                if (!TagExists(id))
                 {
                     return NotFound();
                 }
@@ -83,45 +83,45 @@ namespace CMS_Cross_Music.Controllers
             return NoContent();
         }
 
-        // POST: api/Likes
+        // POST: api/Tags
         [HttpPost]
-        public async Task<IActionResult> PostLikes([FromBody] Likes likes)
+        public async Task<IActionResult> PostTag([FromBody] Tag tag)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            _context.Likes.Add(likes);
+            _context.Tag.Add(tag);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetLikes", new { id = likes.IdLike }, likes);
+            return CreatedAtAction("GetTag", new { id = tag.IdTag }, tag);
         }
 
-        // DELETE: api/Likes/5
+        // DELETE: api/Tags/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteLikes([FromRoute] int id)
+        public async Task<IActionResult> DeleteTag([FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var likes = await _context.Likes.FindAsync(id);
-            if (likes == null)
+            var tag = await _context.Tag.FindAsync(id);
+            if (tag == null)
             {
                 return NotFound();
             }
 
-            _context.Likes.Remove(likes);
+            _context.Tag.Remove(tag);
             await _context.SaveChangesAsync();
 
-            return Ok(likes);
+            return Ok(tag);
         }
 
-        private bool LikesExists(int id)
+        private bool TagExists(int id)
         {
-            return _context.Likes.Any(e => e.IdLike == id);
+            return _context.Tag.Any(e => e.IdTag == id);
         }
     }
 }

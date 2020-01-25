@@ -10,7 +10,7 @@ class Add_Post extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { text: '', open: false,file: '' };
+        this.state = { title: '', open: false,file: '', Description: ''};
         this.handleChange = this.handleChange.bind(this);
         this.choose_file = this.choose_file.bind(this);
         this.refresh = this.refresh.bind(this);
@@ -18,6 +18,11 @@ class Add_Post extends Component {
 
     handleChange(value) {
         this.setState({ text: value });
+    }
+
+    handleFieldChange(e) {
+        let title = e.target.value;
+        this.setState({ title });
     }
 
     uploadHandler = () => {
@@ -28,11 +33,11 @@ class Add_Post extends Component {
             },
             body: JSON.stringify({
                 postDate: new Date().toJSON(),
-                mediaFileIdFile: this.state.file.idFile,  
+                mediaFileIdFile: this.state.file.idFile,
                 userIdUser: this.props.auth.user.idUser,
-                postDescription: "TestTest",
-                postTitle: "Title",
-            }) 
+                postDescription: this.state.Description,
+                postTitle: this.state.title,
+            })
         }).then(setTimeout(this.refresh, 300));
 
     }
@@ -57,14 +62,32 @@ class Add_Post extends Component {
         return (
             <div>
                 <h1>Add Post</h1>
-                {this.state.file && 
+                {this.state.file &&
                     <p>Chosen file: {this.state.file.flName}</p>
                 }
-            <ReactQuill value={this.state.text}
+                <div className="form-group">
+                    <h3>Title</h3>
+                    <textarea
+                        value={this.state.title}
+                        onChange={this.handleFieldChange.bind(this)}
+                        className="form-control"
+                        placeholder="Title"
+                        rows="1"
+                    />
+                </div>
+
+                <div className="h-50 d-inline-block">
+                    <h3>Description</h3>
+                    <ReactQuill value={this.state.Description}
                     onChange={this.handleChange} />
-                <Button onClick={this.uploadHandler}>Upload</Button>
-                <Button onClick={this.showModal.bind(this)} > Choose Video</Button>
-                <FCPopUp isopen={this.state.open} hide={this.closeModal.bind(this)} accept={this.choose_file} />
+                </div>
+
+                <div>
+                    <Button onClick={this.uploadHandler}>Upload</Button>
+                    <Button onClick={this.showModal.bind(this)} > Choose Video</Button>
+                    <FCPopUp isopen={this.state.open} hide={this.closeModal.bind(this)} accept={this.choose_file} />
+                </div>
+
             </div>
         );
     }
