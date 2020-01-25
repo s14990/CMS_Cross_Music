@@ -22,7 +22,7 @@ import Profile from './components/Profile';
 
 export default () => (
     <Layout>
-        <Route exact path='/' component={Home} />
+        <Route exact path='/' component={Posts} />
         <Route path='/login' component={Login} />
         <Route path='/logout' component={Logout} />
         <Route path='/upload' component={Upload_Video} />

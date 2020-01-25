@@ -78,12 +78,12 @@ class Show_Post extends Component {
                 <ReactPlayer url={this.state.link} controls />
                 <p> {this.getShortDate(this.state.PostDate)}{this.getShortDate(this.state.PostDate)}</p>
                 <p>{this.state.PostTitle}</p>
-                <div className="row">
-                    <div className="col-4  pt-3 border-right">
+                <div className="">
+                    <div className="pt-3">
                         <h6>Say something</h6>
                         <Comments refresh={this.refresh} postId={this.state.IdPost} addComment={this.addComment} />
                     </div>
-                    <div className="col-8  pt-3 bg-white">
+                    <div className="bg-white">
                         <CommentList
                         loading={this.state.loading}
                         comments={this.state.comments}
