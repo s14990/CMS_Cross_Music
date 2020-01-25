@@ -110,18 +110,33 @@ class Show_Post extends Component {
     render() {
         return (
             <div>
-                <h1>Post_Id: {this.state.IdPost}</h1>
-                <ReactPlayer url={this.state.link} controls />
-                <p> {this.getShortDate(this.state.PostDate)}{this.getShortDate(this.state.PostDate)}</p>
-                <p>{this.state.PostTitle}</p>
-                <p>{this.state.liked && 
-                    <img width='50' height='50' className="rounded float-center" src={like_filled} />
-                }
-                    {!this.state.liked &&
-                        <img width='50' height='50' className="rounded float-center" src={like_simple} onClick={this.add_like} />
+                {/*<h1>Post_Id: {this.state.IdPost}</h1>*/}
+                <div className="">
+                <ReactPlayer className="mt-4" url={this.state.link} controls />
+
+                <ul className='list-inline mt-2 mb-0'>
+                    <li className="list-inline-item float-left"><div className='font-weight-bold text-truncate' style={{width:'35em'}}>{this.state.PostTitle}</div></li>
+                    <li className="list-inline-item "><div className='text-truncate'> {this.getShortDate(this.state.PostDate)}</div></li>
+                </ul>
+                </div>
+
+                <ul className='list-inline mt-3 mb-0 d-flex'> 
+                <li className="list-inline-item float-left">
+                    <div className="float-left ">{this.state.liked && 
+                
+                    <img width='30' height='30' className="rounded " src={like_filled} />
                     }
-                    {this.state.like_count}
-                </p>
+                    {!this.state.liked &&
+                        <img width='30' height='30' className="rounded " src={like_simple} onClick={this.add_like} />
+                    }
+                    </div>
+                </li>    
+                <li className="list-inline-item align-self-center">
+                    <div className="pl-1 font-weight-bold">{this.state.like_count}</div>
+                </li>
+                </ul>
+                
+                
                 <div className="">
                     <div className="pt-3">
                         <h6>Say something</h6>

@@ -83,9 +83,9 @@ class MessageList extends Component {
             //  console.log(message.date)
               let datetime = new Date(message.date)
             //  console.log(datetime.toJSON())
-              let date = datetime.getFullYear() +'/'+ (parseInt(datetime.getMonth())+1)+'/' +datetime.getDate()
+              let date = datetime.getFullYear() +'/'+ ("0" +(parseInt(datetime.getMonth())+1)).slice(-2)+'/' +("0" +datetime.getDate()).slice(-2)
             //  console.log(date)
-              let time = datetime.getHours() + ':'+ datetime.getMinutes()
+              let time = ("0" +datetime.getHours()).slice(-2) + ':'+ ("0" +datetime.getMinutes()).slice(-2)
               return (
                 <div key={message.msgId}><p className='d-flex justify-content-center'> {previousDate!= date? previousDate = date : ''}</p> 
                 
