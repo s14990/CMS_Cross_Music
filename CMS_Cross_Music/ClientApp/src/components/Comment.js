@@ -32,7 +32,8 @@ import bin from '../images/bin.png';
       fetch('api/Comments/' + this.state.IdComment, {
           method: 'DELETE',
       })
-      this.setState({ CommentHtml: ''})
+      this.setState({ CommentHtml: '', confirmDelete : false})
+      
   }
 
   clickCancel()
@@ -58,7 +59,7 @@ import bin from '../images/bin.png';
 
     return (
       <div>
-        
+        {this.state.CommentHtml !== '' &&
         <div className="media-body p-2 mb-3 shadow-sm rounded bg-light border">
           <h6 className="float-right text-muted">{time} {date}</h6>
                 {(this.state.UserIdUser === this.props.auth.user.idUser || this.props.auth.user.idUser === 1) &&
@@ -80,6 +81,7 @@ import bin from '../images/bin.png';
                 {this.state.CommentHtml}
           
         </div>
+        }
       </div>
     );
   }
