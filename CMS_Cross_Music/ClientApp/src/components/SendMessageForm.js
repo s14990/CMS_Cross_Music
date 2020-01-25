@@ -62,7 +62,7 @@ class SendMessageForm extends Component {
                                     />
                                 </Col>
                                 <Col xs='2'>
-                                    <Button onClick={this.sendClick} className="rounded">Send</Button>
+                                    <button onClick={this.sendClick} className="rounded btn btn-primary">Send</button>
                                 </Col>
                             </Row>
                         </Container>
