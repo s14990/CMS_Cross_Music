@@ -24,7 +24,7 @@ class NavHeader extends React.Component {
     render() {
         return (
             <nav className="navbar sticky-top navbar-expand-sm navbar-dark bg-primary">
-                <NavbarBrand tag={Link} to="/all_posts">CMS_Grupa_3</NavbarBrand>
+                <NavbarBrand tag={Link} to="/all_posts">Cross Music</NavbarBrand>
                 <button onClick={this.toggle} className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                   <span className="navbar-toggler-icon"></span>
                 </button>
@@ -32,14 +32,14 @@ class NavHeader extends React.Component {
                   <div className="mr-auto"></div>
 
                   {this.props.auth.isAuthenticated &&
-                    <div className="navbar-nav mr-5">
-                        <a  href="/upload" id="addmusic" className="">
+                    <Nav className="navbar-nav mr-5" tag={Link} to="/upload">
+                        <a href="/upload" id="addmusic" className="">
                           <img alt="add music" width='90' height='46' src= {addMusic}/>
                         </a>
                         <UncontrolledTooltip placement="top" target="addmusic">
                           Upload file
                         </UncontrolledTooltip>
-                    </div>
+                    </Nav>
                   }
 
                   <div className="btn-light rounded">

@@ -25,7 +25,7 @@ class NavMenu extends React.Component {
                 <Navbar className="navbar navbar-light bg-light" >
                     <Container>
                         <Row>
-                            <NavbarBrand tag={Link} to="/">Cross_Music</NavbarBrand>
+                            {/*<NavbarBrand tag={Link} to="/">Cross_Music</NavbarBrand>*/}
                             <NavbarToggler onClick={this.toggle} />
                         </Row>
                         <Collapse isOpen={this.state.isOpen} navbar>

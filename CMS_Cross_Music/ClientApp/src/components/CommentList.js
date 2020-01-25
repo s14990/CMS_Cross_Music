@@ -16,7 +16,7 @@ export default function CommentList(props) {
       ) : null}
 
       {props.comments.reverse().map((comment, idComment) => (
-        <Comment key={idComment} comment={comment} />
+        <Comment key={idComment} comment={comment}/>
       ))}
     </div>
   );
