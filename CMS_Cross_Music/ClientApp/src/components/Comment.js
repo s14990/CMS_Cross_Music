@@ -10,7 +10,12 @@ import bin from '../images/bin.png';
     constructor(props) {
       super(props);
       this.state = {
-        confirmDelete : false
+          confirmDelete: false,
+          UserIdUser: '',
+          UserIdUserNavigation: '',
+          CommentHtml: '',
+          CommentDate: '',
+          IdComment: ''
       };
 
       this.clickBin = this.clickBin.bind(this);
@@ -24,9 +29,10 @@ import bin from '../images/bin.png';
   }
   clickDelete()
   {
-      fetch('api/Comments/' + this.props.comment.IdComment, {
+      fetch('api/Comments/' + this.state.IdComment, {
           method: 'DELETE',
       })
+      this.setState({ CommentHtml: ''})
   }
 
   clickCancel()
@@ -34,11 +40,17 @@ import bin from '../images/bin.png';
     this.setState({ confirmDelete : false })
   }
 
+  componentDidMount() {
+      const { UserIdUser, UserIdUserNavigation, CommentHtml, CommentDate, IdComment } = this.props.comment;
+      this.setState({
+          UserIdUser, UserIdUserNavigation, CommentHtml, CommentDate, IdComment
+      })
+  }
+
 
   render() {
-  const { UserIdUser, UserIdUserNavigation, CommentHtml, CommentDate, IdComment } = this.props.comment;
 
-  let datetime = new Date(CommentDate)
+  let datetime = new Date(this.state.CommentDate)
   //  console.log(datetime.toJSON())
   let date = datetime.getFullYear() +'/'+ ("0" +(parseInt(datetime.getMonth())+1)).slice(-2)+'/' +("0" +datetime.getDate()).slice(-2)
   //  console.log(date)
@@ -49,7 +61,7 @@ import bin from '../images/bin.png';
         
         <div className="media-body p-2 mb-3 shadow-sm rounded bg-light border">
           <h6 className="float-right text-muted">{time} {date}</h6>
-          {(UserIdUser === this.props.auth.user.idUser || this.props.auth.user.idUser === 1) &&
+                {(this.state.UserIdUser === this.props.auth.user.idUser || this.props.auth.user.idUser === 1) &&
             <button className="float-right btn">
               <img src={bin} alt="delete comment" onClick={this.clickBin} width = "32" height = "32" />
             </button>
@@ -64,8 +76,8 @@ import bin from '../images/bin.png';
               </button>
             </div>
           }
-          <h6 className="mt-0 mb-1 text-muted">{UserIdUserNavigation.UserName}</h6>
-          {CommentHtml}
+                <h6 className="mt-0 mb-1 text-muted">{this.state.UserIdUserNavigation.UserName}</h6>
+                {this.state.CommentHtml}
           
         </div>
       </div>
