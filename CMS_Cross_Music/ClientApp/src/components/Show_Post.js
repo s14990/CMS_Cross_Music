@@ -5,6 +5,7 @@ import CommentList from "./CommentList";
 import Comments from './Comments';
 import like_simple from '../images/like_simple.png';
 import like_filled from '../images/like_filled.png';
+import { Button } from 'reactstrap';
 
 class Show_Post extends Component {
 
@@ -19,6 +20,7 @@ class Show_Post extends Component {
             PostDate: '',
             mediafile: '',
             link: '',
+            tags: [],
             //comments: [],
             loading: false,
             liked: false,
@@ -37,11 +39,12 @@ class Show_Post extends Component {
 
     async fetch_data() {
         let post_id = this.props.match.params.id;
-        await fetch('/api/Mediaposts?$expand=comment($expand=userIdUserNavigation),userIdUserNavigation,mediaFileIdFileNavigation&$filter=IdPost eq ' + post_id)
+        await fetch('/api/Mediaposts?$expand=comment($expand=userIdUserNavigation),userIdUserNavigation,pt($expand=tag),mediaFileIdFileNavigation&$filter=IdPost eq ' + post_id)
             .then(response => response.json())
             .then(data => data[0])
             .then(data => {
                 console.log(data);
+                let tags = data.Pt.map(item => item.Tag);               
                 this.setState({
                     IdPost: data.IdPost,
                     PostDescription: data.PostDescription,
@@ -50,7 +53,8 @@ class Show_Post extends Component {
                     comments: data.Comment,
                     user: data.UserIdUserNavigation,
                     mediafile: data.MediaFileIdFileNavigation,
-                    link: data.MediaFileIdFileNavigation.FlLink
+                    link: data.MediaFileIdFileNavigation.FlLink,
+                    tags
                 });
             });
         let liked = false;
@@ -114,6 +118,18 @@ class Show_Post extends Component {
                 <ReactPlayer url={this.state.link} controls />
                 <p> {this.getShortDate(this.state.PostDate)}{this.getShortDate(this.state.PostDate)}</p>
                 <p>{this.state.PostTitle}</p>
+                <div> 
+                    {this.state.tags.length ? this.state.tags.map((tag, index) => {
+                        return (
+                            <div key={tag.IdTag}>
+                                <Button color="primary" size="sm">
+                                    {tag.TagName}
+                                </Button>
+                            </div>
+                        )
+                    }) : <div> </div>
+                    }
+                </div>
                 <p>{this.state.liked && 
                     <img width='50' height='50' className="rounded float-center" src={like_filled} />
                 }
