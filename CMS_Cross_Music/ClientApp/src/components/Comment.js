@@ -24,7 +24,9 @@ import bin from '../images/bin.png';
   }
   clickDelete()
   {
-    //Delete Comment with ID == IdComment
+      fetch('api/Comments/' + this.props.comment.IdComment, {
+          method: 'DELETE',
+      })
   }
 
   clickCancel()
