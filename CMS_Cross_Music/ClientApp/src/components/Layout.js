@@ -9,11 +9,11 @@ export default props => (
     <div>
         
         <NavHeader/>        
-        <Container fluid className="container-fluid">
+        <Container fluid className="container-fluid ">
             <Row>
                 <Col md={2} className="sidebar bg-light p-0 m-0">
 
-                        <NavMenu className="p-0 m-0"/>
+                        <NavMenu className="p-0 m-0 sticky-top" />
                         <SideMenu className="p-0 m-0"/>
 
                 </Col>

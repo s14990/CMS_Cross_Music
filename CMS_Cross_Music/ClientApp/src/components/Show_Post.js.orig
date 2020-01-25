@@ -114,6 +114,27 @@ class Show_Post extends Component {
     render() {
         return (
             <div>
+<<<<<<< HEAD
+                <h1>Post_Id: {this.state.IdPost}</h1>
+                <ReactPlayer url={this.state.link} controls />
+                <p> {this.getShortDate(this.state.PostDate)}{this.getShortDate(this.state.PostDate)}</p>
+                <p>{this.state.PostTitle}</p>
+                <div> 
+                    {this.state.tags.length ? this.state.tags.map((tag, index) => {
+                        return (
+                            <div key={tag.IdTag}>
+                                <Button color="primary" size="sm">
+                                    {tag.TagName}
+                                </Button>
+                            </div>
+                        )
+                    }) : <div> </div>
+                    }
+                </div>
+                <p>{this.state.liked && 
+                    <img width='50' height='50' className="rounded float-center" src={like_filled} />
+                }
+=======
                 {/*<h1>Post_Id: {this.state.IdPost}</h1>*/}
                 <div className="">
                 <ReactPlayer className="mt-4" url={this.state.link} controls />
@@ -130,6 +151,7 @@ class Show_Post extends Component {
                 
                     <img width='30' height='30' className="rounded " src={like_filled} />
                     }
+>>>>>>> origin/GB
                     {!this.state.liked &&
                         <img width='30' height='30' className="rounded " src={like_simple} onClick={this.add_like} />
                     }

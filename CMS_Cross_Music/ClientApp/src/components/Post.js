@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import ReactPlayer from 'react-player';
 import { withRouter } from 'react-router-dom';
 import { compose } from 'redux';
-
+//import mp3_icon from '../images/mp3_icon.png';
+import mp3_icon from '../images/AudioFileIcon_0001.png';
 
 class Post extends Component {
 
@@ -31,10 +32,17 @@ class Post extends Component {
 
     render() {
         let datetime = new Date(this.props.postDate)
-        let date = datetime.getFullYear() +'/'+ (parseInt(datetime.getMonth())+1)+'/' +datetime.getDate()
+        let date = datetime.getFullYear() +'/'+ ("0" +(parseInt(datetime.getMonth())+1)).slice(-2)+'/' +("0" +datetime.getDate()).slice(-2)
         return (
-            <div className='pb-0 m-2' onClick={this.handleRedirect}>
-                <ReactPlayer height='12em' width='20em' url={this.props.fileLink}/>
+            <div className='pb-0 m-2 ' onClick={this.handleRedirect}>
+                <div className='text-center'>
+                    {this.props.fileType === 'mp4' &&
+                        <ReactPlayer height='12em' width='20em' url={this.props.fileLink} />
+                    }
+                    {this.props.fileType === 'mp3' &&
+                        <img width='190' height='190' className="rounded float-center" src={mp3_icon}/>
+                    }
+                </div>
                 <div className='font-weight-bold text-truncate' style={{ width: '20em' }} >
                     {this.props.postTitle}
                 </div>

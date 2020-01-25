@@ -180,6 +180,7 @@ class Posts extends Component {
                                 idFile={post.MediaFileIdFileNavigation.IdFile}
                                 fileName={post.MediaFileIdFileNavigation.FlName}
                                 fileLink={post.MediaFileIdFileNavigation.FlLink}
+                                fileType={post.MediaFileIdFileNavigation.FlType}
                                 postDate={post.PostDate}
                                 postTitle={post.PostTitle}
                             />
