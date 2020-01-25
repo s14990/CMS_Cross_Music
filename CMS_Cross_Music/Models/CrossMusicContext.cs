@@ -153,6 +153,12 @@ namespace CMS_Cross_Music.Models
                     .HasMaxLength(50);
 
                 entity.Property(e => e.UserIdUser).HasColumnName("User_id_user");
+
+                entity.HasOne(d => d.UserIdUserNavigation)
+                    .WithMany(p => p.Mediafile)
+                    .HasForeignKey(d => d.UserIdUser)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("usr_mediafile_fk");
             });
 
             modelBuilder.Entity<Mediapost>(entity =>

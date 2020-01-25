@@ -65,6 +65,11 @@ class NavMenu extends React.Component {
                                 }
                                 {this.props.auth.isAuthenticated &&
                                     <NavItem>
+                                        <NavLink tag={Link} to="/profile">Profile</NavLink>
+                                    </NavItem>
+                                }
+                                {this.props.auth.isAuthenticated &&
+                                    <NavItem>
                                         <NavLink tag={Link} to="/logout">Logout</NavLink>
                                     </NavItem>
                                 }

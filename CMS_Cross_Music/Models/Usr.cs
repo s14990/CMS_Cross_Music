@@ -9,6 +9,7 @@ namespace CMS_Cross_Music.Models
         {
             Comment = new HashSet<Comment>();
             Likes = new HashSet<Likes>();
+            Mediafile = new HashSet<Mediafile>();
             Mediapost = new HashSet<Mediapost>();
             MsgUserIdAuthorNavigation = new HashSet<Msg>();
             MsgUserIdTargerNavigation = new HashSet<Msg>();
@@ -27,6 +28,7 @@ namespace CMS_Cross_Music.Models
         public Pass Pass { get; set; }
         public ICollection<Comment> Comment { get; set; }
         public ICollection<Likes> Likes { get; set; }
+        public ICollection<Mediafile> Mediafile { get; set; }
         public ICollection<Mediapost> Mediapost { get; set; }
         public ICollection<Msg> MsgUserIdAuthorNavigation { get; set; }
         public ICollection<Msg> MsgUserIdTargerNavigation { get; set; }

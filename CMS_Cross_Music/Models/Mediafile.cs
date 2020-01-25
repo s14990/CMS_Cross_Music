@@ -20,6 +20,7 @@ namespace CMS_Cross_Music.Models
         public DateTime? MediaDate { get; set; }
         public int UserIdUser { get; set; }
 
+        public Usr UserIdUserNavigation { get; set; }
         public ICollection<Mediapost> Mediapost { get; set; }
     }
 }
