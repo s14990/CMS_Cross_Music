@@ -14,7 +14,7 @@ class Add_Post extends Component {
         super(props);
         this.state = {
         title: '', open: false, file: '', Description: '', all_tags: [], selected_tags: [],
-            searchList: [], selectedOption: ''};
+            searchList: [], selectedOption: '', createField: ''};
         this.handleChange = this.handleChange.bind(this);
         this.choose_file = this.choose_file.bind(this);
         this.handleChange2 = this.handleChange2.bind(this);
@@ -63,6 +63,20 @@ class Add_Post extends Component {
         }
     }
 
+    handleCreate()
+    {
+        if(this.state.createField){
+            let list = this.state.selected_tags;
+            let sel = this.state.createField;
+            list.push(sel);
+            let list2 = this.state.searchList;
+            let arr = list2.filter(item => item !== sel);
+            this.setState({
+                selected_tags: list, searchList: arr, selectedOption: ''
+            });
+        }
+    }
+
     handleClick(tag) {
         let list = this.state.selected_tags;
         let arr = list.filter(item => item !== tag);
@@ -83,6 +97,8 @@ class Add_Post extends Component {
                 break;
             case 'description':
                 this.setState({ Description: title })
+            case 'tag':
+                this.setState({ createField: title })
             }
         //let description = e.target.value;
         //this.setState({ title });
@@ -197,6 +213,26 @@ class Add_Post extends Component {
                         </div>
                     </div>
                 </div>
+                {(this.props.auth.user.idUser === 1) &&
+                    <div className = "row mb-3">
+                        <div className="col-6">
+                            <textarea
+                            name="tag"
+                            value={this.state.createField}
+                            onChange={this.handleFieldChange.bind(this)}
+                            className="form-control"
+                            //placeholder="Title"
+                            rows="1"
+                            />
+                        </div>
+                        {this.state.createField &&
+                        <div className="col-2">
+                            <Button color="success" onClick={this.handleCreate}>Create Tag</Button>
+                        </div>}
+                        
+                    </div>
+
+                }
                 <Select
                     value={this.state.selectedOption}
                     options={this.state.searchList}
@@ -204,7 +240,8 @@ class Add_Post extends Component {
                 />
                 {this.state.selectedOption &&
                     <Button color="warning" onClick={this.handleAdd}>Dodaj</Button>
-                }
+                } 
+                
                 <div>
                     {this.state.selected_tags.length ? this.state.selected_tags.map((tag, index) => {
                         return (
@@ -219,11 +256,8 @@ class Add_Post extends Component {
                     }) : <div> </div>
                     }
                 </div>
-                <div className="h-50 d-inline-block">
-                    <h3>Description</h3>
-                    <ReactQuill value={this.state.Description}
-                    onChange={this.handleChange} />
-                </div>
+
+               
                 <div>
                     <Button onClick={this.uploadHandler}>Upload</Button>
                     <Button onClick={this.showModal.bind(this)} > Choose Video</Button>
