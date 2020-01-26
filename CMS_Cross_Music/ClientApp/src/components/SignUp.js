@@ -100,7 +100,8 @@ class SignUp extends Component {
     }
 
     onChange2(e) {
-        this.setState({ checked: true });
+        this.setState({ checked: !this.state.checked});
+        console.log(this.state.checked)
     }
 
     render() {
@@ -111,30 +112,34 @@ class SignUp extends Component {
                     <FormGroup>
                         <Label htmlFor="username" className="control-label">UserName</Label>
                         <Input type="text" className="form-control" name="username" value={this.state.userName} onChange={this.onChange} />
-                        {this.state.errors.username_err > 0 && <p>this.state.username_err</p>}
+                        {this.state.errors.username_err > 0 && <p>{this.state.username_err}</p>}
                     </FormGroup>
                     <FormGroup>
                         <Label htmlFor="email" className="control-label">UserEmail</Label>
                         <Input type="text" className="form-control" name="email" value={this.state.userEmail} onChange={this.onChange} />
-                        {this.state.errors.useremail_err > 0 && <p>this.state.useremail_err</p>}
+                        {this.state.errors.useremail_err > 0 && <p>{this.state.useremail_err}</p>}
                     </FormGroup>
                     <FormGroup>
                         <Label htmlFor="password" className="control-label">Password</Label>
                         <Input type="password" className="form-control" name="password" value={this.state.userPassword} onChange={this.onChange} />
-                        {this.state.password_err.length > 0 && <p>this.state.password_err</p>}
+                        {this.state.password_err.length > 0 && <p>{this.state.password_err}</p>}
                     </FormGroup>
                     <FormGroup>
-                        <Label htmlFor="captcha" className="control-label">I am not a robot</Label>
-                        <Input
+
+                        <Label htmlFor="captcha" className="control-label m-3 p-3 ">I am not a robot</Label>
+
+                        <Input type="checkbox m-4 p-4 " style ={{display: 'inline-block'}}
                             className="form-control"
                             type="checkbox"
                             name="captcha"
+                            id="captcha"
                             defaultChecked={this.state.checked}
                             onChange={this.onChange2}
                         />
+                        
                     </FormGroup>
                     <FormGroup>
-                        <Button className="btn btn-primary btn-lg" disabled={this.state.disabled} onClick={this.onSubmit}>SignUp</Button>
+                        <Button className="btn-lg" color= "primary" disabled={this.state.disabled} onClick={this.onSubmit}>SignUp</Button>
                     </FormGroup>
                 </Form>
             </div>

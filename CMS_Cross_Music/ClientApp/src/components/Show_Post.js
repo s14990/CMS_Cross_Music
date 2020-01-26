@@ -64,7 +64,7 @@ class Show_Post extends Component {
                 });
             });
         let liked = false;
-        if(this.props.auth.user.isAuthenticated){
+        //if(this.props.auth.user.isAuthenticated){
         await fetch('/api/Likes?$filter=userIdUser eq ' + this.props.auth.user.idUser + ' and mediapostIdPost eq ' + post_id)
             .then(response => response.json())
             .then(data => {
@@ -72,7 +72,7 @@ class Show_Post extends Component {
                 console.log(data);
                 this.setState({ liked });
             });
-        }
+        //}else{this.setState({ liked: true }); }
         await fetch('/api/Likes?$apply=groupby((mediapostIdPost), aggregate(idLike with countdistinct as Total))&$filter=MediapostIdPost eq ' + post_id)
             .then(response => response.json())
             .then(data => {
