@@ -13,7 +13,7 @@ class Add_Post extends Component {
         super(props);
         this.state = {
         title: '', open: false, file: '', Description: '', all_tags: [], selected_tags: [],
-            searchList: [], selectedOption: ''};
+            searchList: [], selectedOption: [] };
         this.handleChange = this.handleChange.bind(this);
         this.choose_file = this.choose_file.bind(this);
         this.handleChange2 = this.handleChange2.bind(this);
@@ -47,6 +47,9 @@ class Add_Post extends Component {
 
     handleChange2= selectedOption => {
         this.setState({ selectedOption })
+        console.log(selectedOption)
+        
+      //  console.log(this.state.selected_tags)
     }
 
     handleAdd() {
@@ -77,7 +80,7 @@ class Add_Post extends Component {
         this.setState({ title });
     }
 
-    uploadHandler = () => {
+    publishHandler = () => {
         if (!this.state.file || !this.state.title) {
             window.alert("Choose File first");
         }
@@ -98,8 +101,8 @@ class Add_Post extends Component {
                 .then(
                     data => {
                         console.log("sel_tags");
-                        console.log(this.state.selected_tags);
-                        this.state.selected_tags.map(tag => {
+                        console.log(this.state.selectedOption);
+                        this.state.selectedOption.map(tag => {
                             var r = JSON.stringify({
                                 postId: data.idPost,
                                 tagId: tag.value.idTag
@@ -156,10 +159,13 @@ class Add_Post extends Component {
                     value={this.state.selectedOption}
                     options={this.state.searchList}
                     onChange={this.handleChange2}
+                    className="basic-multi-select"
+                    classNamePrefix="select"
+                    isMulti
                 />
-                {this.state.selectedOption &&
+                {/*this.state.selectedOption &&
                     <Button color="warning" onClick={this.handleAdd}>Dodaj</Button>
-                }
+                */}
                 <div>
                     {this.state.selected_tags.length ? this.state.selected_tags.map((tag, index) => {
                         return (
@@ -180,7 +186,7 @@ class Add_Post extends Component {
                     onChange={this.handleChange} />
                 </div>
                 <div>
-                    <Button className='mr-2' color="primary" onClick={this.uploadHandler}>Publish</Button>
+                    <Button className='mr-2' color="primary" onClick={this.publishHandler}>Publish</Button>
                     <Button onClick={this.showModal.bind(this)} > Choose Video</Button>
                     <FCPopUp isopen={this.state.open} hide={this.closeModal.bind(this)} accept={this.choose_file} />
                 </div>
