@@ -14,7 +14,7 @@ class Add_Post extends Component {
         super(props);
         this.state = {
         title: '', open: false, file: '', Description: '', all_tags: [], selected_tags: [],
-            searchList: [], selectedOption: '', createField: ''};
+            searchList: [], selectedOption: '', createTagField: ''};
         this.handleChange = this.handleChange.bind(this);
         this.choose_file = this.choose_file.bind(this);
         this.handleChange2 = this.handleChange2.bind(this);
@@ -65,9 +65,9 @@ class Add_Post extends Component {
 
     handleCreate()
     {
-        if(this.state.createField){
+        if(this.state.createTagField){
             let list = this.state.selected_tags;
-            let sel = this.state.createField;
+            let sel = this.state.createTagField;
             list.push(sel);
             let list2 = this.state.searchList;
             let arr = list2.filter(item => item !== sel);
@@ -218,14 +218,14 @@ class Add_Post extends Component {
                         <div className="col-6">
                             <textarea
                             name="tag"
-                            value={this.state.createField}
+                            value={this.state.createTagField}
                             onChange={this.handleFieldChange.bind(this)}
                             className="form-control"
                             //placeholder="Title"
                             rows="1"
                             />
                         </div>
-                        {this.state.createField &&
+                        {this.state.createTagField &&
                         <div className="col-2">
                             <Button color="success" onClick={this.handleCreate}>Create Tag</Button>
                         </div>}
