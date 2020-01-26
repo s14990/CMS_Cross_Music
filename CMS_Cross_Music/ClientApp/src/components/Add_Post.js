@@ -116,9 +116,6 @@ class Add_Post extends Component {
         //let description = e.target.value;
         //this.setState({ title });
     }
-    handleChange(value) {
-        this.setState({ Description: value });
-    }
 
     handleDescriptionChange(e) {
         let description = e.target.value;
@@ -226,8 +223,8 @@ class Add_Post extends Component {
                         }
 
                         <div>
-                            <Button onClick={this.uploadHandler}>Upload</Button>
-                            <Button onClick={this.showModal.bind(this)} > Choose Video</Button>
+                            <Button color='primary' onClick={this.publishHandler}>Publish</Button>
+                            <Button color='info' onClick={this.showModal.bind(this)} > Choose Video</Button>
                             <FCPopUp isopen={this.state.open} hide={this.closeModal.bind(this)} accept={this.choose_file} />
                         </div>
                     </div>
@@ -277,14 +274,6 @@ class Add_Post extends Component {
                     }) : <div> </div>
                     }
                 </div>
-
-               
-                <div>
-                    <Button className='mr-2' color="primary" onClick={this.publishHandler}>Publish</Button>
-                    <Button onClick={this.showModal.bind(this)} > Choose Video</Button>
-                    <FCPopUp isopen={this.state.open} hide={this.closeModal.bind(this)} accept={this.choose_file} />
-                </div>
-
             </div>
         );
     }

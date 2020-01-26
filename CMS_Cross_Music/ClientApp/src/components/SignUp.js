@@ -148,6 +148,6 @@ class SignUp extends Component {
 }
 
 export default connect(
-    state => state.user,
+    state => state,
     dispatch => bindActionCreators(actionCreators, dispatch)
 )(SignUp);
