@@ -5,7 +5,7 @@ import CommentList from "./CommentList";
 import Comments from './Comments';
 import like_simple from '../images/like_simple.png';
 import like_filled from '../images/like_filled.png';
-import { Button } from 'reactstrap';
+import { UncontrolledTooltip, Button  } from 'reactstrap';
 
 class Show_Post extends Component {
 
@@ -24,7 +24,8 @@ class Show_Post extends Component {
             //comments: [],
             loading: false,
             liked: false,
-            like_count: 0
+            like_count: 0,
+            user: ''
         }
         this.getShortDate = this.getShortDate.bind(this);
         this.addComment = this.addComment.bind(this);
@@ -116,12 +117,18 @@ class Show_Post extends Component {
             <div>
                 {/*<h1>Post_Id: {this.state.IdPost}</h1>*/}
                 <div className="">
-                <ReactPlayer className="mt-4" url={this.state.link} controls />
-
-                <ul className='list-inline mt-2 mb-0'>
-                    <li className="list-inline-item float-left"><div className='font-weight-bold text-truncate' style={{width:'35em'}}>{this.state.PostTitle}</div></li>
-                    <li className="list-inline-item "><div className='text-truncate'> {this.getShortDate(this.state.PostDate)}</div></li>
-                </ul>
+                    <ReactPlayer className="mt-4" url={this.state.link} controls />
+                    <ul className='list-inline mt-2 mb-0'>
+                        <li className="list-inline-item float-left"><div className='font-weight-bold text-truncate' style={{width:'35em'}}>{this.state.PostTitle}</div></li>
+                        <li className="list-inline-item "><div className='text-truncate'> {this.getShortDate(this.state.PostDate)}</div></li>
+                    </ul>
+                    <div className='d-flex align-items-stretch'>
+                        <div id='autor' className='float-left'>{this.state.user.UserName}
+                            <UncontrolledTooltip placement="right" target="autor">
+                                Author
+                            </UncontrolledTooltip>
+                        </div>
+                    </div>
                 </div>
 
                 <ul className='list-inline mt-3 mb-0 d-flex'> 

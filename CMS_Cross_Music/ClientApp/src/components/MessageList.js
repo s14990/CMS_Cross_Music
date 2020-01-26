@@ -95,7 +95,7 @@ class MessageList extends Component {
                         <div className = 'pr-1' >{message.UserName}</div>
                         <div className = 'ml-auto' >{time}</div>
                       </div>
-                      <Card style={{display : 'inline-block'}} isOpen={true} transition={{ baseClass: '', timeout: 0 }}
+                      <Card style={{display : 'inline-block'}} transition={{ baseClass: '', timeout: 0 }}
                         color = {message.autorId === this.props.auth.user.idUser? 'info':'dark'} inverse>
                           <CardBody>
                             <CardText color={'info'}>

@@ -1,6 +1,7 @@
 ﻿import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Button, Form, FormGroup, Label, Input, FormText, UncontrolledTooltip  } from 'reactstrap'
+import { Button, Form, FormGroup, Label, Input, FormText, NavLink, UncontrolledTooltip  } from 'reactstrap';
+import { Link } from 'react-router-dom';
 import Post from './Post';
 import './PostsSearch.css';
 
@@ -164,6 +165,7 @@ class Posts extends Component {
                                 </div>
                             </div>
                         </span>  
+                        <Button className='align-self-center ml-5' color="primary" tag={Link} to="/add_post">Add Post</Button>
                         
                     </div>
                 </form>
