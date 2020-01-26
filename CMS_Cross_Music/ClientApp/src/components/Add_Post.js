@@ -126,7 +126,6 @@ class Add_Post extends Component {
         this.setState({ description });
     }
 
-    uploadHandler = () => {
     publishHandler = () => {
         if (!this.state.file || !this.state.title) {
             window.alert("Choose File first");

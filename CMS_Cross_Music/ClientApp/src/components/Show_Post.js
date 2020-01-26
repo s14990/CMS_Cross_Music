@@ -39,6 +39,10 @@ class Show_Post extends Component {
         this.fetch_data();
     }
 
+    editPost() {
+        this.props.history.push("/edit_post/" + this.state.IdPost);
+    }
+
     async fetch_data() {
         let post_id = this.props.match.params.id;
         await fetch('/api/Mediaposts?$expand=comment($expand=userIdUserNavigation),userIdUserNavigation,pt($expand=tag),mediaFileIdFileNavigation&$filter=IdPost eq ' + post_id)
@@ -150,11 +154,15 @@ class Show_Post extends Component {
                     <li className="list-inline-item align-self-center">
                         <div className="row ml-5">
                             {
-                                this.state.tags.map((tag) => {return <div className="bg-light p-1 m-1 rounded">{tag.TagName}</div>})
+                                this.state.tags.map((tag) => { return <div key={tag.IdTag} className="bg-light p-1 m-1 rounded">{tag.TagName}</div>})
                             }
                         </div>
                     </li>
                 </ul>
+                {(this.props.auth.user.userRank === 3 || this.props.auth.user.idUser === this.state.user.IdUser) &&
+                    <div>
+                        <Button onClick={this.editPost.bind(this)}>Edit</Button>
+                    </div>}
                 <div>
                     <hr/>
                     <SanitizedHTML
