@@ -21,11 +21,16 @@ class Add_Post extends Component {
         this.refresh = this.refresh.bind(this);
         this.handleClick = this.handleClick.bind(this);
         this.handleAdd = this.handleAdd.bind(this);
+        this.fetch_tags = this.fetch_tags.bind(this);
     }
 
 
     componentDidMount() {
-        fetch('api/tags')
+        this.fetch_tags();
+    }
+
+    async fetch_tags() {
+       await fetch('api/tags')
             .then(response => response.json())
             .then(data => {
                 let searchList = data.map(
@@ -37,7 +42,7 @@ class Add_Post extends Component {
                     }
                 );
                 this.setState({
-                    all_tags: data, searchList
+                    all_tags: data, searchList, selected_tags: [], selectedOption: '', createTagField: ''
                 });
             });
     }
@@ -51,6 +56,7 @@ class Add_Post extends Component {
     }
 
     handleAdd() {
+
         if (this.state.selectedOption) {
             let list = this.state.selected_tags;
             let sel = this.state.selectedOption
@@ -58,22 +64,26 @@ class Add_Post extends Component {
             let list2 = this.state.searchList;
             let arr = list2.filter(item => item !== sel);
             this.setState({
-                selected_tags: list, searchList: arr, selectedOption: ''
+                selected_tags: list, searchList: arr, selectedOption: '', createTagField: ''
             });
         }
+
+        this.fetch_tags();
     }
 
-    handleCreate()
-    {
-        if(this.state.createTagField){
-            let list = this.state.selected_tags;
-            let sel = this.state.createTagField;
-            list.push(sel);
-            let list2 = this.state.searchList;
-            let arr = list2.filter(item => item !== sel);
-            this.setState({
-                selected_tags: list, searchList: arr, selectedOption: ''
-            });
+    handleCreate() {
+        console.log("hhh");
+        if (this.state.createTagField !== null) {
+            console.log("test");
+            fetch("api/tags", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    tagName: this.state.createTagField
+                })
+            }).then(setTimeout(this.fetch_tags,300));
         }
     }
 
@@ -98,7 +108,7 @@ class Add_Post extends Component {
             case 'description':
                 this.setState({ Description: title })
             case 'tag':
-                this.setState({ createField: title })
+                this.setState({ createTagField: title })
             }
         //let description = e.target.value;
         //this.setState({ title });
@@ -213,7 +223,7 @@ class Add_Post extends Component {
                         </div>
                     </div>
                 </div>
-                {(this.props.auth.user.idUser === 1) &&
+                {this.props.auth.user.idUser === 1 &&
                     <div className = "row mb-3">
                         <div className="col-6">
                             <textarea
@@ -227,7 +237,7 @@ class Add_Post extends Component {
                         </div>
                         {this.state.createTagField &&
                         <div className="col-2">
-                            <Button color="success" onClick={this.handleCreate}>Create Tag</Button>
+                            <Button color="success" onClick={this.handleCreate.bind(this)}>Create Tag</Button>
                         </div>}
                         
                     </div>
