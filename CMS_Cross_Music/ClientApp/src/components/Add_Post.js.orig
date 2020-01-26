@@ -14,7 +14,11 @@ class Add_Post extends Component {
         super(props);
         this.state = {
         title: '', open: false, file: '', Description: '', all_tags: [], selected_tags: [],
-        searchList: [], selectedOption: [],createTagField: '' };
+<<<<<<< HEAD
+            searchList: [], selectedOption: '', createTagField: ''};
+=======
+            searchList: [], selectedOption: [] };
+>>>>>>> origin/GB
         this.handleChange = this.handleChange.bind(this);
         this.choose_file = this.choose_file.bind(this);
         this.handleChange2 = this.handleChange2.bind(this);
@@ -129,12 +133,6 @@ class Add_Post extends Component {
     publishHandler = () => {
         if (!this.state.file || !this.state.title) {
             window.alert("Choose File first");
-        }
-        else if (!this.state.Description || !this.state.title.length) {
-            window.alert("Description and Title should be present");
-        }
-        else if (this.state.Description.length > 999 || this.state.title.length > 99) {
-            window.alert("Description or Title is too long");
         }
         else {
             fetch("api/MediaPosts", {
@@ -262,7 +260,12 @@ class Add_Post extends Component {
                 />
                 {/*this.state.selectedOption &&
                     <Button color="warning" onClick={this.handleAdd}>Dodaj</Button>
+<<<<<<< HEAD
+                } 
+                
+=======
                 */}
+>>>>>>> origin/GB
                 <div>
                     {this.state.selected_tags.length ? this.state.selected_tags.map((tag, index) => {
                         return (

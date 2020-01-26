@@ -1,5 +1,5 @@
 ﻿import React, { Component } from 'react';
-import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import { Button, Form, FormGroup, Label, Input, Row, Col } from 'reactstrap';
 import { connect } from 'react-redux';
 
 class Edit_User extends Component {
@@ -9,7 +9,7 @@ class Edit_User extends Component {
         super(props);
         this.state = {
             wydzialy: [], loading: true, err: '', disabled: true, mode: 'create',
-            id: '', name: '',email: '', status: 'offline', rank: 1, confirmed: true, password: ""
+            id: '', name: '', email: '', status: 'offline', rank: 1, confirmed: true, password: ""
         };
 
         this.refresh = this.refresh.bind(this);
@@ -133,50 +133,59 @@ class Edit_User extends Component {
 
     }
 
+    handleprofile() {
+        this.props.history.push('/profile/' + this.state.id);
+    }
+
 
     renderUserForm() {
         return (
-            <Form>
-                <FormGroup>
-                    <Label htmlFor="name">Name</Label>
-                    <Input type="text" className="form-control" name="name" value={this.state.name} onChange={this.handleInputChange} />
-                </FormGroup>
-                <FormGroup>
-                    <Label htmlFor="email">Email</Label>
-                    <Input type="text" className="form-control" name="email" value={this.state.email} onChange={this.handleInputChange} />
-                </FormGroup>
-                {this.state.mode === "create" && 
-                <FormGroup>
-                    <Label htmlFor="password">Password</Label>
-                    <Input type="password" className="form-control" name="password" value={this.state.password} onChange={this.handleInputChange} />
-                </FormGroup>
-                }
-                <FormGroup>
-                    <Label htmlFor="rank">Rank</Label>
-                    <select className="form-control" name="rank" value={this.state.rank} onChange={this.handleInputChange}>
-                        <option value="" disabled></option>
-                        <option key={1} value={1} >Guest</option>
-                        <option key={2} value={2} >Member</option>
-                        <option key={3} value={3} >Admin</option>
-                    </select>
-                </FormGroup>
-                {this.state.err.length > 0 && <p className="Error">{this.state.err}</p>}
-                <FormGroup>
-                    {this.state.mode === "edit" &&
-
-                        <div>
-                        <Button className="btn btn-primary" type="button" onClick={this.handleUpdate} disabled={this.state.disabled}>Save User</Button>
-                        {this.state.rank !== 3 &&
-                            <Button className="btn btn-primary" type="button" onClick={this.handleDelete}>Delete User</Button>
+            <Row>
+                <Col xs="6">
+                    <Form>
+                        <FormGroup>
+                            <Label htmlFor="name">Name</Label>
+                            <Input type="text" className="form-control" name="name" value={this.state.name} onChange={this.handleInputChange} />
+                        </FormGroup>
+                        <FormGroup>
+                            <Label htmlFor="email">Email</Label>
+                            <Input type="text" className="form-control" name="email" value={this.state.email} onChange={this.handleInputChange} />
+                        </FormGroup>
+                        {this.state.mode === "create" &&
+                            <FormGroup>
+                                <Label htmlFor="password">Password</Label>
+                                <Input type="password" className="form-control" name="password" value={this.state.password} onChange={this.handleInputChange} />
+                            </FormGroup>
                         }
-                        </div>
-                    }
-                    {this.state.mode === "create" &&
-                        <Button className="btn btn-primary" type="button" onClick={this.handleCreate} disabled={this.state.disabled}>Create User</Button>
-                    }
-                    <Button className="btn btn-primary" type="button" onClick={this.handleReturn}>Return</Button>
-                </FormGroup>
-            </Form>
+                        <FormGroup>
+                            <Label htmlFor="rank">Rank</Label>
+                            <select className="form-control" name="rank" value={this.state.rank} onChange={this.handleInputChange}>
+                                <option value="" disabled></option>
+                                <option key={1} value={1} >Guest</option>
+                                <option key={2} value={2} >Member</option>
+                                <option key={3} value={3} >Admin</option>
+                            </select>
+                        </FormGroup>
+                        {this.state.err.length > 0 && <p className="Error">{this.state.err}</p>}
+                        <FormGroup>
+                            {this.state.mode === "edit" &&
+
+                                <div>
+                                    <Button className="btn btn-primary" type="button" onClick={this.handleUpdate} disabled={this.state.disabled}>Save User</Button>
+                                    {this.state.rank !== 3 &&
+                                        <Button className="btn btn-primary" type="button" onClick={this.handleDelete}>Delete User</Button>
+                                    }
+                                </div>
+                            }
+                            {this.state.mode === "create" &&
+                                <Button className="btn btn-primary" type="button" onClick={this.handleCreate} disabled={this.state.disabled}>Create User</Button>
+                            }
+                            <Button className="btn btn-primary" type="button" onClick={this.handleReturn}>Return</Button>
+                            <Button color="primary" onClick={this.handleprofile.bind(this)}>Profile</Button>
+                        </FormGroup>
+                    </Form>
+                </Col>
+            </Row>
         );
     }
 

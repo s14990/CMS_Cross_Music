@@ -49,6 +49,9 @@ class NavHeader extends React.Component {
                     {!this.props.auth.isAuthenticated &&
                       <a className="nav-link"  href="/login">Login</a>
                     }
+                    {!this.props.auth.isAuthenticated &&
+                       <a className="nav-link" href="/signup">Sign Up</a>
+                    }
                     {this.props.auth.isAuthenticated &&
                       <a className="nav-link"  href="/logout">Logout</a>
                     } 

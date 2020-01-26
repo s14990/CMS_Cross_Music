@@ -30,13 +30,17 @@ class Show_Post extends Component {
         }
         this.getShortDate = this.getShortDate.bind(this);
         this.addComment = this.addComment.bind(this);
-        this.refresh = this.refresh.bind(this); 
+        this.refresh = this.refresh.bind(this);
         this.fetch_data = this.fetch_data.bind(this);
         this.add_like = this.add_like.bind(this);
     }
 
     componentDidMount() {
         this.fetch_data();
+    }
+
+    editPost() {
+        this.props.history.push("/edit_post/" + this.state.IdPost);
     }
 
     async fetch_data() {
@@ -46,7 +50,7 @@ class Show_Post extends Component {
             .then(data => data[0])
             .then(data => {
                 console.log(data);
-                let tags = data.Pt.map(item => item.Tag);               
+                let tags = data.Pt.map(item => item.Tag);
                 this.setState({
                     IdPost: data.IdPost,
                     PostDescription: data.PostDescription,
@@ -60,13 +64,15 @@ class Show_Post extends Component {
                 });
             });
         let liked = false;
-        await fetch('/api/Likes?$filter=userIdUser eq ' + this.props.auth.user.idUser+' and mediapostIdPost eq '+post_id)
+        if(this.props.auth.user.isAuthenticated){
+        await fetch('/api/Likes?$filter=userIdUser eq ' + this.props.auth.user.idUser + ' and mediapostIdPost eq ' + post_id)
             .then(response => response.json())
             .then(data => {
                 liked = data.length > 0 ? true : false;
                 console.log(data);
                 this.setState({ liked });
             });
+        }
         await fetch('/api/Likes?$apply=groupby((mediapostIdPost), aggregate(idLike with countdistinct as Total))&$filter=MediapostIdPost eq ' + post_id)
             .then(response => response.json())
             .then(data => {
@@ -82,8 +88,8 @@ class Show_Post extends Component {
 
     addComment(comment) {
         this.setState({
-          loading: false,
-          comments: [comment, ...this.state.comments]
+            loading: false,
+            comments: [comment, ...this.state.comments]
         });
     }
 
@@ -102,14 +108,14 @@ class Show_Post extends Component {
     add_like() {
         this.setState({ liked: true, like_count: this.state.like_count + 1 });
         fetch("api/Likes", {
-           method: 'POST',
-           headers: {
-             'Content-Type': 'application/json',
-           },
-             body: JSON.stringify({
-                 userIdUser: this.props.auth.user.idUser,
-                 mediapostIdPost: this.state.IdPost
-              })
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                userIdUser: this.props.auth.user.idUser,
+                mediapostIdPost: this.state.IdPost
+            })
         }).then(setTimeout(this.refresh, 300));
     }
 
@@ -120,10 +126,10 @@ class Show_Post extends Component {
                 <div className="">
                     <ReactPlayer className="mt-4" url={this.state.link} controls />
                     <ul className='list-inline mt-2 mb-0'>
-                        <li className="list-inline-item float-left"><div className='font-weight-bold text-truncate' style={{width:'35em'}}>{this.state.PostTitle}</div></li>
+                        <li className="list-inline-item float-left"><div className='font-weight-bold text-truncate' style={{ width: '35em' }}>{this.state.PostTitle}</div></li>
                         <li className="list-inline-item "><div className='text-truncate'> {this.getShortDate(this.state.PostDate)}</div></li>
                     </ul>
-                    
+
                     <div className='d-flex align-items-stretch'>
                         <div id='autor' className='float-left'>{this.state.user.UserName}
                             <UncontrolledTooltip placement="right" target="autor">
@@ -132,40 +138,46 @@ class Show_Post extends Component {
                         </div>
                     </div>
                 </div>
-                
-                <ul className='list-inline mt-3 mb-0 d-flex'> 
+
+                <ul className='list-inline mt-3 mb-0 d-flex'>
                     <li className="list-inline-item float-left">
-                        <div className="float-left " id="like">{this.state.liked && 
-                    
-                        <img width='30' height='30' className="rounded " src={like_filled} />
-                        }
-                        {!this.state.liked &&
-                            <img width='30' height='30' className="rounded " src={like_simple} onClick={this.add_like} />
-                        }
+                        <div className="float-left " id="like">
+                            {(!this.props.auth.isAuthenticated || this.state.like) &&
+                                
+                                <img width='30' height='30' className="rounded " src={like_filled} />
+                                
+                            }
+                            {(this.props.auth.isAuthenticated && !this.state.liked) &&
+                                <img width='30' height='30' className="rounded " src={like_simple} onClick={this.add_like} />
+                            }
                         </div>
-                    </li>    
+                    </li>
                     <li className="list-inline-item align-self-center">
                         <div className="pl-1 font-weight-bold">{this.state.like_count}</div>
                     </li>
                     <li className="list-inline-item align-self-center">
                         <div className="row ml-5">
                             {
-                                this.state.tags.map((tag) => {return <div className="bg-light pr-3 pl-3 pb-0 pt-0 m-1 rounded-pill">{tag.TagName}</div>})
+                                this.state.tags.map((tag) => { return <div key={tag.IdTag} className="bg-light pr-3 pl-3 pb-0 pt-0 m-1 rounded-pill">{tag.TagName}</div> })
                             }
                         </div>
                     </li>
                 </ul>
+                {(this.props.auth.user.userRank === 3 || this.props.auth.user.idUser === this.state.user.IdUser) &&
+                    <div>
+                        <Button onClick={this.editPost.bind(this)}>Edit</Button>
+                    </div>}
                 <div>
-                    <hr/>
+                    <hr />
                     <SanitizedHTML
-                        allowedTags={['h1','h2','h3', 'h4', 'h5', 'h6', 'blockquote', 'p', 'a', 'ul', 'ol',
+                        allowedTags={['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'blockquote', 'p', 'a', 'ul', 'ol',
                             'nl', 'li', 'b', 'i', 'strong', 'em', 'strike', 'code', 'hr', 'br', 'div',
                             'table', 'thead', 'caption', 'tbody', 'tr', 'th', 'td', 'pre', 'iframe']}
                         selfClosing={['img', 'br', 'hr', 'area', 'base', 'basefont', 'input', 'link', 'meta']}
                         html={this.state.PostDescription}
                     />
                 </div>
-                
+
                 <div className="">
                     {this.props.auth.isAuthenticated &&
                         <div className="pt-3">
@@ -175,8 +187,8 @@ class Show_Post extends Component {
                     }
                     <div className="bg-white">
                         <CommentList
-                        loading={this.state.loading}
-                        comments={this.state.comments}
+                            loading={this.state.loading}
+                            comments={this.state.comments}
                         />
                     </div>
                 </div>

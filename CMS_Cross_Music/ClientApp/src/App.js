@@ -17,6 +17,7 @@ import Edit_User from './components/Edit_User';
 
 import MediaFiles from './components/MediaFiles';
 import Profile from './components/Profile';
+import Edit_Post from './components/Edit_Post';
 
 
 
@@ -38,7 +39,8 @@ export default () => (
         <Route exact path='/mediafiles/:id' component={MediaFiles} />
         <Route exact path='/mediafiles' component={MediaFiles} />
         <Route exact path='/profile/:id' component={Profile} />
-        <Route exact path='/profile' component={Profile} />    
+        <Route exact path='/profile' component={Profile} />
+        <Route exact path='/edit_post/:id' component={Edit_Post} />
     </Layout>
 );
 
