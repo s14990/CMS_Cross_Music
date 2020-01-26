@@ -150,7 +150,7 @@ class Show_Post extends Component {
                     <li className="list-inline-item align-self-center">
                         <div className="row ml-5">
                             {
-                                this.state.tags.map((tag) => {return <div className="bg-light p-1 m-1 rounded">{tag.TagName}</div>})
+                                this.state.tags.map((tag) => {return <div className="bg-light pr-3 pl-3 pb-0 pt-0 m-1 rounded-pill">{tag.TagName}</div>})
                             }
                         </div>
                     </li>
@@ -167,10 +167,12 @@ class Show_Post extends Component {
                 </div>
                 
                 <div className="">
-                    <div className="pt-3">
-                        <h6>Say something</h6>
-                        <Comments refresh={this.refresh} postId={this.state.IdPost} addComment={this.addComment} />
-                    </div>
+                    {this.props.auth.isAuthenticated &&
+                        <div className="pt-3">
+                            <h6>Say something</h6>
+                            <Comments refresh={this.refresh} postId={this.state.IdPost} addComment={this.addComment} />
+                        </div>
+                    }
                     <div className="bg-white">
                         <CommentList
                         loading={this.state.loading}
@@ -183,6 +185,9 @@ class Show_Post extends Component {
     }
 }
 
+function mapStateToProps(state) {
+    return { auth: state.auth }
+}
 
-
-export default connect(state=>state)(Show_Post);
+//export default connect(state=>state)(Show_Post);
+export default connect(mapStateToProps)(Show_Post);

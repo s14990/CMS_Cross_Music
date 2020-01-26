@@ -222,9 +222,10 @@ class Posts extends Component {
                                     </div>
                                 </div>
                             </div>
-                        </span>  
+                        </span>
+                        {this.props.auth.isAuthenticated &&   
                         <Button className='align-self-center ml-5' color="primary" tag={Link} to="/add_post">Add Post</Button>
-                        
+                        }  
                     </div>
                 </form>
                 <div className='d-flex flex-wrap'>
@@ -253,5 +254,9 @@ class Posts extends Component {
 }
 
 
+function mapStateToProps(state) {
+    return { auth: state.auth }
+}
 
-export default connect()(Posts);
+export default connect(mapStateToProps)(Posts);
+//export default connect()(Posts);
