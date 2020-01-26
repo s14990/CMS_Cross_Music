@@ -140,10 +140,8 @@ class Show_Post extends Component {
                 <ul className='list-inline mt-3 mb-0 d-flex'>
                     <li className="list-inline-item float-left">
                         <div className="float-left " id="like">
-                            {(!this.props.auth.isAuthenticated || this.state.like) &&
-                                
-                                        <img width='30' height='30' className="rounded " src={like_filled} />
-                                }
+                            {(!this.props.auth.isAuthenticated || this.state.like) &&                                
+                                <img width='30' height='30' className="rounded " src={like_filled} />
                             }
                             {(this.props.auth.isAuthenticated && !this.state.liked) &&
                                 <img width='30' height='30' className="rounded " src={like_simple} onClick={this.add_like} />

@@ -168,20 +168,28 @@ class Edit_User extends Component {
                         </FormGroup>
                         {this.state.err.length > 0 && <p className="Error">{this.state.err}</p>}
                         <FormGroup>
-                            {this.state.mode === "edit" &&
+                            <Row>
+                                {this.state.mode === "edit" &&
 
-                                <div>
-                                    <Button className="btn btn-primary" type="button" onClick={this.handleUpdate} disabled={this.state.disabled}>Save User</Button>
-                                    {this.state.rank !== 3 &&
-                                        <Button className="btn btn-primary" type="button" onClick={this.handleDelete}>Delete User</Button>
-                                    }
-                                </div>
-                            }
-                            {this.state.mode === "create" &&
-                                <Button className="btn btn-primary" type="button" onClick={this.handleCreate} disabled={this.state.disabled}>Create User</Button>
-                            }
-                            <Button className="btn btn-primary" type="button" onClick={this.handleReturn}>Return</Button>
-                            <Button color="primary" onClick={this.handleprofile.bind(this)}>Profile</Button>
+                                    <Col>
+                                        <Button color="warning" type="button" onClick={this.handleUpdate} disabled={this.state.disabled}>Save User</Button>
+                                        {this.state.rank !== 3 &&
+                                            <Button color="danger" type="button" onClick={this.handleDelete}>Delete User</Button>
+                                        }
+                                    </Col>
+                                }
+                                {this.state.mode === "create" &&
+                                    <Col>
+                                        <Button color="primary" onClick={this.handleCreate} disabled={this.state.disabled}>Create User</Button>
+                                    </Col>
+                                }
+                                <Col>
+                                    <Button color="secondary" type="button" onClick={this.handleReturn}>Return</Button>
+                                </Col>
+                                <Col>
+                                    <Button color="info" onClick={this.handleprofile.bind(this)}>Profile</Button>
+                                </Col>
+                            </Row>
                         </FormGroup>
                     </Form>
                 </Col>
