@@ -116,9 +116,6 @@ class Add_Post extends Component {
         //let description = e.target.value;
         //this.setState({ title });
     }
-    handleChange(value) {
-        this.setState({ Description: value });
-    }
 
     handleDescriptionChange(e) {
         let description = e.target.value;
