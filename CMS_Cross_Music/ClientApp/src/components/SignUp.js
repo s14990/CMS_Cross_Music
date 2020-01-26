@@ -43,7 +43,7 @@ class SignUp extends Component {
                     userName: this.state.userName,
                     userPassword: this.state.userPassword,
                     userEmail: this.state.userEmail,
-                    userRank: 3,
+                    userRank: 2,
                     userStatus: this.state.userStatus,
                     userConfirmed: this.state.userConfirmed
                 })

@@ -30,15 +30,7 @@ class NavMenu extends React.Component {
                         </Row>
                         <Collapse isOpen={this.state.isOpen} navbar>
                             <Nav className="navbar-nav flex-grow">
-                                <NavItem>
-                                    <NavLink tag={Link} to="/">Home</NavLink>
-                                </NavItem>
-                                {!this.props.auth.isAuthenticated &&
-                                    <NavItem>
-                                        <NavLink tag={Link} to="/login">Login</NavLink>
-                                    </NavItem>
-                                }
-                                {this.props.auth.isAuthenticated &&
+                                {(this.props.auth.isAuthenticated && this.props.auth.user.userRank===3) &&
                                     <NavItem>
                                         <NavLink tag={Link} to="/mediafiles">MediaFiles</NavLink>
                                     </NavItem>
@@ -58,7 +50,7 @@ class NavMenu extends React.Component {
                                         <NavLink tag={Link} to="/all_posts">Posts</NavLink>
                                     </NavItem>
                                 }
-                                {this.props.auth.isAuthenticated &&
+                                {(this.props.auth.isAuthenticated && this.props.auth.user.userRank === 3) &&
                                     <NavItem>
                                         <NavLink tag={Link} to="/users">Users</NavLink>
                                     </NavItem>
@@ -66,11 +58,6 @@ class NavMenu extends React.Component {
                                 {this.props.auth.isAuthenticated &&
                                     <NavItem>
                                         <NavLink tag={Link} to="/profile">Profile</NavLink>
-                                    </NavItem>
-                                }
-                                {this.props.auth.isAuthenticated &&
-                                    <NavItem>
-                                        <NavLink tag={Link} to="/logout">Logout</NavLink>
                                     </NavItem>
                                 }
                             </Nav>

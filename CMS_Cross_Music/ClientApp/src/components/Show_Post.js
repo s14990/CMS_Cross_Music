@@ -134,19 +134,26 @@ class Show_Post extends Component {
                 </div>
                 
                 <ul className='list-inline mt-3 mb-0 d-flex'> 
-                <li className="list-inline-item float-left">
-                    <div className="float-left ">{this.state.liked && 
-                
-                    <img width='30' height='30' className="rounded " src={like_filled} />
-                    }
-                    {!this.state.liked &&
-                        <img width='30' height='30' className="rounded " src={like_simple} onClick={this.add_like} />
-                    }
-                    </div>
-                </li>    
-                <li className="list-inline-item align-self-center">
-                    <div className="pl-1 font-weight-bold">{this.state.like_count}</div>
-                </li>
+                    <li className="list-inline-item float-left">
+                        <div className="float-left " id="like">{this.state.liked && 
+                    
+                        <img width='30' height='30' className="rounded " src={like_filled} />
+                        }
+                        {!this.state.liked &&
+                            <img width='30' height='30' className="rounded " src={like_simple} onClick={this.add_like} />
+                        }
+                        </div>
+                    </li>    
+                    <li className="list-inline-item align-self-center">
+                        <div className="pl-1 font-weight-bold">{this.state.like_count}</div>
+                    </li>
+                    <li className="list-inline-item align-self-center">
+                        <div className="row ml-5">
+                            {
+                                this.state.tags.map((tag) => {return <div className="bg-light p-1 m-1 rounded">{tag.TagName}</div>})
+                            }
+                        </div>
+                    </li>
                 </ul>
                 <div>
                     <hr/>

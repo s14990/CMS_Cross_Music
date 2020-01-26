@@ -32,12 +32,11 @@ class Posts extends Component {
 
     loadDate()
     {
-        fetch('api/Mediaposts?$expand=userIdUserNavigation,mediaFileIdFileNavigation')
+        fetch('api/Mediaposts?$expand=userIdUserNavigation,mediaFileIdFileNavigation&$orderby=postDate desc')
             .then(response => response.json())
             .then(data => {
                 this.setState({
                     posts: data
-
                 });
             });
     }
@@ -48,7 +47,8 @@ class Posts extends Component {
         //To enable one click search from use profile i have to pass his username with history
         //you have to set value of this and call getByAutor
         if (this.props.location.search_by_username) {
-            this.setState({ query: this.props.location.search_by_username });
+            this.setState({query: this.props.location.search_by_username });
+            setTimeout(this.getByAutor, 300);
         }
         //tags
         fetch('api/tags')
