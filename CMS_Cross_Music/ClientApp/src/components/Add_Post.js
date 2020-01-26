@@ -130,6 +130,12 @@ class Add_Post extends Component {
         if (!this.state.file || !this.state.title) {
             window.alert("Choose File first");
         }
+        else if (!this.state.Description || !this.state.title.length) {
+            window.alert("Description and Title should be present");
+        }
+        else if (this.state.Description.length > 999 || this.state.title.length > 99) {
+            window.alert("Description or Title is too long");
+        }
         else {
             fetch("api/MediaPosts", {
                 method: 'POST',
