@@ -2,6 +2,7 @@
 import { connect } from 'react-redux';
 import { Button, Form, FormGroup, Label, Input, FormText, NavLink, UncontrolledTooltip  } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import Select from 'react-select';
 import Post from './Post';
 import './PostsSearch.css';
 
@@ -15,7 +16,10 @@ class Posts extends Component {
             searchResults: [],
             posts: [],
             searchByComposition: true,
-            searchByAutor: false
+            searchByAutor: false,
+            all_tags: [],
+            searchList: [],
+            selectedOption: ''
         }
 
         
@@ -46,22 +50,38 @@ class Posts extends Component {
         if (this.props.location.search_by_username) {
             this.setState({ query: this.props.location.search_by_username });
         }
+        //tags
+        fetch('api/tags')
+            .then(response => response.json())
+            .then(data => {
+                let searchList = data.map(
+                    tg => {
+                        return {
+                            value: tg,
+                            label: tg.tagName,
+                        }
+                    }
+                );
+                this.setState({
+                    all_tags: data, searchList
+                });
+            });
     }
 
     handleCheckedByComposition () {
       //  this.setState({searchByComposition: !this.state.searchByComposition})
-        if(this.state.searchByAutor)
-        {
+      //  if(this.state.searchByAutor)
+      //  {
             this.setState({searchByComposition: !this.state.searchByComposition})
             this.handleInputChange()
-        }
+      //  }
     }
     handleCheckedByAutor () {  
-        if(this.state.searchByComposition)
-        {
+       // if(this.state.searchByComposition)
+       // {
             this.setState({searchByAutor: !this.state.searchByAutor})
             this.handleInputChange()
-        }
+       // }
     }
     
     getByComposition = () => {
@@ -92,9 +112,22 @@ class Posts extends Component {
         });
     }
 
+    getByTag =(selectedOption) =>{
+        fetch(`api/Mediaposts?$expand=userIdUserNavigation,pt($expand=tag),mediaFileIdFileNavigation&$filter=Pt/any( t: contains(t/Tag/TagName, '${selectedOption.value.tagName}'))`)
+        .then(response => response.json())
+        .then(data => {
+            this.setState({
+                posts: data
+            });
+        });
+    }
+
     //handleInputChange (e)
     //query: e.target.value
     handleInputChange = () => {
+        if(!this.search)
+        {return}
+
         this.setState({
           query: this.search.value
         }, () => {
@@ -111,8 +144,18 @@ class Posts extends Component {
                 {
                     this.getByCompositionAndAutor()
                 }
-            
-            } else if (!this.state.query) {
+             /*   else if(!this.state.searchByComposition && !this.state.searchByAutor)
+                {
+                    console.log(this.state.selectedOption)
+                    this.getByTag()
+                }*/
+            }
+        /*    else if(!this.state.searchByComposition && !this.state.searchByAutor)
+            {
+                console.log(this.state.selectedOption)
+                this.getByTag()
+            } */
+                else if (!this.state.query) {
                 this.loadDate();
             }
         })
@@ -122,16 +165,30 @@ class Posts extends Component {
         e.preventDefault();
     }
 
+    handleTagChange= selectedOption => {
+        this.setState({ selectedOption })
+        //console.log(selectedOption)
+        //console.log(selectedOption.value.tagName)
+        this.getByTag(selectedOption)
+    }
 
     //input .. value={this.state.query}
     //input
     render() {
-        console.log( this.state.posts)
+        //console.log( this.state.posts)
         return (
             <div>
                 <h2>All Posts</h2>
                 <form onSubmit={this.submitHandler} className="container">
                     <div className='row'>
+                        {!this.state.searchByComposition && !this.state.searchByAutor &&
+                        <Select className="col-sm-8 m-1 pb-1" placeholder="Select tag"
+                            value={this.state.selectedOption}
+                            options={this.state.searchList}
+                            onChange={this.handleTagChange}
+                        />
+                        }
+                        {(this.state.searchByComposition || this.state.searchByAutor) &&
                         <input className="form-control col-sm-8 p-4" name="srch-term" id="srch-term" type="text"
                         
                             style={{ borderRadius: '10px 0px 0px 10px' }}
@@ -139,6 +196,7 @@ class Posts extends Component {
                             ref={input => this.search = input}
                             onChange={this.handleInputChange}
                         />
+                        }
                         <span className="input-group-text m-0 p-0 pr-2" id="basic-addon"
                             style={{ borderRadius: '0px 10px 10px 0px'}}
                         >                
@@ -173,7 +231,7 @@ class Posts extends Component {
                     <div>{this.state.posts.length ===0?'No results':''}</div>
                     {this.state.posts.map(post =>
                     <div key = {post.IdPost}>
-                            {console.log(post.PostDate)}
+                            {/*console.log(post.PostDate)*/}
                             <p>{/*this.post.UserIdUserNavigation*/} </p>
                             <Post 
                                 idPost={post.IdPost}

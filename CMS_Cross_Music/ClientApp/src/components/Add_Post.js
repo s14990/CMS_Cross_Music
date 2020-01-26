@@ -269,7 +269,7 @@ class Add_Post extends Component {
 
                
                 <div>
-                    <Button onClick={this.uploadHandler}>Upload</Button>
+                    <Button className='mr-2' color="primary" onClick={this.uploadHandler}>Publish</Button>
                     <Button onClick={this.showModal.bind(this)} > Choose Video</Button>
                     <FCPopUp isopen={this.state.open} hide={this.closeModal.bind(this)} accept={this.choose_file} />
                 </div>

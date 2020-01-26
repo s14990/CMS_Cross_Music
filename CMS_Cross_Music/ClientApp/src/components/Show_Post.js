@@ -123,6 +123,7 @@ class Show_Post extends Component {
                         <li className="list-inline-item float-left"><div className='font-weight-bold text-truncate' style={{width:'35em'}}>{this.state.PostTitle}</div></li>
                         <li className="list-inline-item "><div className='text-truncate'> {this.getShortDate(this.state.PostDate)}</div></li>
                     </ul>
+                    
                     <div className='d-flex align-items-stretch'>
                         <div id='autor' className='float-left'>{this.state.user.UserName}
                             <UncontrolledTooltip placement="right" target="autor">
@@ -131,15 +132,7 @@ class Show_Post extends Component {
                         </div>
                     </div>
                 </div>
-                <div>
-                    <SanitizedHTML
-                        allowedTags={['h1','h2','h3', 'h4', 'h5', 'h6', 'blockquote', 'p', 'a', 'ul', 'ol',
-                            'nl', 'li', 'b', 'i', 'strong', 'em', 'strike', 'code', 'hr', 'br', 'div',
-                            'table', 'thead', 'caption', 'tbody', 'tr', 'th', 'td', 'pre', 'iframe']}
-                        selfClosing={['img', 'br', 'hr', 'area', 'base', 'basefont', 'input', 'link', 'meta']}
-                        html={this.state.PostDescription}
-                    />
-                </div>
+                
                 <ul className='list-inline mt-3 mb-0 d-flex'> 
                 <li className="list-inline-item float-left">
                     <div className="float-left ">{this.state.liked && 
@@ -155,7 +148,16 @@ class Show_Post extends Component {
                     <div className="pl-1 font-weight-bold">{this.state.like_count}</div>
                 </li>
                 </ul>
-                
+                <div>
+                    <hr/>
+                    <SanitizedHTML
+                        allowedTags={['h1','h2','h3', 'h4', 'h5', 'h6', 'blockquote', 'p', 'a', 'ul', 'ol',
+                            'nl', 'li', 'b', 'i', 'strong', 'em', 'strike', 'code', 'hr', 'br', 'div',
+                            'table', 'thead', 'caption', 'tbody', 'tr', 'th', 'td', 'pre', 'iframe']}
+                        selfClosing={['img', 'br', 'hr', 'area', 'base', 'basefont', 'input', 'link', 'meta']}
+                        html={this.state.PostDescription}
+                    />
+                </div>
                 
                 <div className="">
                     <div className="pt-3">
