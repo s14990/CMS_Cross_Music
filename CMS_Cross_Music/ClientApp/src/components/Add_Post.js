@@ -4,6 +4,7 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { Button } from 'reactstrap';
 import FCPopUp from './FCPopUp';
+import ReactPlayer from 'react-player';
 import Select from 'react-select';
 
 class Add_Post extends Component {
@@ -13,7 +14,7 @@ class Add_Post extends Component {
         super(props);
         this.state = {
         title: '', open: false, file: '', Description: '', all_tags: [], selected_tags: [],
-            searchList: [], selectedOption: ''};
+            searchList: [], selectedOption: '', createTagField: ''};
         this.handleChange = this.handleChange.bind(this);
         this.choose_file = this.choose_file.bind(this);
         this.handleChange2 = this.handleChange2.bind(this);
@@ -62,6 +63,20 @@ class Add_Post extends Component {
         }
     }
 
+    handleCreate()
+    {
+        if(this.state.createTagField){
+            let list = this.state.selected_tags;
+            let sel = this.state.createTagField;
+            list.push(sel);
+            let list2 = this.state.searchList;
+            let arr = list2.filter(item => item !== sel);
+            this.setState({
+                selected_tags: list, searchList: arr, selectedOption: ''
+            });
+        }
+    }
+
     handleClick(tag) {
         let list = this.state.selected_tags;
         let arr = list.filter(item => item !== tag);
@@ -73,8 +88,29 @@ class Add_Post extends Component {
     }
 
     handleFieldChange(e) {
+        let name = e.target.name;
         let title = e.target.value;
-        this.setState({ title });
+
+        switch (name) {
+            case 'title':
+                this.setState({ title })
+                break;
+            case 'description':
+                this.setState({ Description: title })
+            case 'tag':
+                this.setState({ createField: title })
+            }
+        //let description = e.target.value;
+        //this.setState({ title });
+    }
+    handleChange(value) {
+        this.setState({ Description: value });
+    }
+
+    handleDescriptionChange(e) {
+        let description = e.target.value;
+        //let description = e.target.value;
+        this.setState({ description });
     }
 
     uploadHandler = () => {
@@ -139,19 +175,64 @@ class Add_Post extends Component {
         return (
             <div>
                 <h1>Add Post</h1>
-                {this.state.file &&
-                    <p>Chosen file: {this.state.file.flName}</p>
-                }
-                <div className="form-group">
-                    <h3>Title</h3>
-                    <textarea
-                        value={this.state.title}
-                        onChange={this.handleFieldChange.bind(this)}
-                        className="form-control"
-                        placeholder="Title"
-                        rows="1"
-                    />
+                <div className="row">
+                    <div className="col-8 pt-3 bg-white">
+                        <div className="form-group">
+                            <h3>Title</h3>
+                            <textarea
+                                name="title"
+                                value={this.state.title}
+                                onChange={this.handleFieldChange.bind(this)}
+                                className="form-control"
+                                placeholder="Title"
+                                rows="1"
+                            />
+                        </div>
+
+                        <div>
+                            <h3>Description</h3>
+                            <ReactQuill name="description" value={this.state.Description}
+                            onChange={this.handleChange} rows="5"/>
+                        </div>
+                    </div>
+                    <div className="col-4  pt-3 border-left mb-1" >
+                        {this.state.file &&
+                        <p>Chosen file: {this.state.file.flName}</p> 
+                        }
+                        {this.state.file &&
+                        <ReactPlayer height='15em' width='25em' url={this.state.file.flLink} />
+                        }
+                        {!this.state.file &&
+                        <img className="rounded mb-0" alt="100x100" src="https://placehold.it/350x250" />
+                        }
+
+                        <div>
+                            <Button onClick={this.uploadHandler}>Upload</Button>
+                            <Button onClick={this.showModal.bind(this)} > Choose Video</Button>
+                            <FCPopUp isopen={this.state.open} hide={this.closeModal.bind(this)} accept={this.choose_file} />
+                        </div>
+                    </div>
                 </div>
+                {(this.props.auth.user.idUser === 1) &&
+                    <div className = "row mb-3">
+                        <div className="col-6">
+                            <textarea
+                            name="tag"
+                            value={this.state.createTagField}
+                            onChange={this.handleFieldChange.bind(this)}
+                            className="form-control"
+                            //placeholder="Title"
+                            rows="1"
+                            />
+                        </div>
+                        {this.state.createTagField &&
+                        <div className="col-2">
+                            <Button color="success" onClick={this.handleCreate}>Create Tag</Button>
+                        </div>}
+                        
+                    </div>
+
+                }
                 <Select
                     value={this.state.selectedOption}
                     options={this.state.searchList}
@@ -159,7 +240,8 @@ class Add_Post extends Component {
                 />
                 {this.state.selectedOption &&
                     <Button color="warning" onClick={this.handleAdd}>Dodaj</Button>
-                }
+                } 
+                
                 <div>
                     {this.state.selected_tags.length ? this.state.selected_tags.map((tag, index) => {
                         return (
@@ -174,11 +256,8 @@ class Add_Post extends Component {
                     }) : <div> </div>
                     }
                 </div>
-                <div className="h-50 d-inline-block">
-                    <h3>Description</h3>
-                    <ReactQuill value={this.state.Description}
-                    onChange={this.handleChange} />
-                </div>
+
+               
                 <div>
                     <Button onClick={this.uploadHandler}>Upload</Button>
                     <Button onClick={this.showModal.bind(this)} > Choose Video</Button>
