@@ -5,7 +5,8 @@ import CommentList from "./CommentList";
 import Comments from './Comments';
 import like_simple from '../images/like_simple.png';
 import like_filled from '../images/like_filled.png';
-import { UncontrolledTooltip, Button  } from 'reactstrap';
+import { UncontrolledTooltip, Button } from 'reactstrap';
+import SanitizedHTML from 'react-sanitized-html';
 
 class Show_Post extends Component {
 
@@ -133,7 +134,15 @@ class Show_Post extends Component {
                         {this.state.PostDescription}
                     </div>
                 </div>
-
+                <div>
+                    <SanitizedHTML
+                        allowedTags={['h1','h2','h3', 'h4', 'h5', 'h6', 'blockquote', 'p', 'a', 'ul', 'ol',
+                            'nl', 'li', 'b', 'i', 'strong', 'em', 'strike', 'code', 'hr', 'br', 'div',
+                            'table', 'thead', 'caption', 'tbody', 'tr', 'th', 'td', 'pre', 'iframe']}
+                        selfClosing={['img', 'br', 'hr', 'area', 'base', 'basefont', 'input', 'link', 'meta']}
+                        html={this.state.PostDescription}
+                    />
+                </div>
                 <ul className='list-inline mt-3 mb-0 d-flex'> 
                 <li className="list-inline-item float-left">
                     <div className="float-left ">{this.state.liked && 
