@@ -129,6 +129,9 @@ class Show_Post extends Component {
                             </UncontrolledTooltip>
                         </div>
                     </div>
+                    <div>
+                        {this.state.PostDescription}
+                    </div>
                 </div>
 
                 <ul className='list-inline mt-3 mb-0 d-flex'> 
