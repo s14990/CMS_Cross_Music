@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import validator from 'validator';
 import { actionCreators } from '../store/user_Auth';
-import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import { Button, Form, FormGroup, Label, Input, Row, Col } from 'reactstrap';
 
 class SignUp extends Component {
 
@@ -34,20 +34,30 @@ class SignUp extends Component {
     onSubmit(e) {
         e.preventDefault();
         if (this.state.checked) {
-            fetch("api/Usrs/", {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    userName: this.state.userName,
-                    userPassword: this.state.userPassword,
-                    userEmail: this.state.userEmail,
-                    userRank: 2,
-                    userStatus: this.state.userStatus,
-                    userConfirmed: this.state.userConfirmed
-                })
-            }).then(setTimeout(this.refresh, 300));
+            fetch("api/usrs?$filter=userName eq '" + this.state.userName + "'")
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    if (data.length === 0) {
+                        fetch("api/Usrs/", {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({
+                                userName: this.state.userName,
+                                userPassword: this.state.userPassword,
+                                userEmail: this.state.userEmail,
+                                userRank: 2,
+                                userStatus: this.state.userStatus,
+                                userConfirmed: this.state.userConfirmed
+                            })
+                        }).then(setTimeout(this.refresh, 300));
+                    }
+                    else {
+                        window.alert("This username was already taken");
+                    }
+                });
         }
         else {
             window.alert("confirm that you are not a robot")
@@ -100,48 +110,54 @@ class SignUp extends Component {
     }
 
     onChange2(e) {
-        this.setState({ checked: !this.state.checked});
+        this.setState({ checked: !this.state.checked });
         console.log(this.state.checked)
     }
 
     render() {
         return (
             <div>
-                <Form>
-                    <h1>Register</h1>
-                    <FormGroup>
-                        <Label htmlFor="username" className="control-label">UserName</Label>
-                        <Input type="text" className="form-control" name="username" value={this.state.userName} onChange={this.onChange} />
-                        {this.state.errors.username_err > 0 && <p>{this.state.username_err}</p>}
-                    </FormGroup>
-                    <FormGroup>
-                        <Label htmlFor="email" className="control-label">UserEmail</Label>
-                        <Input type="text" className="form-control" name="email" value={this.state.userEmail} onChange={this.onChange} />
-                        {this.state.errors.useremail_err > 0 && <p>{this.state.useremail_err}</p>}
-                    </FormGroup>
-                    <FormGroup>
-                        <Label htmlFor="password" className="control-label">Password</Label>
-                        <Input type="password" className="form-control" name="password" value={this.state.userPassword} onChange={this.onChange} />
-                        {this.state.password_err.length > 0 && <p>{this.state.password_err}</p>}
-                    </FormGroup>
-                    <FormGroup>
+                <Col xs="6" sm="4" >
+                </Col>
+                <Col xs="6" sm="4" >
+                    <Form>
+                        <h1>Register</h1>
+                        <FormGroup>
+                            <Label htmlFor="username" className="control-label">UserName</Label>
+                            <Input type="text" className="form-control" name="username" value={this.state.userName} onChange={this.onChange} />
+                            {this.state.errors.username_err > 0 && <p>{this.state.username_err}</p>}
+                        </FormGroup>
+                        <FormGroup>
+                            <Label htmlFor="email" className="control-label">UserEmail</Label>
+                            <Input type="text" className="form-control" name="email" value={this.state.userEmail} onChange={this.onChange} />
+                            {this.state.errors.useremail_err > 0 && <p>{this.state.useremail_err}</p>}
+                        </FormGroup>
+                        <FormGroup>
+                            <Label htmlFor="password" className="control-label">Password</Label>
+                            <Input type="password" className="form-control" name="password" value={this.state.userPassword} onChange={this.onChange} />
+                            {this.state.password_err.length > 0 && <p>{this.state.password_err}</p>}
+                        </FormGroup>
+                        <FormGroup>
 
-                        <Label htmlFor="captcha" className="control-label m-3 p-3 ">I am not a robot</Label>
+                            <Label htmlFor="captcha" className="control-label m-3 p-3 ">I am not a robot</Label>
 
-                        <Input type="checkbox m-4 p-4 " style ={{display: 'inline-block'}}
-                            className="form-control"
-                            type="checkbox"
-                            name="captcha"
-                            id="captcha"
-                            defaultChecked={this.state.checked}
-                            onChange={this.onChange2}
-                        />
-                        
-                    </FormGroup>
-                    <FormGroup>
-                        <Button className="btn-lg" color= "primary" disabled={this.state.disabled} onClick={this.onSubmit}>SignUp</Button>
-                    </FormGroup>
-                </Form>
+                            <Input type="checkbox m-4 p-4 " style={{ display: 'inline-block' }}
+                                className="form-control"
+                                type="checkbox"
+                                name="captcha"
+                                id="captcha"
+                                defaultChecked={this.state.checked}
+                                onChange={this.onChange2}
+                            />
+
+                        </FormGroup>
+                        <FormGroup>
+                            <Button className="btn-lg" color="primary" disabled={this.state.disabled} onClick={this.onSubmit}>SignUp</Button>
+                        </FormGroup>
+                    </Form>
+                </Col>
+                <Col xs="6" sm="4" >
+                </Col>
             </div>
         );
     }
